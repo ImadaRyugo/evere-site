@@ -1,0 +1,75 @@
+---
+// Language detection and redirect page for Terms of Service (client-side)
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Terms of Service - Evere</title>
+	<meta name="description" content="Terms of Service for Evere - Multi-currency bill splitting app">
+	<script>
+		// Detect browser language and redirect (with saved preference support)
+		(function() {
+			const supportedLangs = ['ja', 'en', 'th', 'ko', 'zh-hans', 'zh-hant'];
+			const defaultLang = 'en';
+			const LANG_STORAGE_KEY = 'evere_preferred_lang';
+
+			function getSavedLanguage() {
+				try {
+					return localStorage.getItem(LANG_STORAGE_KEY);
+				} catch (e) {
+					return null;
+				}
+			}
+
+			function detectLanguage() {
+				// 1. Check saved preference first (highest priority)
+				const savedLang = getSavedLanguage();
+				if (savedLang && supportedLangs.includes(savedLang)) {
+					return savedLang;
+				}
+
+				// 2. Detect from browser language
+				const browserLangs = navigator.languages || [navigator.language || navigator.userLanguage];
+
+				for (const lang of browserLangs) {
+					const locale = lang.toLowerCase();
+
+					// Exact match
+					if (supportedLangs.includes(locale)) {
+						return locale;
+					}
+
+					// Language prefix match (e.g., "ja-JP" -> "ja")
+					const langPrefix = locale.split('-')[0];
+					if (supportedLangs.includes(langPrefix)) {
+						return langPrefix;
+					}
+
+					// Chinese variants
+					if (locale.startsWith('zh-')) {
+						if (locale.includes('tw') || locale.includes('hk') || locale.includes('hant')) {
+							return 'zh-hant';
+						}
+						return 'zh-hans';
+					}
+				}
+
+				return defaultLang;
+			}
+
+			const detectedLang = detectLanguage();
+			const redirectUrl = `/${detectedLang}/terms/`;
+			window.location.replace(redirectUrl);
+		})();
+	</script>
+	<noscript>
+		<meta http-equiv="refresh" content="0; url=/en/terms/">
+	</noscript>
+</head>
+<body>
+	<p>Redirecting to Terms of Service...</p>
+</body>
+</html>
