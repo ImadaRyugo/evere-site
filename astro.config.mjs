@@ -8,6 +8,13 @@ export default defineConfig({
 		starlight({
 			title: 'Evere',
 			description: 'Split bills easily across currencies.',
+			logo: {
+				light: './src/assets/evere-logo-light.png',
+				dark: './src/assets/evere-logo-dark.png',
+				alt: 'Evere',
+			},
+			favicon: '/favicon.png',
+			customCss: ['./src/styles/custom.css'],
 			defaultLocale: 'en',
 			head: [
 				{
@@ -79,13 +86,6 @@ export default defineConfig({
 					lang: 'zh-TW',
 				},
 			},
-			social: [
-				{
-					icon: 'github',
-					label: 'GitHub',
-					href: 'https://github.com/ImadaRyugo/evenly-mobile'
-				}
-			],
 		}),
 	],
 });

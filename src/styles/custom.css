@@ -1,0 +1,13 @@
+a.site-title {
+  gap: 0.35rem !important;
+  color: white !important;
+}
+
+[data-theme='light'] a.site-title {
+  color: black !important;
+}
+
+a.site-title img {
+  height: 26px !important;
+  width: auto !important;
+}
