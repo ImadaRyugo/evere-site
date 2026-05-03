@@ -109,9 +109,7 @@ description: ข้อกำหนดการใช้งานแอป Evere
 
 หากมีข้อสงสัยเกี่ยวกับข้อกำหนดนี้ โปรดติดต่อ:
 
-**อีเมล**: imadaryugo@gmail.com
-
-**GitHub Issues**: https://github.com/ImadaRyugo/evenly-mobile/issues
+**อีเมล**: support@evereapp.com
 
 ---
 

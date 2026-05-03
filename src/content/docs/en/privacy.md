@@ -213,9 +213,7 @@ This Privacy Policy may be updated without notice due to legal or service change
 
 For questions about this Privacy Policy, data deletion requests, or other privacy inquiries, please contact:
 
-**Email**: imadaryugo@gmail.com
-
-**GitHub Issues**: https://github.com/ImadaRyugo/evenly-mobile/issues (Please do not include personal information in public issue reports)
+**Email**: support@evereapp.com
 
 ---
 

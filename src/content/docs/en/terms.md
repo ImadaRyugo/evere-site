@@ -109,9 +109,7 @@ These Terms are governed by the laws of Japan. Any disputes shall be subject to 
 
 For inquiries about these Terms, please contact:
 
-**Email**: imadaryugo@gmail.com
-
-**GitHub Issues**: https://github.com/ImadaRyugo/evenly-mobile/issues
+**Email**: support@evereapp.com
 
 ---
 

@@ -109,9 +109,7 @@ Evere（以下「本サービス」）をご利用いただきありがとうご
 
 本規約に関するお問い合わせは、以下までご連絡ください。
 
-**メールアドレス**: imadaryugo@gmail.com
-
-**GitHub Issues**: https://github.com/ImadaRyugo/evenly-mobile/issues
+**メールアドレス**: support@evereapp.com
 
 ---
 

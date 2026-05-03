@@ -109,9 +109,7 @@ description: Evere应用的服务条款
 
 如有关于本条款的问题,请通过以下方式联系我们。
 
-**电子邮箱**: imadaryugo@gmail.com
-
-**GitHub Issues**: https://github.com/ImadaRyugo/evenly-mobile/issues
+**电子邮箱**: support@evereapp.com
 
 ---
 

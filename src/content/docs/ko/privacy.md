@@ -213,10 +213,7 @@ Google AdMob은 광고 전달을 위해 광고 식별자를 사용할 수 있습
 
 본 개인정보 처리방침, 데이터 삭제 요청 또는 기타 개인정보 관련 문의사항이 있으시면 연락주세요:
 
-**이메일**: imadaryugo@gmail.com
-
-**GitHub Issues**: https://github.com/ImadaRyugo/evenly-mobile/issues
-(공개 이슈 보고서에는 개인정보를 포함하지 마세요)
+**이메일**: support@evereapp.com
 
 ---
 

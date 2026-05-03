@@ -109,9 +109,7 @@ description: Evere 應用程式使用條款
 
 關於本條款的諮詢,請聯絡以下地址。
 
-**電子郵件地址**:imadaryugo@gmail.com
-
-**GitHub Issues**:https://github.com/ImadaRyugo/evenly-mobile/issues
+**電子郵件地址**: support@evereapp.com
 
 ---
 

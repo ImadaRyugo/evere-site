@@ -109,9 +109,7 @@ Evere(이하 "본 서비스")를 이용해 주셔서 감사합니다. 본 이용
 
 본 약관에 관한 문의는 다음 연락처로 연락해 주시기 바랍니다.
 
-**이메일**: imadaryugo@gmail.com
-
-**GitHub Issues**: https://github.com/ImadaRyugo/evenly-mobile/issues
+**이메일**: support@evereapp.com
 
 ---
 
