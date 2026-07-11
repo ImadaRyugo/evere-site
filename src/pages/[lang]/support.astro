@@ -1,0 +1,122 @@
+---
+// サポート・お問い合わせページ。
+// フォーム送信は Cloudflare Pages Functions (functions/api/contact.js) が受け、
+// Resend API 経由で support@evereapp.com に届く。
+import PageLayout from '../../layouts/PageLayout.astro';
+import LpNav from '../../components/lp/LpNav.astro';
+import LpFooter from '../../components/lp/LpFooter.astro';
+import { LP_LOCALES, lp, type LpLocale } from '../../i18n/lp';
+
+export function getStaticPaths() {
+	return LP_LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as LpLocale;
+const dict = lp[lang];
+const t = dict.supportPage;
+---
+
+<PageLayout locale={lang} title={t.metaTitle} description={t.metaDescription} path="support">
+	<LpNav locale={lang} dict={dict} />
+	<main class="lp-support">
+		<div class="lp-container">
+			<h1 class="lp-support-title">{t.title}</h1>
+			<p class="lp-support-intro">{t.intro}</p>
+
+			<form
+				class="lp-contact-form"
+				data-contact-form
+				data-msg-sending={t.sending}
+				data-msg-success={t.success}
+				data-msg-error={t.error}
+				data-msg-invalid={t.invalid}
+				data-locale={lang}
+				novalidate
+			>
+				<!-- ハニーポット: 人間には見えない。ボットが埋めたら破棄される -->
+				<p class="lp-hp" aria-hidden="true">
+					<label>
+						Website
+						<input type="text" name="website" tabindex="-1" autocomplete="off" />
+					</label>
+				</p>
+
+				<label class="lp-field">
+					<span>{t.nameLabel}</span>
+					<input type="text" name="name" maxlength="200" autocomplete="name" />
+				</label>
+
+				<label class="lp-field">
+					<span>{t.emailLabel}</span>
+					<input type="email" name="email" required maxlength="320" autocomplete="email" />
+				</label>
+
+				<label class="lp-field">
+					<span>{t.messageLabel}</span>
+					<textarea name="message" required rows="7" maxlength="5000"></textarea>
+				</label>
+
+				<div class="lp-contact-actions">
+					<button class="lp-btn" type="submit" data-submit>{t.submit}</button>
+					<p class="lp-form-status" data-form-status role="status" aria-live="polite"></p>
+				</div>
+			</form>
+
+			<p class="lp-support-mail">
+				{t.mailNote}<a href="mailto:support@evereapp.com">support@evereapp.com</a>
+			</p>
+		</div>
+	</main>
+	<LpFooter locale={lang} dict={dict} />
+</PageLayout>
+
+<script>
+	const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+	if (form) {
+		const status = form.querySelector<HTMLElement>('[data-form-status]')!;
+		const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+
+			const data = new FormData(form);
+			const email = String(data.get('email') ?? '').trim();
+			const message = String(data.get('message') ?? '').trim();
+
+			if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || message.length === 0) {
+				status.textContent = form.dataset.msgInvalid ?? '';
+				status.dataset.state = 'error';
+				return;
+			}
+
+			submit.disabled = true;
+			status.textContent = form.dataset.msgSending ?? '';
+			status.dataset.state = 'sending';
+
+			try {
+				const res = await fetch('/api/contact', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						name: String(data.get('name') ?? '').trim(),
+						email,
+						message,
+						website: String(data.get('website') ?? ''),
+						locale: form.dataset.locale,
+					}),
+				});
+				if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+				form.reset();
+				status.textContent = form.dataset.msgSuccess ?? '';
+				status.dataset.state = 'success';
+			} catch {
+				status.textContent = form.dataset.msgError ?? '';
+				status.dataset.state = 'error';
+				submit.disabled = false;
+				return;
+			}
+			submit.disabled = false;
+		});
+	}
+</script>

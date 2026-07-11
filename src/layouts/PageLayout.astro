@@ -1,0 +1,100 @@
+---
+// LPと同じデザイントークンを使う汎用サブページレイアウト（サポート等）。
+// LandingLayout と違い、LP専用のJSON-LD（MobileApplication/FAQPage）や
+// スクロール演出は持たない軽量版。
+import '@fontsource-variable/instrument-sans';
+import '../styles/lp.css';
+import { LP_LOCALES, HTML_LANG, type LpLocale } from '../i18n/lp';
+
+interface Props {
+	locale: LpLocale;
+	title: string;
+	description: string;
+	/** 言語プレフィックスを除いたパス（例: 'support'） */
+	path: string;
+}
+
+const { locale, title, description, path } = Astro.props;
+
+const site = Astro.site ?? new URL('https://evereapp.com');
+const canonical = new URL(`/${locale}/${path}/`, site);
+const alternates = LP_LOCALES.map((l) => ({
+	lang: HTML_LANG[l],
+	href: new URL(`/${l}/${path}/`, site).href,
+}));
+const ogImage = new URL('/og.png', site);
+
+const orgSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Organization',
+	name: 'Evere',
+	url: site.href,
+	logo: new URL('/favicon.png', site).href,
+	sameAs: ['https://www.instagram.com/evere.split/'],
+};
+---
+
+<!doctype html>
+<html lang={HTML_LANG[locale]}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#0B0C0E" />
+		<link rel="icon" href="/favicon.png" />
+		<link rel="canonical" href={canonical.href} />
+		{alternates.map((alt) => <link rel="alternate" hreflang={alt.lang} href={alt.href} />)}
+		<link rel="alternate" hreflang="x-default" href={new URL(`/en/${path}/`, site).href} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Evere" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical.href} />
+		<meta property="og:image" content={ogImage.href} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+
+		<script is:inline>
+			// テーマ初期化（描画前）。Starlightと同じキーを共有し、未設定はダーク。
+			(function () {
+				var theme = 'dark';
+				try {
+					var saved = localStorage.getItem('starlight-theme');
+					if (saved === 'light') theme = 'light';
+					if (!saved) localStorage.setItem('starlight-theme', 'dark');
+				} catch (e) {
+					/* localStorage unavailable */
+				}
+				document.documentElement.dataset.theme = theme;
+			})();
+			// 言語ページ訪問時に希望言語を保存
+			(function () {
+				const langMatch = window.location.pathname.match(/^\/([a-z]{2}(-[a-z]+)?)\//);
+				if (langMatch) {
+					const supportedLangs = ['ja', 'en', 'th', 'ko', 'zh-hans', 'zh-hant'];
+					if (supportedLangs.includes(langMatch[1])) {
+						try {
+							localStorage.setItem('evere_preferred_lang', langMatch[1]);
+						} catch (e) {
+							/* localStorage unavailable */
+						}
+					}
+				}
+			})();
+		</script>
+	</head>
+	<body class="lp-body">
+		<div class="lp-grain" aria-hidden="true"></div>
+		<slot />
+		<script>
+			// サブページはLPの演出を使わないため、ナビのガラス化だけ有効にする
+			const nav = document.querySelector('[data-nav]');
+			if (nav) {
+				const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 24);
+				window.addEventListener('scroll', onScroll, { passive: true });
+				onScroll();
+			}
+		</script>
+	</body>
+</html>
