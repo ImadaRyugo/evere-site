@@ -1,0 +1,3268 @@
+/* ============================================================
+   Evere LP — monochrome design system (dark default / light)
+   テーマは html[data-theme] で切替（Starlightと同じ localStorage キーを共有）
+   ============================================================ */
+
+:root {
+	/* dark (default) */
+	--lp-bg: #0b0c0e;
+	--lp-bg-2: #0f1013;
+	--lp-surface: #131418;
+	--lp-surface-2: #17181d;
+	--lp-border: rgba(244, 244, 245, 0.08);
+	--lp-border-strong: rgba(244, 244, 245, 0.16);
+	--lp-text: #f4f4f5;
+	--lp-text-2: rgba(244, 244, 245, 0.64);
+	--lp-text-3: rgba(244, 244, 245, 0.4);
+	--lp-glow: rgba(244, 244, 245, 0.07);
+	--lp-fill-soft: rgba(244, 244, 245, 0.04);
+	--lp-fill: rgba(244, 244, 245, 0.06);
+	--lp-fill-strong: rgba(244, 244, 245, 0.12);
+	--lp-line: rgba(244, 244, 245, 0.4);
+	--lp-dot: rgba(244, 244, 245, 0.1);
+	--lp-btn-fg: #0b0c0e;
+	--lp-btn-shadow: rgba(244, 244, 245, 0.35);
+	--lp-nav-bg: rgba(11, 12, 14, 0.72);
+	--lp-menu-bg: rgba(19, 20, 24, 0.92);
+	--lp-title-top: #ffffff;
+	--lp-title-bottom: rgba(244, 244, 245, 0.62);
+	--lp-grain-o: 0.05;
+
+	--lp-radius: 20px;
+	--lp-radius-sm: 12px;
+	--lp-container: 1120px;
+	--lp-ease: cubic-bezier(0.22, 1, 0.36, 1);
+	--lp-font:
+		'Instrument Sans Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+		'Hiragino Sans', 'Yu Gothic UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
+		'PingFang SC', 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans Thai', sans-serif;
+}
+
+html[data-theme='light'] {
+	--lp-bg: #f5f5f7;
+	--lp-bg-2: #fbfbfc;
+	--lp-surface: #ffffff;
+	--lp-surface-2: #f2f2f4;
+	--lp-border: rgba(23, 24, 29, 0.08);
+	--lp-border-strong: rgba(23, 24, 29, 0.16);
+	--lp-text: #17181d;
+	--lp-text-2: rgba(23, 24, 29, 0.66);
+	--lp-text-3: rgba(23, 24, 29, 0.44);
+	--lp-glow: rgba(23, 24, 29, 0.05);
+	--lp-fill-soft: rgba(23, 24, 29, 0.045);
+	--lp-fill: rgba(23, 24, 29, 0.06);
+	--lp-fill-strong: rgba(23, 24, 29, 0.1);
+	--lp-line: rgba(23, 24, 29, 0.3);
+	--lp-dot: rgba(23, 24, 29, 0.13);
+	--lp-btn-fg: #ffffff;
+	--lp-btn-shadow: rgba(23, 24, 29, 0.28);
+	--lp-nav-bg: rgba(245, 245, 247, 0.78);
+	--lp-menu-bg: rgba(255, 255, 255, 0.94);
+	--lp-title-top: #17181d;
+	--lp-title-bottom: rgba(23, 24, 29, 0.6);
+	--lp-grain-o: 0.035;
+}
+
+/* フォンモック内部が参照するトークンは常にダーク配色
+   （表示色自体は --ph-* でテーマ反転している） */
+.lp-phone,
+html[data-theme='light'] .lpf-card {
+	--lp-bg: #0b0c0e;
+	--lp-bg-2: #0f1013;
+	--lp-surface: #131418;
+	--lp-surface-2: #17181d;
+	--lp-border: rgba(244, 244, 245, 0.08);
+	--lp-border-strong: rgba(244, 244, 245, 0.16);
+	--lp-text: #f4f4f5;
+	--lp-text-2: rgba(244, 244, 245, 0.64);
+	--lp-text-3: rgba(244, 244, 245, 0.4);
+	--lp-fill-soft: rgba(244, 244, 245, 0.04);
+	--lp-fill: rgba(244, 244, 245, 0.06);
+	--lp-fill-strong: rgba(244, 244, 245, 0.12);
+}
+
+/* 機能デモカードはフォンモック同様テーマ反転:
+   ダークページ→ライトカード / ライトページ→ダークカード（上のブロック） */
+.lpf-card {
+	--lp-border: rgba(23, 24, 29, 0.08);
+	--lp-border-strong: rgba(23, 24, 29, 0.2);
+	--lp-text: #16171c;
+	--lp-text-2: rgba(22, 23, 28, 0.66);
+	--lp-text-3: rgba(22, 23, 28, 0.42);
+	--lp-fill-soft: rgba(23, 24, 29, 0.04);
+	--lp-fill: rgba(23, 24, 29, 0.06);
+	--lp-fill-strong: rgba(23, 24, 29, 0.12);
+}
+
+/* ---------- base ---------- */
+
+.lp-body {
+	margin: 0;
+	background: var(--lp-bg);
+	color: var(--lp-text);
+	font-family: var(--lp-font);
+	font-size: 16px;
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	overflow-x: hidden;
+	transition: background 0.35s ease, color 0.35s ease;
+}
+
+.lp-body *,
+.lp-body *::before,
+.lp-body *::after {
+	box-sizing: border-box;
+}
+
+/* :where() で詳細度をゼロにし、コンポーネント側の色指定が常に勝つようにする */
+.lp-body :where(a) {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* :where() で詳細度ゼロに（各コンポーネントの margin 指定が確実に勝つように） */
+.lp-body :where(h1, h2, h3, p) {
+	margin: 0;
+}
+
+.lp-body img {
+	max-width: 100%;
+	display: block;
+}
+
+::selection {
+	background: var(--lp-text);
+	color: var(--lp-bg);
+}
+
+/* film grain overlay */
+.lp-grain {
+	position: fixed;
+	inset: 0;
+	z-index: 90;
+	pointer-events: none;
+	opacity: var(--lp-grain-o);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.lp-container {
+	width: 100%;
+	max-width: var(--lp-container);
+	margin-inline: auto;
+	padding-inline: 24px;
+}
+
+/* SPファースト: モバイルは詰め、広い画面で開く */
+.lp-section {
+	position: relative;
+	padding-block: clamp(3rem, 1.5rem + 5.5vw, 7.5rem);
+}
+
+/* JS-gated initial states: without JS everything stays visible */
+html.lp-js [data-reveal],
+html.lp-js [data-phone],
+html.lp-js [data-price-row],
+html.lp-js .lpm-card {
+	opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+	html.lp-js [data-reveal],
+	html.lp-js [data-phone],
+	html.lp-js [data-price-row],
+	html.lp-js .lpm-card {
+		opacity: 1;
+	}
+}
+
+/* ---------- shared typography ---------- */
+
+.lp-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--lp-text-3);
+}
+
+.lp-eyebrow::before {
+	content: '';
+	width: 20px;
+	height: 1px;
+	background: var(--lp-border-strong);
+}
+
+.lp-h2 {
+	margin-top: 14px;
+	font-size: clamp(1.42rem, 1rem + 2.2vw, 2.75rem);
+	font-weight: 640;
+	letter-spacing: -0.02em;
+	line-height: 1.15;
+	text-wrap: balance;
+	/* 辞書内の \n を改行として尊重（日本語見出しの折り返し位置制御用） */
+	white-space: pre-line;
+}
+
+/* \n 区切りのかたまり（LpFeatures等）。内部では折り返さず、かたまり境界でのみ折り返す */
+.lp-h2-seg {
+	display: inline-block;
+}
+
+.lp-sub {
+	margin-top: 16px;
+	max-width: 560px;
+	color: var(--lp-text-2);
+	font-size: clamp(0.98rem, 1.4vw, 1.08rem);
+	text-wrap: pretty;
+}
+
+/* ---------- buttons ---------- */
+
+.lp-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	padding: 14px 26px;
+	border-radius: 999px;
+	background: var(--lp-text);
+	color: var(--lp-btn-fg);
+	font-weight: 600;
+	font-size: 15px;
+	line-height: 1;
+	border: 1px solid transparent;
+	transition:
+		transform 0.35s var(--lp-ease),
+		box-shadow 0.35s var(--lp-ease),
+		background 0.35s var(--lp-ease);
+	will-change: transform;
+}
+
+.lp-btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 40px -8px var(--lp-btn-shadow);
+}
+
+.lp-btn:active {
+	transform: translateY(0);
+}
+
+.lp-btn svg {
+	width: 18px;
+	height: 18px;
+	flex: none;
+}
+
+.lp-btn--ghost {
+	background: transparent;
+	color: var(--lp-text);
+	border-color: var(--lp-border-strong);
+}
+
+.lp-btn--ghost:hover {
+	background: var(--lp-fill);
+	box-shadow: none;
+}
+
+.lp-btn--sm {
+	padding: 9px 16px;
+	font-size: 13.5px;
+}
+
+/* theme toggle */
+.lp-theme-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 10px;
+	border: 0;
+	background: transparent;
+	color: var(--lp-text-2);
+	cursor: pointer;
+	transition: color 0.25s ease, background 0.25s ease;
+	flex: none;
+}
+
+.lp-theme-btn:hover {
+	color: var(--lp-text);
+	background: var(--lp-fill);
+}
+
+.lp-theme-btn svg {
+	width: 19px;
+	height: 19px;
+}
+
+.lp-theme-btn .icon-sun {
+	display: none;
+}
+
+html[data-theme='light'] .lp-theme-btn .icon-sun {
+	display: block;
+}
+
+html[data-theme='light'] .lp-theme-btn .icon-moon {
+	display: none;
+}
+
+/* ============================================================
+   Nav
+   ============================================================ */
+
+.lp-nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 100;
+	transition:
+		background 0.4s var(--lp-ease),
+		border-color 0.4s var(--lp-ease),
+		backdrop-filter 0.4s var(--lp-ease);
+	border-bottom: 1px solid transparent;
+}
+
+.lp-nav.is-scrolled {
+	background: var(--lp-nav-bg);
+	-webkit-backdrop-filter: blur(16px) saturate(1.4);
+	backdrop-filter: blur(16px) saturate(1.4);
+	border-bottom-color: var(--lp-border);
+}
+
+/* ヘッダーは全幅: ロゴ=左端 / アクション=右端（Cash App等の標準パターン） */
+.lp-nav-inner {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	height: 60px;
+	width: 100%;
+	padding-inline: clamp(20px, 2.5vw, 40px);
+}
+
+@media (min-width: 761px) {
+	.lp-nav-inner {
+		gap: 28px;
+		height: 64px;
+	}
+}
+
+.lp-nav-logo {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	margin-right: 4px;
+	flex: none;
+}
+
+/* アプリ名のワードマーク（本文と同じ Instrument Sans を太めに） */
+.lp-nav-wordmark {
+	font-size: 17.5px;
+	font-weight: 680;
+	letter-spacing: -0.02em;
+	color: var(--lp-text);
+	line-height: 1;
+}
+
+.lp-nav-logo img {
+	height: 34px;
+	width: auto;
+}
+
+/* ライトテーマでは白ロゴを反転してダーク化
+   （ヘッダーはカラーのアプリアイコンになったため反転しない） */
+html[data-theme='light'] .lp-footer-brand img {
+	filter: invert(1) hue-rotate(180deg);
+}
+
+.lp-nav-links {
+	display: flex;
+	gap: 4px;
+	margin-right: auto;
+}
+
+.lp-nav-links a {
+	padding: 8px 12px;
+	border-radius: 8px;
+	font-size: 14px;
+	color: var(--lp-text-2);
+	transition: color 0.25s ease, background 0.25s ease;
+}
+
+.lp-nav-links a:hover {
+	color: var(--lp-text);
+	background: var(--lp-fill);
+}
+
+.lp-nav-actions {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-left: auto;
+}
+
+@media (max-width: 760px) {
+	.lp-nav-links {
+		display: none;
+	}
+
+	/* SPのヘッダーは幅が足りないため、言語切替は地球儀アイコンのみ
+	   （フッター側の切替はラベル付きのまま） */
+	.lp-nav .lp-lang .lp-lang-label {
+		display: none;
+	}
+
+	.lp-nav .lp-lang summary {
+		padding: 8px;
+	}
+}
+
+/* language switcher */
+.lp-lang {
+	position: relative;
+}
+
+.lp-lang summary {
+	list-style: none;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 10px;
+	border-radius: 8px;
+	font-size: 13.5px;
+	color: var(--lp-text-2);
+	border: 1px solid transparent;
+	transition: color 0.25s ease, background 0.25s ease;
+	user-select: none;
+	-webkit-user-select: none;
+	white-space: nowrap;
+}
+
+.lp-lang summary::-webkit-details-marker {
+	display: none;
+}
+
+.lp-lang summary:hover {
+	color: var(--lp-text);
+	background: var(--lp-fill);
+}
+
+.lp-lang svg {
+	width: 18px;
+	height: 18px;
+	opacity: 0.7;
+	flex: none;
+}
+
+.lp-lang-menu {
+	position: absolute;
+	top: calc(100% + 8px);
+	right: 0;
+	min-width: 160px;
+	padding: 6px;
+	border-radius: 14px;
+	background: var(--lp-menu-bg);
+	-webkit-backdrop-filter: blur(20px);
+	backdrop-filter: blur(20px);
+	border: 1px solid var(--lp-border);
+	box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.35);
+	display: flex;
+	flex-direction: column;
+	z-index: 20;
+}
+
+.lp-lang-menu a {
+	padding: 9px 12px;
+	border-radius: 9px;
+	font-size: 13.5px;
+	color: var(--lp-text-2);
+	transition: color 0.2s ease, background 0.2s ease;
+}
+
+.lp-lang-menu a:hover {
+	color: var(--lp-text);
+	background: var(--lp-fill);
+}
+
+.lp-lang-menu a[aria-current='true'] {
+	color: var(--lp-text);
+	font-weight: 600;
+}
+
+.lp-lang-menu a[aria-current='true']::after {
+	content: '✓';
+	float: right;
+	opacity: 0.6;
+}
+
+/* footer variant opens upward */
+.lp-lang--up .lp-lang-menu {
+	top: auto;
+	bottom: calc(100% + 8px);
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+
+.lp-hero {
+	position: relative;
+	padding-top: clamp(96px, 12vh + 40px, 170px);
+	padding-bottom: clamp(2.5rem, 8vh, 6rem);
+	overflow: clip;
+}
+
+/* dotted grid backdrop, fading out downward */
+.lp-hero::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(var(--lp-dot) 1px, transparent 1px);
+	background-size: 30px 30px;
+	mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 75%);
+	-webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 75%);
+	pointer-events: none;
+}
+
+/* soft top glow */
+.lp-hero::after {
+	content: '';
+	position: absolute;
+	top: -30%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 120vw;
+	height: 80vh;
+	background: radial-gradient(ellipse 45% 55% at 50% 30%, var(--lp-glow), transparent 70%);
+	pointer-events: none;
+}
+
+.lp-hero-inner {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	grid-template-columns: 1fr;
+	align-items: center;
+	gap: clamp(2.5rem, 5vw, 4rem);
+	text-align: center;
+}
+
+@media (min-width: 901px) {
+	.lp-hero-inner {
+		grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+		text-align: left;
+	}
+}
+
+.lp-hero-title {
+	font-size: clamp(2.35rem, 1.4rem + 5.4vw, 4.4rem);
+	font-weight: 680;
+	letter-spacing: -0.03em;
+	line-height: 1.06;
+}
+
+.lp-hero-title .line {
+	display: block;
+	background: linear-gradient(180deg, var(--lp-title-top) 30%, var(--lp-title-bottom));
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+	padding-bottom: 0.08em;
+}
+
+.lp-hero-sub {
+	margin-top: 20px;
+	max-width: 480px;
+	margin-inline: auto;
+	color: var(--lp-text-2);
+	font-size: clamp(1rem, 1.5vw, 1.12rem);
+	text-wrap: pretty;
+}
+
+@media (min-width: 901px) {
+	.lp-hero-sub {
+		margin-inline: 0;
+	}
+}
+
+.lp-hero-actions {
+	margin-top: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+@media (min-width: 901px) {
+	.lp-hero-actions {
+		justify-content: flex-start;
+	}
+}
+
+.lp-hero-note {
+	font-size: 13px;
+	color: var(--lp-text-3);
+}
+
+.lp-hero-visual {
+	position: relative;
+	display: flex;
+	justify-content: center;
+}
+
+/* glow ring behind the phone */
+.lp-hero-visual::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 130%;
+	aspect-ratio: 1;
+	background: radial-gradient(circle, var(--lp-glow), transparent 62%);
+	pointer-events: none;
+}
+
+/* ============================================================
+   Phone mockup — 実アプリ「支出」タブの再現
+   （bg #0B0C0E / card #101214 / border rgba(255,255,255,.08)
+     / text #F5F7FA / muted #9BA3AF — apps/mobile/tailwind.config.js）
+   ============================================================ */
+
+/* Cash App式フレームレスモック: 角丸スクリーンだけが浮いている。
+   配色はページテーマの「反転」— ダークページでは白いフォン、
+   ライトページでは実アプリ通りのダークフォン */
+.lp-phone {
+	position: relative;
+	width: min(300px, 76vw);
+	border-radius: 42px;
+	box-shadow: 0 44px 90px -26px rgba(0, 0, 0, 0.65);
+	will-change: transform;
+	transform-style: preserve-3d;
+	/* SPのストーリーレイアウトは text-align: center だが、
+	   アプリUIの再現なのでフォン内は常に左寄せ（実アプリ準拠） */
+	text-align: left;
+
+	/* ダークテーマ時: ライトUI */
+	--ph-screen: #ffffff;
+	--ph-text: #16171c;
+	--ph-muted: #707684;
+	--ph-card: #f2f3f6;
+	--ph-card-border: rgba(23, 24, 29, 0.06);
+	--ph-pill-bg: rgba(23, 24, 29, 0.05);
+	--ph-pill-border: rgba(23, 24, 29, 0.1);
+	--ph-tabbar: rgba(255, 255, 255, 0.82);
+	--ph-track: #e7e8ec;
+	--ph-prog: #17181d;
+	--ph-badge-bg: rgba(23, 24, 29, 0.08);
+	--ph-green: #1e9e50;
+	--ph-green-bg: rgba(30, 158, 80, 0.12);
+	--ph-grid: rgba(23, 24, 29, 0.12);
+	--ph-bar-sel-paid-a: rgba(23, 24, 29, 0.82);
+	--ph-bar-sel-paid-b: rgba(23, 24, 29, 0.6);
+	--ph-bar-sel-owes-a: rgba(23, 24, 29, 0.4);
+	--ph-bar-sel-owes-b: rgba(23, 24, 29, 0.26);
+	--ph-bar-unsel-a: rgba(23, 24, 29, 0.16);
+	--ph-bar-unsel-b: rgba(23, 24, 29, 0.09);
+	--ph-tip-bg: rgba(23, 24, 29, 0.92);
+	--ph-tip-text: #ffffff;
+	--ph-toast-bg: rgba(248, 248, 250, 0.94);
+	--ph-toast-text: #16171c;
+	--ph-toast-muted: rgba(23, 24, 29, 0.72);
+	--ph-toast-time: rgba(23, 24, 29, 0.45);
+}
+
+/* ライトテーマ時: 実アプリ通りのダークUI */
+html[data-theme='light'] .lp-phone {
+	--ph-screen: #101116;
+	--ph-text: #f5f7fa;
+	--ph-muted: #9ba3af;
+	--ph-card: #101214;
+	--ph-card-border: rgba(255, 255, 255, 0.08);
+	--ph-pill-bg: rgba(18, 20, 22, 0.6);
+	--ph-pill-border: rgba(255, 255, 255, 0.08);
+	--ph-tabbar: rgba(13, 14, 17, 0.72);
+	--ph-track: #121416;
+	--ph-prog: #f4f4f5;
+	--ph-badge-bg: rgba(255, 255, 255, 0.08);
+	--ph-green: #34c759;
+	--ph-green-bg: rgba(52, 199, 89, 0.14);
+	--ph-grid: rgba(55, 65, 81, 0.3);
+	--ph-bar-sel-paid-a: rgba(228, 228, 231, 0.5);
+	--ph-bar-sel-paid-b: rgba(212, 212, 216, 0.35);
+	--ph-bar-sel-owes-a: rgba(113, 113, 122, 0.5);
+	--ph-bar-sel-owes-b: rgba(82, 82, 91, 0.35);
+	--ph-bar-unsel-a: rgba(63, 63, 70, 0.45);
+	--ph-bar-unsel-b: rgba(39, 39, 42, 0.3);
+	--ph-tip-bg: rgba(39, 39, 42, 0.95);
+	--ph-tip-text: #f4f4f5;
+	--ph-toast-bg: rgba(43, 43, 46, 0.92);
+	--ph-toast-text: #f5f7fa;
+	--ph-toast-muted: rgba(244, 244, 245, 0.78);
+	--ph-toast-time: rgba(244, 244, 245, 0.45);
+}
+
+.lp-phone-screen {
+	position: relative;
+	border-radius: 42px;
+	background: var(--ph-screen);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	/* iPhone 15/16 Pro の論理解像度 393×852pt と同じ縦横比 */
+	aspect-ratio: 393 / 852;
+	color: var(--ph-text);
+}
+
+/* status bar + dynamic island */
+.lp-phone-status {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	/* 実機は角丸を避けて時刻/アイコンが内側に寄る（約30pt相当） */
+	padding: 14px 26px 0;
+	font-size: 12px;
+	font-weight: 650;
+	letter-spacing: 0.02em;
+}
+
+.lp-phone-status .icons {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.lp-phone-status .icons svg {
+	height: 11px;
+	width: auto;
+	display: block;
+}
+
+/* header: Folder + プロジェクト名 + フィルタ */
+.lp-phone-header {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 22px 18px 12px;
+}
+
+.lp-phone-header svg {
+	width: 17px;
+	height: 17px;
+	flex: none;
+}
+
+.lp-phone-header .filter-icon {
+	margin-left: auto;
+	color: var(--ph-muted);
+	width: 19px;
+	height: 19px;
+}
+
+.lp-phone-project {
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* 2画面（支出⇄精算）の切替コンテナ */
+.lp-phone-views {
+	position: relative;
+	flex: 1;
+	min-height: 0;
+}
+
+.lp-phone-view {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 0 12px;
+	overflow: hidden;
+}
+
+html.lp-js .lp-phone-view:not(.is-active) {
+	opacity: 0;
+	visibility: hidden;
+}
+
+/* JS無効時は支出画面のみ表示 */
+html:not(.lp-js) .lp-phone-view:not(.is-active) {
+	display: none;
+}
+
+/* expense card = app: bg-card border-border rounded-16 p-12 */
+.lpx-card {
+	background: var(--ph-card);
+	border: 1px solid var(--ph-card-border);
+	border-radius: 12px;
+	padding: 7px 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}
+
+.lpx-left {
+	min-width: 0;
+}
+
+.lpx-title {
+	font-size: 11.5px;
+	font-weight: 600;
+	color: var(--ph-text);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.lpx-meta {
+	margin-top: 2px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.lpx-date {
+	font-size: 9px;
+	color: var(--ph-muted);
+	white-space: nowrap;
+}
+
+.lpx-payer {
+	font-size: 8px;
+	font-weight: 650;
+	color: var(--ph-muted);
+	border: 1px solid var(--ph-pill-border);
+	background: var(--ph-pill-bg);
+	border-radius: 999px;
+	padding: 1px 6px;
+	white-space: nowrap;
+}
+
+.lpx-right {
+	text-align: right;
+	flex: none;
+}
+
+.lpx-amt {
+	font-size: 12.5px;
+	font-weight: 700;
+	color: var(--ph-text);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.lpx-sub {
+	margin-top: 1px;
+	font-size: 9px;
+	color: var(--ph-muted);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.lpx-badge {
+	margin-top: 2px;
+	display: inline-flex;
+	align-items: center;
+	gap: 3.5px;
+	font-size: 9px;
+	font-weight: 600;
+	color: var(--ph-green);
+	white-space: nowrap;
+}
+
+.lpx-badge svg {
+	width: 9px;
+	height: 9px;
+}
+
+/* tab bar = app: BlurView dark / no top border / icon 28 + label */
+.lp-phone-tabs {
+	margin-top: auto;
+	display: flex;
+	padding: 12px 16px 20px;
+	background: var(--ph-tabbar);
+	-webkit-backdrop-filter: blur(14px);
+	backdrop-filter: blur(14px);
+}
+
+.lp-phone-tabs span {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 3px;
+	font-size: 7.5px;
+	font-weight: 600;
+	color: var(--ph-text);
+	opacity: 0.5;
+	white-space: nowrap;
+}
+
+.lp-phone-tabs span.active {
+	opacity: 1;
+}
+
+.lp-phone-tabs svg {
+	width: 17px;
+	height: 17px;
+	stroke-width: 2;
+}
+
+.lp-phone-tabs span.active svg {
+	stroke-width: 2.5;
+}
+
+/* ---- 精算画面（settlement.tsx 再現）---- */
+.lps-card {
+	background: var(--ph-card);
+	border: 1px solid var(--ph-card-border);
+	border-radius: 14px;
+	padding: 7px 11px;
+}
+
+.lps-title {
+	font-size: 11.5px;
+	font-weight: 650;
+	color: var(--ph-text);
+	margin-bottom: 3px;
+}
+
+.lps-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 1.5px 0;
+	font-variant-numeric: tabular-nums;
+}
+
+.lps-row .label {
+	font-size: 10px;
+	color: var(--ph-muted);
+	padding-top: 1px;
+}
+
+.lps-row .val {
+	font-size: 11px;
+	font-weight: 650;
+	color: var(--ph-text);
+}
+
+.lps-card .col {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 1px;
+}
+
+.lps-row .big {
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--ph-text);
+}
+
+.lps-card .sub {
+	font-size: 9px;
+	color: var(--ph-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+/* 精算状況カード: プログレスバー + 精算済み/未精算バッジ（settlement.tsx 準拠） */
+.lps-progress-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 4px;
+}
+
+.lps-progress {
+	flex: 1;
+	height: 9px;
+	border-radius: 999px;
+	background: var(--ph-track);
+	overflow: hidden;
+}
+
+.lps-progress i {
+	display: block;
+	height: 100%;
+	background: var(--ph-prog);
+	border-radius: 999px;
+}
+
+.lps-progress-row b {
+	font-size: 10.5px;
+	font-weight: 650;
+	color: var(--ph-text);
+	font-variant-numeric: tabular-nums;
+}
+
+.lps-badge {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: var(--ph-badge-bg);
+	color: var(--ph-text);
+	font-size: 9.5px;
+	font-weight: 650;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.lps-badge--green {
+	background: var(--ph-green-bg);
+	color: var(--ph-green);
+}
+
+/* 支払い比較カード: ペア棒グラフ（BarChart.tsx 準拠 / zinc系グラデ） */
+.lpc-chart {
+	display: flex;
+	align-items: flex-end;
+	gap: 4px;
+	height: 100px;
+	/* 実アプリ同様、最大バーの上にツールチップが乗る余白を確保（タイトルと被らせない） */
+	padding-top: 28px;
+	background-image: repeating-linear-gradient(
+		to top,
+		var(--ph-grid) 0,
+		var(--ph-grid) 1px,
+		transparent 1px,
+		transparent 22px
+	);
+}
+
+.lpc-slot {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
+}
+
+.lpc-bars {
+	position: relative;
+	flex: 1;
+	width: 100%;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	gap: 4px;
+}
+
+.lpc-bars i {
+	display: block;
+	width: 14px;
+	border-radius: 4px 4px 2px 2px;
+	background: linear-gradient(180deg, var(--ph-bar-unsel-a), var(--ph-bar-unsel-b));
+}
+
+.lpc-bars i.paid.sel {
+	background: linear-gradient(180deg, var(--ph-bar-sel-paid-a), var(--ph-bar-sel-paid-b));
+}
+
+.lpc-bars i.owes.sel {
+	background: linear-gradient(180deg, var(--ph-bar-sel-owes-a), var(--ph-bar-sel-owes-b));
+}
+
+.lpc-tip {
+	position: absolute;
+	background: var(--ph-tip-bg);
+	color: var(--ph-tip-text);
+	font-size: 8.5px;
+	font-weight: 650;
+	padding: 2px 6px;
+	border-radius: 5px;
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+	transform: translateX(-50%);
+}
+
+/* バー2本（各14px + 間4px）の中心に合わせる: 左=支払額 / 右=負担額 */
+.lpc-tip.paid {
+	left: calc(50% - 9px);
+}
+
+.lpc-tip.owes {
+	left: calc(50% + 9px);
+}
+
+.lpc-name {
+	margin-top: 5px;
+	font-size: 9px;
+	color: var(--ph-muted);
+}
+
+.lpc-name.sel {
+	color: var(--ph-text);
+	font-weight: 650;
+}
+
+.lpc-legend {
+	display: flex;
+	justify-content: center;
+	gap: 12px;
+	margin-top: 5px;
+}
+
+/* SPの小さいフォン画面では精算ビューを圧縮し、カテゴリ別はPCのみの
+   「下で見切れる」演出とする（SPだと中途半端に切れて表示崩れに見えるため） */
+@media (max-width: 900px) {
+	[data-phone-view='settlement'] .lps-card:last-child {
+		display: none;
+	}
+	.lps-card {
+		padding: 6px 10px;
+	}
+	.lps-title {
+		margin-bottom: 2px;
+	}
+	.lps-row {
+		padding: 1px 0;
+	}
+	.lps-card .sub {
+		font-size: 8px;
+	}
+	.lps-row .big {
+		font-size: 12px;
+	}
+	/* 支払い比較（SPでは最後のカード）が残りの高さを使い切り、
+	   タブバーとの間に空白が残らないようにする */
+	[data-phone-view='settlement'] .lps-card:nth-child(3) {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	.lpc-chart {
+		flex: 1;
+		height: auto;
+		min-height: 78px;
+		padding-top: 22px;
+	}
+	.lpc-legend {
+		margin-top: 4px;
+	}
+	.lpc-name {
+		margin-top: 3px;
+	}
+}
+
+.lpc-legend span {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 8.5px;
+	color: var(--ph-muted);
+}
+
+.lpc-legend i {
+	width: 7px;
+	height: 7px;
+	border-radius: 2px;
+}
+
+.lpc-legend i.paid {
+	background: var(--ph-bar-sel-paid-a);
+}
+
+.lpc-legend i.owes {
+	background: var(--ph-bar-sel-owes-a);
+}
+
+/* カテゴリ別統計（settlement.tsx の byCategory 準拠） */
+.lpg-row {
+	padding: 4px 0;
+}
+
+.lpg-head {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.lpg-head .ic {
+	font-size: 11px;
+	flex: none;
+}
+
+.lpg-head .nm {
+	font-size: 10.5px;
+	font-weight: 600;
+	color: var(--ph-text);
+	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.lpg-head .col {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 1px;
+}
+
+.lpg-head .amt {
+	font-size: 10.5px;
+	font-weight: 650;
+	color: var(--ph-text);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.lpg-head .sub {
+	font-size: 8px;
+	color: var(--ph-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.lpg-bar {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+	margin-top: 3px;
+}
+
+.lpg-bar .track {
+	flex: 1;
+	height: 4px;
+	border-radius: 999px;
+	background: var(--ph-track);
+	overflow: hidden;
+}
+
+.lpg-bar .track i {
+	display: block;
+	height: 100%;
+	border-radius: 999px;
+	background: var(--ph-prog);
+	opacity: 0.7;
+}
+
+.lpg-bar b {
+	font-size: 8px;
+	font-weight: 600;
+	color: var(--ph-muted);
+	font-variant-numeric: tabular-nums;
+	width: 24px;
+	text-align: right;
+}
+
+/* ============================================================
+   Currency ticker
+   ============================================================ */
+
+.lp-ticker {
+	border-block: 1px solid var(--lp-border);
+	padding-block: 18px;
+	overflow: hidden;
+	position: relative;
+	-webkit-mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+	mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+}
+
+@media (min-width: 761px) {
+	.lp-ticker {
+		padding-block: 22px;
+	}
+}
+
+.lp-ticker-track {
+	display: flex;
+	gap: 0;
+	width: max-content;
+	animation: lp-marquee 42s linear infinite;
+}
+
+.lp-ticker:hover .lp-ticker-track {
+	animation-play-state: paused;
+}
+
+.lp-ticker-group {
+	display: flex;
+	align-items: center;
+	flex: none;
+}
+
+.lp-ticker-item {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 10px;
+	padding-inline: 28px;
+	white-space: nowrap;
+}
+
+.lp-ticker-item .sym {
+	font-size: 19px;
+	font-weight: 650;
+	color: var(--lp-text);
+}
+
+.lp-ticker-item .code {
+	font-size: 12px;
+	letter-spacing: 0.14em;
+	color: var(--lp-text-3);
+}
+
+.lp-ticker-item .dot {
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background: var(--lp-border-strong);
+	align-self: center;
+	margin-left: 22px;
+}
+
+/* SPは1画面に入る通貨が少ないので、間隔を詰めて密度を上げる */
+@media (max-width: 760px) {
+	.lp-ticker-item {
+		padding-inline: 16px;
+	}
+
+	.lp-ticker-item .dot {
+		margin-left: 12px;
+	}
+}
+
+@keyframes lp-marquee {
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lp-ticker-track {
+		animation: none;
+	}
+}
+
+/* ============================================================
+   Features
+   ============================================================ */
+
+.lp-features-head {
+	margin-bottom: clamp(2rem, 5vh, 5rem);
+}
+
+.lpf-block {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1.6rem;
+	align-items: center;
+	padding-block: clamp(1.8rem, 5vh, 4.5rem);
+}
+
+@media (min-width: 861px) {
+	.lpf-block {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: clamp(2rem, 6vw, 5rem);
+	}
+	.lpf-block:nth-child(even) .lpf-copy {
+		order: 2;
+	}
+}
+
+.lpf-block + .lpf-block {
+	border-top: 1px solid var(--lp-border);
+}
+
+.lpf-label {
+	display: inline-block;
+	padding: 5px 12px;
+	border-radius: 999px;
+	border: 1px solid var(--lp-border-strong);
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	color: var(--lp-text-2);
+}
+
+.lpf-title {
+	margin-top: 18px;
+	font-size: clamp(1.35rem, 1.1rem + 1.4vw, 2rem);
+	font-weight: 640;
+	letter-spacing: -0.02em;
+	line-height: 1.2;
+	text-wrap: balance;
+	/* 日本語見出しは辞書内の \n で読点後に改行を制御する */
+	white-space: pre-line;
+}
+
+.lpf-body {
+	margin-top: 12px;
+	color: var(--lp-text-2);
+	max-width: 460px;
+	font-size: 15px;
+	text-wrap: pretty;
+}
+
+/* 辞書の \n 位置に入る改行。SPでは本文が自然に複数行になるため無効化
+   （white-space方式だとSPでCJK間に余分なスペースが残るため <br> で制御） */
+@media (max-width: 620px) {
+	.lpf-br {
+		display: none;
+	}
+}
+
+/* feature visual panel（枠はページテーマに追従） */
+.lpf-visual {
+	position: relative;
+	border-radius: var(--lp-radius);
+	/* 「枠」ではなく淡いトーン差の敷物として見せる（二重フレーム感を避けるため境界線なし） */
+	background:
+		radial-gradient(ellipse 90% 70% at 50% -10%, var(--lp-glow), transparent 60%),
+		var(--lp-bg-2);
+	padding: clamp(1.5rem, 3vw, 2.6rem);
+	min-height: 250px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+/* ダークテーマではグローをやめ、ライト時と同程度の控えめなトーン差だけにする */
+html:not([data-theme='light']) .lpf-visual {
+	background: rgba(244, 244, 245, 0.025);
+}
+
+@media (min-width: 861px) {
+	.lpf-visual {
+		min-height: 300px;
+	}
+}
+
+/* デモカード（フォンモック同様、ページテーマと反転） */
+.lpf-card {
+	width: min(320px, 100%);
+	border-radius: 16px;
+	background: #ffffff;
+	border: 1px solid rgba(23, 24, 29, 0.08);
+	padding: 18px;
+	box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.55);
+	color: #16171c;
+}
+
+html[data-theme='light'] .lpf-card {
+	background: #101214;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 30px 60px -20px rgba(15, 18, 25, 0.35);
+	color: #f5f7fa;
+}
+
+/* -- fx conversion visual -- */
+.lpf-fx-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px 0;
+	font-variant-numeric: tabular-nums;
+}
+
+.lpf-fx-row + .lpf-fx-row {
+	border-top: 1px solid var(--lp-border);
+}
+
+.lpf-fx-row .cur {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 13px;
+	color: var(--lp-text-2);
+}
+
+.lpf-fx-row .cur b {
+	display: flex;
+	width: 30px;
+	height: 30px;
+	border-radius: 9px;
+	background: var(--lp-fill);
+	align-items: center;
+	justify-content: center;
+	font-size: 13px;
+	color: var(--lp-text);
+}
+
+.lpf-fx-row .val {
+	font-size: 15px;
+	font-weight: 650;
+}
+
+.lpf-fx-base {
+	margin-top: 12px;
+	padding: 12px 14px;
+	border-radius: 12px;
+	background: var(--lp-fill);
+	border: 1px solid var(--lp-border);
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	font-variant-numeric: tabular-nums;
+}
+
+.lpf-fx-base .label {
+	font-size: 11px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--lp-text-3);
+}
+
+.lpf-fx-base .val {
+	font-size: 19px;
+	font-weight: 680;
+}
+
+/* -- split mode visual -- */
+.lpf-split-tabs {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	background: var(--lp-fill-soft);
+	border: 1px solid var(--lp-border);
+	border-radius: 11px;
+	padding: 4px;
+	margin-bottom: 16px;
+}
+
+.lpf-split-indicator {
+	position: absolute;
+	top: 4px;
+	bottom: 4px;
+	left: 4px;
+	width: calc((100% - 8px) / 3);
+	border-radius: 8px;
+	background: #17181d;
+	will-change: transform;
+}
+
+html[data-theme='light'] .lpf-split-indicator {
+	background: rgba(244, 244, 245, 0.92);
+}
+
+.lpf-split-tabs [data-split-tab] {
+	position: relative;
+	z-index: 1;
+	text-align: center;
+	padding: 7px 0;
+	font-size: 12.5px;
+	font-weight: 600;
+	color: var(--lp-text-2);
+	transition: color 0.3s ease;
+}
+
+.lpf-split-tabs [data-split-tab].active {
+	color: #f4f4f5;
+}
+
+html[data-theme='light'] .lpf-split-tabs [data-split-tab].active {
+	color: #0b0c0e;
+}
+
+.lpf-split-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 9px 0;
+	font-size: 13px;
+}
+
+.lpf-split-row + .lpf-split-row {
+	border-top: 1px solid var(--lp-border);
+}
+
+.lpf-split-row .who {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex: 1;
+	color: var(--lp-text-2);
+}
+
+.lpf-split-row .who i {
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #e9eaef, #d6d8e0);
+	font-style: normal;
+	font-size: 10px;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--lp-text-2);
+}
+
+html[data-theme='light'] .lpf-split-row .who i {
+	background: linear-gradient(135deg, #3a3b42, #1d1e24);
+}
+
+.lpf-split-row .bar {
+	flex: 2;
+	height: 5px;
+	border-radius: 99px;
+	background: var(--lp-fill);
+	overflow: hidden;
+}
+
+.lpf-split-row .bar i {
+	display: block;
+	height: 100%;
+	border-radius: 99px;
+	background: rgba(22, 23, 28, 0.72);
+	transform-origin: left center;
+	transition: transform 0.7s var(--lp-ease);
+}
+
+html[data-theme='light'] .lpf-split-row .bar i {
+	background: rgba(244, 244, 245, 0.75);
+}
+
+.lpf-split-row .amt {
+	width: 74px;
+	text-align: right;
+	font-weight: 650;
+	font-variant-numeric: tabular-nums;
+	font-size: 13px;
+}
+
+/* -- share visual -- */
+.lpf-share-avatars {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 18px;
+}
+
+.lpf-share-avatars span {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	border: 3px solid #ffffff;
+	background: linear-gradient(135deg, #eceff4, #d3d5de);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--lp-text);
+}
+
+html[data-theme='light'] .lpf-share-avatars span {
+	border-color: #101214;
+	background: linear-gradient(135deg, #43444c, #1d1e24);
+}
+
+.lpf-share-avatars span + span {
+	margin-left: -12px;
+}
+
+.lpf-share-link {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 11px 14px;
+	border-radius: 12px;
+	background: var(--lp-fill);
+	border: 1px dashed var(--lp-border-strong);
+	font-size: 12.5px;
+	color: var(--lp-text-2);
+	justify-content: center;
+	font-variant-ligatures: none;
+}
+
+.lpf-share-link svg {
+	width: 14px;
+	height: 14px;
+	opacity: 0.7;
+	flex: none;
+}
+
+.lpf-share-pulse {
+	margin-top: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	font-size: 11.5px;
+	color: var(--lp-text-3);
+}
+
+.lpf-share-pulse i {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: #6ee7a0;
+	box-shadow: 0 0 0 0 rgba(110, 231, 160, 0.5);
+	animation: lp-pulse 2s ease-out infinite;
+}
+
+@keyframes lp-pulse {
+	70% {
+		box-shadow: 0 0 0 9px rgba(110, 231, 160, 0);
+	}
+	100% {
+		box-shadow: 0 0 0 0 rgba(110, 231, 160, 0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lpf-share-pulse i {
+		animation: none;
+	}
+}
+
+/* -- settle visual -- */
+.lpf-settle-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 11px 0;
+	font-size: 13.5px;
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+}
+
+.lpf-settle-row + .lpf-settle-row {
+	border-top: 1px solid var(--lp-border);
+}
+
+.lpf-settle-row .arrow {
+	flex: 1;
+	height: 1px;
+	background: linear-gradient(90deg, transparent, var(--lp-border-strong));
+	position: relative;
+}
+
+.lpf-settle-row .arrow::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: -3px;
+	border: 3.5px solid transparent;
+	border-left-color: var(--lp-text-3);
+}
+
+.lpf-settle-row .check {
+	width: 22px;
+	height: 22px;
+	flex: none;
+}
+
+.lpf-settle-row .check circle {
+	stroke: rgba(52, 199, 89, 0.35);
+}
+
+.lpf-settle-row .check path {
+	stroke: #34c759;
+}
+
+.lpf-settle-done {
+	margin-top: 14px;
+	text-align: center;
+}
+
+.lpf-settle-done span {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 7px 16px;
+	border-radius: 999px;
+	background: rgba(52, 199, 89, 0.1);
+	border: 1px solid rgba(52, 199, 89, 0.25);
+	color: #34c759;
+	font-size: 12.5px;
+	font-weight: 650;
+}
+
+/* ---- ほかにも（コンパクト機能グリッド） ---- */
+.lpm {
+	margin-top: clamp(2rem, 5vh, 4rem);
+	padding-top: clamp(2rem, 5vh, 3.5rem);
+	border-top: 1px solid var(--lp-border);
+}
+
+.lpm-title {
+	margin: 0 0 20px;
+	font-size: clamp(1.15rem, 1rem + 1vw, 1.5rem);
+	font-weight: 640;
+	letter-spacing: -0.01em;
+}
+
+.lpm-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 12px;
+}
+
+@media (min-width: 560px) {
+	.lpm-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 900px) {
+	.lpm-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 16px;
+	}
+}
+
+.lpm-card {
+	display: flex;
+	gap: 14px;
+	align-items: flex-start;
+	border: 1px solid var(--lp-border);
+	background: var(--lp-bg-2);
+	border-radius: 16px;
+	padding: 18px;
+	transition: border-color 0.3s ease, transform 0.3s var(--lp-ease);
+}
+
+.lpm-card:hover {
+	border-color: var(--lp-border-strong);
+	transform: translateY(-2px);
+}
+
+.lpm-card svg {
+	width: 19px;
+	height: 19px;
+	flex: none;
+	color: var(--lp-text-2);
+	margin-top: 2px;
+}
+
+.lpm-card h4 {
+	margin: 0;
+	font-size: 14.5px;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+}
+
+.lpm-card p {
+	margin: 4px 0 0;
+	font-size: 13px;
+	color: var(--lp-text-2);
+	line-height: 1.55;
+}
+
+/* ============================================================
+   Steps
+   ============================================================ */
+
+.lp-steps-grid {
+	margin-top: clamp(2rem, 5vh, 4rem);
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 14px;
+	counter-reset: lp-step;
+}
+
+@media (min-width: 861px) {
+	.lp-steps-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 20px;
+	}
+}
+
+.lp-step {
+	position: relative;
+	border-radius: var(--lp-radius);
+	border: 1px solid var(--lp-border);
+	background: var(--lp-bg-2);
+	padding: 24px 22px 24px;
+	overflow: hidden;
+	transition: border-color 0.4s var(--lp-ease), transform 0.4s var(--lp-ease);
+}
+
+@media (min-width: 861px) {
+	.lp-step {
+		padding: 30px 26px 28px;
+	}
+}
+
+.lp-step:hover {
+	border-color: var(--lp-border-strong);
+	transform: translateY(-4px);
+}
+
+.lp-step::before {
+	counter-increment: lp-step;
+	content: '0' counter(lp-step);
+	display: block;
+	font-size: 15px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	color: var(--lp-text-3);
+	font-variant-numeric: tabular-nums;
+}
+
+.lp-step::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 24px;
+	right: 24px;
+	height: 1px;
+	/* 両端フェードで「途切れた線」に見えないように */
+	background: linear-gradient(90deg, transparent, var(--lp-line), transparent);
+	opacity: 0;
+	transition: opacity 0.4s ease;
+}
+
+.lp-step:hover::after {
+	opacity: 1;
+}
+
+.lp-step h3 {
+	margin-top: 22px;
+	font-size: 18px;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+}
+
+@media (min-width: 861px) {
+	.lp-step h3 {
+		margin-top: 42px;
+		font-size: 19px;
+	}
+}
+
+.lp-step p {
+	margin-top: 8px;
+	font-size: 14.5px;
+	color: var(--lp-text-2);
+}
+
+/* ============================================================
+   Pricing
+   ============================================================ */
+
+.lp-pricing-table {
+	margin-top: clamp(2rem, 5vh, 4rem);
+	border-radius: var(--lp-radius);
+	border: 1px solid var(--lp-border);
+	background: var(--lp-bg-2);
+	overflow: hidden;
+}
+
+.lp-price-head,
+.lp-price-row {
+	display: grid;
+	grid-template-columns: 1fr 90px 90px;
+	align-items: center;
+	padding: 12px 16px;
+}
+
+@media (min-width: 621px) {
+	.lp-price-head,
+	.lp-price-row {
+		grid-template-columns: 1fr 120px 120px;
+		padding: 13px 26px;
+	}
+}
+
+.lp-price-head {
+	background: var(--lp-fill-soft);
+	border-bottom: 1px solid var(--lp-border);
+	padding-block: 15px;
+}
+
+.lp-price-head span {
+	font-size: 11.5px;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--lp-text-3);
+	text-align: center;
+}
+
+.lp-price-head span:first-child {
+	text-align: left;
+}
+
+.lp-price-head .pro-col {
+	color: var(--lp-text);
+}
+
+.lp-price-group {
+	padding: 14px 16px 6px;
+	font-size: 11px;
+	font-weight: 650;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--lp-text-3);
+	border-top: 1px solid var(--lp-border);
+}
+
+@media (min-width: 621px) {
+	.lp-price-group {
+		padding-inline: 26px;
+	}
+}
+
+.lp-price-row {
+	border-top: 1px solid var(--lp-border);
+	transition: background 0.25s ease;
+}
+
+.lp-price-row:hover {
+	background: var(--lp-fill-soft);
+}
+
+.lp-price-row .feat {
+	font-size: 13.5px;
+	color: var(--lp-text-2);
+	padding-right: 8px;
+}
+
+@media (min-width: 621px) {
+	.lp-price-row .feat {
+		font-size: 14px;
+	}
+}
+
+.lp-price-row .cell {
+	text-align: center;
+	font-size: 13px;
+}
+
+.lp-price-row .yes {
+	color: var(--lp-text-3);
+}
+
+.lp-price-row .yes-pro {
+	color: var(--lp-text);
+}
+
+.lp-price-row .no {
+	color: var(--lp-text-3);
+	opacity: 0.45;
+}
+
+.lp-chip {
+	display: inline-block;
+	padding: 3px 9px;
+	border-radius: 7px;
+	font-size: 11.5px;
+	font-weight: 550;
+	white-space: nowrap;
+}
+
+@media (min-width: 621px) {
+	.lp-chip {
+		font-size: 12px;
+		padding: 3px 10px;
+	}
+}
+
+.lp-chip--limit {
+	background: var(--lp-fill);
+	color: var(--lp-text-3);
+}
+
+.lp-chip--pro {
+	background: var(--lp-fill-strong);
+	color: var(--lp-text);
+}
+
+.lp-pricing-note {
+	margin-top: 18px;
+	text-align: center;
+	font-size: 13px;
+	color: var(--lp-text-3);
+}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+
+.lp-faq-list {
+	margin-top: clamp(2rem, 5vh, 4rem);
+	max-width: 720px;
+	margin-inline: auto;
+	border-top: 1px solid var(--lp-border);
+}
+
+.lp-faq-item {
+	border-bottom: 1px solid var(--lp-border);
+}
+
+.lp-faq-q {
+	width: 100%;
+	background: none;
+	border: 0;
+	padding: 20px 4px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	cursor: pointer;
+	color: var(--lp-text);
+	font-family: inherit;
+	font-size: 15.5px;
+	font-weight: 600;
+	text-align: left;
+	letter-spacing: -0.01em;
+	transition: opacity 0.2s ease;
+}
+
+.lp-faq-q:hover {
+	opacity: 0.8;
+}
+
+.lp-faq-q .plus {
+	position: relative;
+	width: 16px;
+	height: 16px;
+	flex: none;
+}
+
+.lp-faq-q .plus::before,
+.lp-faq-q .plus::after {
+	content: '';
+	position: absolute;
+	inset: 50% auto auto 0;
+	width: 100%;
+	height: 1.5px;
+	background: var(--lp-text-2);
+	transform: translateY(-50%);
+	transition: transform 0.4s var(--lp-ease);
+}
+
+.lp-faq-q .plus::after {
+	transform: translateY(-50%) rotate(90deg);
+}
+
+.lp-faq-item.open .plus::after {
+	transform: translateY(-50%) rotate(0deg);
+}
+
+.lp-faq-a {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows 0.45s var(--lp-ease);
+}
+
+.lp-faq-item.open .lp-faq-a {
+	grid-template-rows: 1fr;
+}
+
+.lp-faq-a > div {
+	overflow: hidden;
+}
+
+.lp-faq-a p {
+	padding: 0 4px 20px;
+	color: var(--lp-text-2);
+	font-size: 14.5px;
+	max-width: 640px;
+}
+
+/* ============================================================
+   Final CTA
+   ============================================================ */
+
+.lp-cta {
+	position: relative;
+	text-align: center;
+	overflow: clip;
+	/* 直上のビッグワードとの間隔は margin ではなく padding で確保する。
+	   margin だと overflow: clip の境界がアイコンの drop-shadow より下に来て、
+	   影がセクション上端で切れて境目の線が見えてしまう */
+	--cta-gap: clamp(56px, 10vh, 128px);
+	padding-top: calc(clamp(3rem, 1.5rem + 5.5vw, 7.5rem) + var(--cta-gap));
+}
+
+.lp-cta::before {
+	content: '';
+	position: absolute;
+	bottom: -55%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 110vw;
+	height: 90%;
+	background: radial-gradient(ellipse 42% 70% at 50% 100%, var(--lp-glow), transparent 70%);
+	pointer-events: none;
+}
+
+/* CTA背面の巨大アイコン: テキスト/ボタンの後ろに不透明で重なり、
+   上端は見え、下端はセクション境界で見切れる */
+.lp-cta-bg-icon {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	/* セクション上端が padding-top ぶん上に移動したので、その分を足して視覚位置を維持 */
+	top: calc(var(--cta-gap) + clamp(20px, 5vh, 64px));
+	width: min(700px, 86vw);
+	height: auto;
+	/* JS無効/reduced-motion時の最終角度。スクロール演出時はJSが制御 */
+	rotate: -12deg;
+	z-index: 0;
+	pointer-events: none;
+	/* 影は焼き込みではなくCSSで（拡大しても自然） */
+	filter: drop-shadow(0 24px 48px rgba(15, 18, 25, 0.16));
+}
+
+/* ダークテーマ: グローはやめ、上端が闇に溶けるフェードでテキスト可読性を確保 */
+html:not([data-theme='light']) .lp-cta-bg-icon {
+	filter: drop-shadow(0 30px 70px rgba(0, 0, 0, 0.55));
+	/* テキストが重なる上部の帯だけを減光し、それ以下は早めにフル発色へ */
+	-webkit-mask-image: linear-gradient(
+		180deg,
+		rgba(0, 0, 0, 0.3) 0%,
+		rgba(0, 0, 0, 0.55) 16%,
+		#000 36%
+	);
+	mask-image: linear-gradient(
+		180deg,
+		rgba(0, 0, 0, 0.3) 0%,
+		rgba(0, 0, 0, 0.55) 16%,
+		#000 36%
+	);
+}
+
+.lp-cta {
+	/* アイコンの下1/3程度だけが見切れるよう、下余白を確保 */
+	padding-bottom: clamp(150px, 20vh, 260px);
+}
+
+/* SP: 左右は画面内に収め（回転後の外接幅 ≒ 82vw × 1.19 ≒ 98vw）、
+   PCと同じく下1/3がセクション境界で見切れるよう位置と下余白を合わせる */
+@media (max-width: 760px) {
+	.lp-cta-bg-icon {
+		width: min(480px, 82vw);
+		/* padding-top（基本 + スライダー間隔）+ 24px = タイトルのやや上から始まる位置 */
+		top: calc(clamp(3rem, 1.5rem + 5.5vw, 7.5rem) + var(--cta-gap) + 24px);
+	}
+
+	.lp-cta {
+		/* SPはビッグワードとの間隔を詰める（影のクリップ回避に必要な最小限だけ残す） */
+		--cta-gap: 12px;
+		padding-bottom: clamp(20px, 3vh, 32px);
+	}
+}
+
+.lp-cta .lp-container {
+	position: relative;
+	z-index: 1;
+}
+
+.lp-cta .lp-container {
+	position: relative;
+	z-index: 1;
+}
+
+.lp-cta-title {
+	font-size: clamp(1.85rem, 1.2rem + 3.4vw, 3.4rem);
+	font-weight: 680;
+	letter-spacing: -0.03em;
+	line-height: 1.16;
+	background: linear-gradient(180deg, var(--lp-title-top) 30%, var(--lp-title-bottom));
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+	padding-bottom: 0.1em;
+}
+
+/* App Storeスクショと同じく、上段と下段を左右にずらして配置。
+   transform だと親の background-clip: text の描画が壊れるためマージンで行う */
+.lp-cta-title .line {
+	display: block;
+}
+
+.lp-cta-title .line:first-child {
+	margin-right: 1.5em;
+}
+
+.lp-cta-title .line + .line {
+	margin-right: 0;
+	margin-left: 1.7em;
+}
+
+/* サブコピーはタイトルから離し、CTAボタンの直上に添える */
+.lp-cta-sub {
+	margin-top: clamp(16px, 3vh, 28px);
+	color: var(--lp-text-2);
+}
+
+.lp-cta-actions {
+	position: relative;
+	z-index: 1;
+	margin-top: 8px;
+	display: flex;
+	justify-content: center;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+
+.lp-footer {
+	border-top: 1px solid var(--lp-border);
+	padding-block: clamp(2.5rem, 6vh, 4.5rem) 2rem;
+	position: relative;
+	z-index: 1;
+}
+
+.lp-footer-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 32px;
+}
+
+@media (min-width: 481px) and (max-width: 820px) {
+	.lp-footer-grid {
+		grid-template-columns: 1fr 1fr;
+	}
+	.lp-footer-brand {
+		grid-column: 1 / -1;
+	}
+}
+
+@media (max-width: 480px) {
+	.lp-footer-grid {
+		grid-template-columns: 1fr;
+		gap: 26px;
+	}
+}
+
+@media (min-width: 821px) {
+	.lp-footer-grid {
+		grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+		gap: 40px;
+	}
+}
+
+.lp-footer-brand img {
+	height: 22px;
+	width: auto;
+}
+
+.lp-footer-brand p {
+	margin-top: 14px;
+	font-size: 13.5px;
+	color: var(--lp-text-3);
+	max-width: 240px;
+}
+
+.lp-footer-col h4 {
+	margin: 0 0 12px;
+	font-size: 12px;
+	font-weight: 650;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--lp-text-3);
+}
+
+.lp-footer-col ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.lp-footer-col a {
+	font-size: 14px;
+	color: var(--lp-text-2);
+	transition: color 0.25s ease;
+}
+
+.lp-footer-col a:hover {
+	color: var(--lp-text);
+}
+
+.lp-footer-bottom {
+	margin-top: clamp(2rem, 5vh, 3.5rem);
+	padding-top: 1.4rem;
+	border-top: 1px solid var(--lp-border);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.lp-footer-bottom small {
+	font-size: 13px;
+	color: var(--lp-text-3);
+}
+
+.lp-footer-bottom .actions {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+/* ============================================================
+   Story — 「One phone, one story」ピン留めストーリー
+   ============================================================ */
+
+.lp-story {
+	position: relative;
+}
+
+.lp-story-pin {
+	position: relative;
+	min-height: 100svh;
+	display: flex;
+	align-items: center;
+	overflow: clip;
+	padding-top: 76px;
+	padding-bottom: 12px;
+}
+
+/* dotted grid + glow（旧ヒーローから継承） */
+.lp-story-pin::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(var(--lp-dot) 1px, transparent 1px);
+	background-size: 30px 30px;
+	mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 75%);
+	-webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 20%, transparent 75%);
+	pointer-events: none;
+}
+
+.lp-story-pin::after {
+	content: '';
+	position: absolute;
+	top: -30%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 120vw;
+	height: 80vh;
+	background: radial-gradient(ellipse 45% 55% at 50% 30%, var(--lp-glow), transparent 70%);
+	pointer-events: none;
+}
+
+.lp-story-canvas {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+
+.lp-story-layout {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	grid-template-rows: auto 1fr;
+	gap: 0.5rem;
+	align-items: center;
+	text-align: center;
+	width: 100%;
+	height: calc(100svh - 88px);
+}
+
+@media (min-width: 901px) {
+	.lp-story-layout {
+		grid-template-rows: none;
+		grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+		gap: clamp(2rem, 5vw, 4rem);
+		text-align: left;
+		height: auto;
+	}
+}
+
+.lp-story-copy {
+	position: relative;
+	height: clamp(150px, 22svh, 200px);
+}
+
+@media (min-width: 901px) {
+	.lp-story-copy {
+		height: clamp(340px, 46vh, 440px);
+	}
+}
+
+.lp-scene {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+@media (min-width: 901px) {
+	.lp-scene {
+		align-items: flex-start;
+	}
+}
+
+@media (max-width: 900px) {
+	.lp-scene {
+		justify-content: flex-start;
+		padding-top: clamp(20px, 4svh, 40px);
+	}
+	.lp-scene--hero {
+		padding-top: clamp(32px, 6svh, 60px);
+	}
+}
+
+html.lp-js .lp-scene:not(.is-active) {
+	opacity: 0;
+	visibility: hidden;
+}
+
+html:not(.lp-js) .lp-scene:not(.is-active) {
+	display: none;
+}
+
+.lp-scene-kicker {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 13px;
+	font-weight: 650;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--lp-text-3);
+}
+
+.lp-scene-kicker::before {
+	content: '';
+	width: 22px;
+	height: 1px;
+	background: var(--lp-border-strong);
+}
+
+/* SPはキッカーが中央配置になるため、右側にも棒を出して左右対称に。
+   両側に付くぶん、PC(22px)より短くして控えめに */
+@media (max-width: 900px) {
+	.lp-scene-kicker::before,
+	.lp-scene-kicker::after {
+		content: '';
+		width: 12px;
+	}
+
+	.lp-scene-kicker::after {
+		height: 1px;
+		background: var(--lp-border-strong);
+	}
+}
+
+.lp-scene-title {
+	margin-top: 16px;
+	white-space: pre-line;
+	font-size: clamp(1.6rem, 1.05rem + 2.7vw, 2.8rem);
+	font-weight: 680;
+	letter-spacing: -0.03em;
+	line-height: 1.12;
+	text-wrap: balance;
+	background: linear-gradient(180deg, var(--lp-title-top) 30%, var(--lp-title-bottom));
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+	padding-bottom: 0.08em;
+	max-width: 560px;
+}
+
+.lp-story-visual {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	min-height: 0;
+}
+
+@media (min-width: 901px) {
+	.lp-story-visual {
+		align-items: center;
+	}
+}
+
+.lp-phone-scale {
+	position: relative;
+	transform-origin: top center;
+	will-change: transform;
+}
+
+.lp-story-visual::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 130%;
+	aspect-ratio: 1;
+	background: radial-gradient(circle, var(--lp-glow), transparent 62%);
+	pointer-events: none;
+}
+
+/* SPはフォンを少し小型化して 100svh に収める（高さは実測スケーリングで調整） */
+@media (max-width: 900px) {
+	.lp-story-visual .lp-phone {
+		width: min(252px, 64vw);
+	}
+
+	/* シーン中のタイトルとフォンの間隔を詰める（中央寄せだと余りが上下に分散するため上寄せで制御） */
+	.lp-story-visual {
+		align-self: start;
+		margin-top: -16px;
+	}
+}
+
+@media (max-height: 700px) and (min-width: 901px) {
+	.lp-story-visual .lp-phone {
+		width: 264px;
+	}
+}
+
+/* シーン進行ドット */
+.lp-story-progress {
+	position: absolute;
+	right: 14px;
+	top: 50%;
+	transform: translateY(-50%);
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	z-index: 2;
+}
+
+@media (min-width: 901px) {
+	.lp-story-progress {
+		right: 26px;
+	}
+}
+
+.lp-story-progress i {
+	width: 6px;
+	height: 6px;
+	border-radius: 999px;
+	background: var(--lp-border-strong);
+	transition: background 0.3s ease, height 0.3s var(--lp-ease);
+}
+
+.lp-story-progress i.active {
+	background: var(--lp-text);
+	height: 20px;
+}
+
+/* スクロールヒント */
+.lp-story-hint {
+	position: absolute;
+	bottom: 14px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 2;
+}
+
+@media (max-width: 900px) {
+	.lp-story-hint {
+		display: none;
+	}
+}
+
+.lp-story-hint span {
+	display: block;
+	width: 20px;
+	height: 32px;
+	border: 1.5px solid var(--lp-border-strong);
+	border-radius: 999px;
+	position: relative;
+}
+
+.lp-story-hint span::after {
+	content: '';
+	position: absolute;
+	top: 6px;
+	left: 50%;
+	width: 3px;
+	height: 6px;
+	margin-left: -1.5px;
+	border-radius: 999px;
+	background: var(--lp-text-2);
+	animation: lp-hint 1.8s ease-in-out infinite;
+}
+
+@keyframes lp-hint {
+	0% { transform: translateY(0); opacity: 1; }
+	70% { transform: translateY(10px); opacity: 0; }
+	100% { transform: translateY(0); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lp-story-hint { display: none; }
+	.lp-story-pin { min-height: 0; padding-bottom: clamp(2rem, 6vh, 4rem); }
+	.lp-story-layout { height: auto; gap: 2rem; }
+	.lp-story-copy { height: auto; min-height: 300px; }
+}
+
+/* フォン内トースト通知（S2で降りてくる） */
+/* iOSプッシュ通知バナー（実機の見た目を再現） */
+.lp-phone-toast {
+	position: absolute;
+	top: 42px;
+	left: 8px;
+	right: 8px;
+	z-index: 6;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	background: var(--ph-toast-bg);
+	-webkit-backdrop-filter: blur(16px) saturate(1.4);
+	backdrop-filter: blur(16px) saturate(1.4);
+	border-radius: 19px;
+	padding: 11px 13px;
+	color: var(--ph-toast-text);
+	box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.35);
+	transform: translateY(-170%);
+	opacity: 0;
+	overflow: hidden;
+}
+
+.lp-phone-toast .appicon {
+	width: 30px;
+	height: 30px;
+	border-radius: 7.5px;
+	flex: none;
+}
+
+.lp-phone-toast .txt {
+	min-width: 0;
+	flex: 1;
+}
+
+.lp-phone-toast .t-title {
+	font-size: 10.5px;
+	font-weight: 650;
+	line-height: 1.35;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.lp-phone-toast .t-body {
+	font-size: 10px;
+	color: var(--ph-toast-muted);
+	line-height: 1.3;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.lp-phone-toast .t-time {
+	align-self: flex-start;
+	font-size: 8.5px;
+	color: var(--ph-toast-time);
+	flex: none;
+	margin-top: 1px;
+}
+
+/* ============================================================
+   巨大アウトラインタイポ（視差ストリップ）
+   ============================================================ */
+
+.lp-bigword {
+	overflow: hidden;
+	padding-block: clamp(0.8rem, 3.5vh, 2.2rem);
+	pointer-events: none;
+}
+
+.lp-bigword-track {
+	display: flex;
+	width: max-content;
+	will-change: transform;
+}
+
+.lp-bigword-track span {
+	white-space: nowrap;
+	font-weight: 750;
+	font-size: clamp(58px, 13vw, 160px);
+	line-height: 1.05;
+	letter-spacing: -0.02em;
+	padding-right: 0.4em;
+	color: transparent;
+	-webkit-text-stroke: 1px var(--lp-text-3);
+	opacity: 0.5;
+}
+
+/* ============================================================
+   ローリング数字（スロット式オドメーター）
+   ============================================================ */
+
+.lp-roll {
+	display: inline-flex;
+	overflow: hidden;
+	height: 1.15em;
+	line-height: 1.15em;
+	vertical-align: bottom;
+}
+
+.lp-roll .col {
+	display: block;
+}
+
+.lp-roll .col b {
+	display: block;
+	font-weight: inherit;
+	height: 1.15em;
+}
+
+/* ============================================================
+   テーマ切替の円形リビール（View Transitions API）
+   ============================================================ */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+	z-index: 1;
+}
+
+::view-transition-new(root) {
+	z-index: 2;
+}
+
+/* ============================================================
+   Support / contact page
+   ============================================================ */
+
+.lp-support {
+	padding-top: calc(64px + clamp(2.5rem, 8vh, 5rem));
+	padding-bottom: clamp(4rem, 10vh, 7rem);
+}
+
+.lp-support .lp-container {
+	max-width: 620px;
+}
+
+.lp-support-title {
+	font-size: clamp(1.9rem, 1.3rem + 3vw, 3rem);
+	font-weight: 680;
+	letter-spacing: -0.03em;
+	line-height: 1.15;
+}
+
+.lp-support-intro {
+	margin-top: 14px;
+	color: var(--lp-text-2);
+	line-height: 1.8;
+}
+
+.lp-contact-form {
+	margin-top: clamp(2rem, 5vh, 3rem);
+	display: grid;
+	gap: 20px;
+}
+
+/* ハニーポット: 視覚的にもスクリーンリーダーからも隠す */
+.lp-contact-form .lp-hp {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.lp-field {
+	display: grid;
+	gap: 8px;
+}
+
+.lp-field > span {
+	font-size: 13.5px;
+	font-weight: 600;
+	color: var(--lp-text-2);
+}
+
+.lp-field input,
+.lp-field textarea {
+	width: 100%;
+	background: var(--lp-fill-soft);
+	border: 1px solid var(--lp-border);
+	border-radius: 12px;
+	padding: 13px 15px;
+	color: var(--lp-text);
+	font-size: 15px;
+	font-family: inherit;
+	line-height: 1.6;
+	transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.lp-field textarea {
+	resize: vertical;
+	min-height: 150px;
+}
+
+.lp-field input:focus-visible,
+.lp-field textarea:focus-visible {
+	outline: none;
+	border-color: var(--lp-border-strong);
+	background: var(--lp-fill);
+}
+
+.lp-contact-actions {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.lp-contact-actions .lp-btn:disabled {
+	opacity: 0.55;
+	pointer-events: none;
+}
+
+.lp-form-status {
+	font-size: 13.5px;
+	color: var(--lp-text-3);
+}
+
+.lp-form-status[data-state='success'] {
+	color: #34c759;
+}
+
+.lp-form-status[data-state='error'] {
+	color: #ff6b5e;
+}
+
+.lp-support-mail {
+	margin-top: clamp(2rem, 5vh, 3rem);
+	font-size: 13.5px;
+	color: var(--lp-text-3);
+}
+
+.lp-support-mail :where(a) {
+	color: var(--lp-text-2);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+/* ============================================================
+   アンカー着地位置（ページ間遷移のネイティブアンカーとLenis双方が参照）
+   ============================================================ */
+
+/* 既定はヘッダー分のクリアランス */
+#features,
+#pricing,
+#faq {
+	scroll-margin-top: 72px;
+}
+
+/* 機能/プランはヘッダー分より少し浅めに着地させ、見出し上の空白を抑える */
+#features,
+#pricing {
+	scroll-margin-top: 36px;
+}
+
+/* ============================================================
+   Reviews（App Storeレビュー）
+   ============================================================ */
+
+.lp-reviews-head {
+	text-align: center;
+}
+
+.lp-reviews-score {
+	--lp-gold: #eeb345;
+	margin-top: clamp(1.6rem, 4vh, 2.6rem);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: clamp(14px, 3vw, 28px);
+}
+
+.lp-reviews-score .col {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+}
+
+.lp-reviews-score .laurel {
+	width: clamp(44px, 5.5vw, 62px);
+	height: auto;
+	color: var(--lp-gold);
+	flex: none;
+}
+
+.lp-reviews-score .laurel--right {
+	transform: scaleX(-1);
+}
+
+.lp-reviews-score .score {
+	font-size: clamp(3rem, 2.4rem + 3vw, 4.4rem);
+	font-weight: 700;
+	letter-spacing: -0.04em;
+	line-height: 1;
+}
+
+.lp-reviews-score .stars,
+.lp-review-card .stars {
+	display: inline-flex;
+	gap: 3px;
+	color: #eeb345;
+}
+
+.lp-reviews-score .stars svg {
+	width: 22px;
+	height: 22px;
+}
+
+.lp-reviews-score .note {
+	font-size: 13.5px;
+	color: var(--lp-text-3);
+}
+
+.lp-reviews-grid {
+	margin-top: clamp(2.2rem, 5vh, 3.5rem);
+	/* SPは通常のブロック積み（columnsだとmax-height時にあふれが横カラムへ逃げるため） */
+	column-gap: 16px;
+}
+
+@media (min-width: 621px) {
+	.lp-reviews-grid {
+		columns: 2;
+	}
+}
+
+@media (min-width: 981px) {
+	.lp-reviews-grid {
+		columns: 3;
+	}
+}
+
+.lp-review-card {
+	break-inside: avoid;
+	margin: 0 0 16px;
+	padding: 22px 22px 20px;
+	border-radius: var(--lp-radius);
+	background: var(--lp-bg-2);
+	border: 1px solid var(--lp-border);
+}
+
+.lp-review-card .stars svg {
+	width: 14px;
+	height: 14px;
+}
+
+.lp-review-card .title {
+	margin-top: 12px;
+	font-weight: 650;
+	font-size: 15px;
+	letter-spacing: -0.01em;
+}
+
+.lp-review-card blockquote {
+	margin: 8px 0 0;
+	font-size: 13.5px;
+	line-height: 1.85;
+	color: var(--lp-text-2);
+}
+
+.lp-review-card .author {
+	display: block;
+	margin-top: 14px;
+	font-size: 12.5px;
+	color: var(--lp-text-3);
+}
+
+.lp-reviews-note {
+	margin-top: 18px;
+	text-align: center;
+	font-size: 12px;
+	color: var(--lp-text-3);
+}
+
+/* SPのレビュー折りたたみ: 3件目の後半から背景色へフェード */
+.lp-reviews-grid {
+	position: relative;
+}
+
+.lp-reviews-grid.is-collapsed {
+	overflow: hidden;
+}
+
+.lp-reviews-grid.is-collapsed::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 120px;
+	background: linear-gradient(180deg, transparent, var(--lp-bg) 90%);
+	pointer-events: none;
+}
+
+.lp-reviews-expand {
+	display: flex;
+	justify-content: center;
+	margin-top: 4px;
+}
+
+/* display: flex が hidden 属性のUAスタイルに勝ってしまうため明示 */
+.lp-reviews-expand[hidden] {
+	display: none;
+}
+
+.lp-reviews-more {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 13px 26px;
+	border-radius: 999px;
+	background: var(--lp-bg-2);
+	border: 1px solid var(--lp-border-strong);
+	color: var(--lp-text);
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background 0.25s ease;
+}
+
+.lp-reviews-more:hover {
+	background: var(--lp-fill);
+}
+
+.lp-reviews-more svg {
+	width: 16px;
+	height: 16px;
+}
+
+/* ============================================================
+   起動演出（アプリアイコン → iOS風アプリ展開 → スプラッシュ）
+   ============================================================ */
+
+/* 演出中はスクロールをロック */
+html.lp-launching {
+	overflow: hidden;
+}
+
+.lp-launch {
+	position: fixed;
+	inset: 0;
+	z-index: 200;
+	background: var(--lp-bg);
+	display: none;
+	align-items: center;
+	justify-content: center;
+}
+
+html.lp-launching .lp-launch {
+	display: flex;
+}
+
+.lp-launch-icon {
+	/* SPは実機のiPhoneホーム画面と同サイズ（アイコン60pt）。
+	   ラベル・間隔はアイコン幅比で実機比率に連動 */
+	--launch-icon-w: 60px;
+	display: grid;
+	justify-items: center;
+	gap: calc(var(--launch-icon-w) * 0.1);
+}
+
+/* アイコンのシルエット（透過形状）に沿った実機風の淡い影。
+   明色背景で枠が同化するのを防ぐ。img の filter はタップ暗転用に空けておく */
+.lp-launch-icon-img {
+	line-height: 0;
+	filter: drop-shadow(0 3px 8px rgba(11, 12, 14, 0.1))
+		drop-shadow(0 14px 30px rgba(11, 12, 14, 0.22));
+}
+
+.lp-launch-icon img {
+	/* 実機のアイコンより大きめに（演出の主役として） */
+	width: var(--launch-icon-w);
+	height: auto;
+	will-change: transform, filter;
+}
+
+.lp-launch-icon span {
+	/* 実機比率: アイコン60ptに対しラベル約12pt（=幅の20%） */
+	font-size: calc(var(--launch-icon-w) * 0.2);
+	line-height: 1;
+	font-weight: 550;
+	letter-spacing: 0.01em;
+	color: var(--lp-text-2);
+}
+
+/* PCでは画面が広いぶん実寸60pxだと小さすぎるため少し拡大（比率は維持） */
+@media (min-width: 621px) {
+	.lp-launch-icon {
+		--launch-icon-w: 84px;
+	}
+}
+
+/* 演出中: フォンをオーバーレイより上に出し、ストーリー内の他要素は隠す */
+html.lp-launching .lp-story {
+	position: relative;
+	z-index: 300;
+}
+
+html.lp-launching .lp-story-canvas,
+html.lp-launching .lp-story-progress,
+html.lp-launching .lp-story-hint {
+	visibility: hidden;
+}
+
+.lp-phone-launch {
+	will-change: transform;
+}
+
+/* スプラッシュ画面（実アプリ準拠: 白背景 + ネイビーロゴ）。起動演出でのみ可視 */
+.lp-phone-splash {
+	position: absolute;
+	inset: 0;
+	z-index: 40;
+	border-radius: inherit;
+	background: #ffffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.lp-phone-splash img {
+	/* 実機準拠: navy-logo.png（正方形）を resizeMode:contain で表示すると
+	   縦長画面では画面幅いっぱいに広がる */
+	width: 100%;
+	height: auto;
+}
+
+/* 実機スプラッシュのホームインジケーター（黒バー）。比率は実機準拠（幅≒画面の34%・高さ5pt相当） */
+.lp-phone-splash::after {
+	content: '';
+	position: absolute;
+	bottom: 9px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 34%;
+	height: 4px;
+	border-radius: 999px;
+	background: #0b0c0e;
+}
+
+/* スプラッシュ内蔵のステータスバー: 白背景固定なのでテーマに関わらず黒文字 */
+.lp-phone-splash .lp-phone-status {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	color: #0b0c0e;
+}
+
+/* 起動演出のgsap初期化前にフォンが一瞬見えるのを防ぐ（gsapのインラインstyleが優先） */
+html.lp-launching .lp-phone-launch {
+	opacity: 0;
+}

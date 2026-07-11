@@ -1,0 +1,17 @@
+---
+// 画面幅を横切る巨大アウトラインタイポ（スクロールで視差移動）。
+// 言語非依存の英語ディスプレイワード/通貨記号のみを使う。
+interface Props {
+	words: string[];
+	direction?: 1 | -1;
+}
+
+const { words, direction = 1 } = Astro.props;
+const strip = words.map((w) => `${w}`).join(' · ') + ' · ';
+---
+
+<div class="lp-bigword" aria-hidden="true" data-bigword data-direction={direction}>
+	<div class="lp-bigword-track">
+		{[0, 1].map(() => <span>{strip}</span>)}
+	</div>
+</div>

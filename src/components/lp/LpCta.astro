@@ -1,0 +1,33 @@
+---
+import ctaIcon from '../../assets/cta-app-icon.png';
+import AppleBadge from './AppleBadge.astro';
+import type { LpLocale, LpDict } from '../../i18n/lp';
+
+interface Props {
+	locale: LpLocale;
+	dict: LpDict;
+}
+
+const { locale, dict } = Astro.props;
+---
+
+<section class="lp-section lp-cta">
+	<img
+		class="lp-cta-bg-icon"
+		src={ctaIcon.src}
+		width={ctaIcon.width}
+		height={ctaIcon.height}
+		alt=""
+		loading="lazy"
+		aria-hidden="true"
+	/>
+	<div class="lp-container">
+		<h2 class="lp-cta-title" data-reveal>
+			{dict.cta.title.split('\n').map((line) => <span class="line">{line}</span>)}
+		</h2>
+		<p class="lp-cta-sub" data-reveal>{dict.cta.sub}</p>
+		<div class="lp-cta-actions" data-reveal>
+			<AppleBadge label={dict.cta.button} locale={locale} />
+		</div>
+	</div>
+</section>

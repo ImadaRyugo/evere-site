@@ -1,0 +1,181 @@
+---
+import '@fontsource-variable/instrument-sans';
+import '../styles/lp.css';
+import { LP_LOCALES, HTML_LANG, type LpLocale, type LpDict } from '../i18n/lp';
+// 起動演出のアイコン: CTA背景と同じ高解像度素材（1200px）を共用。
+// 96pxのnav用アイコンだと最大140px表示（Retinaで280px相当）で粗くなる
+import launchIcon from '../assets/cta-app-icon.png';
+
+interface Props {
+	locale: LpLocale;
+	dict: LpDict;
+}
+
+const { locale, dict } = Astro.props;
+
+const site = Astro.site ?? new URL('https://evereapp.com');
+const canonical = new URL(`/${locale}/`, site);
+const alternates = LP_LOCALES.map((l) => ({
+	lang: HTML_LANG[l],
+	href: new URL(`/${l}/`, site).href,
+}));
+const ogImage = new URL('/og.png', site);
+
+const OG_LOCALE: Record<string, string> = {
+	en: 'en_US',
+	ja: 'ja_JP',
+	th: 'th_TH',
+	ko: 'ko_KR',
+	'zh-hans': 'zh_CN',
+	'zh-hant': 'zh_TW',
+};
+
+// 構造化データ: アプリ情報 + FAQ（リッチリザルト対応） + 運営情報
+import { APP_STORE_URLS } from '../i18n/lp';
+const jsonLd = [
+	{
+		'@context': 'https://schema.org',
+		'@type': 'MobileApplication',
+		name: 'Evere',
+		operatingSystem: 'iOS',
+		applicationCategory: 'FinanceApplication',
+		description: dict.meta.description,
+		url: canonical.href,
+		installUrl: APP_STORE_URLS[locale],
+		offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+		inLanguage: HTML_LANG[locale],
+		image: ogImage.href,
+	},
+	{
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
+		mainEntity: dict.faq.items.map((item) => ({
+			'@type': 'Question',
+			name: item.q,
+			acceptedAnswer: { '@type': 'Answer', text: item.a },
+		})),
+	},
+	{
+		'@context': 'https://schema.org',
+		'@type': 'Organization',
+		name: 'Evere',
+		url: site.href,
+		logo: new URL('/favicon.png', site).href,
+		// 公式SNSのエンティティ紐付け（画面には非表示のメタデータ）
+		sameAs: ['https://www.instagram.com/evere.split/'],
+	},
+];
+---
+
+<!doctype html>
+<html lang={HTML_LANG[locale]}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{dict.meta.title}</title>
+		<meta name="description" content={dict.meta.description} />
+		<meta name="theme-color" content="#0B0C0E" />
+		<link rel="icon" href="/favicon.png" />
+		<link rel="canonical" href={canonical.href} />
+		{alternates.map((alt) => <link rel="alternate" hreflang={alt.lang} href={alt.href} />)}
+		<link rel="alternate" hreflang="x-default" href={new URL('/en/', site).href} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Evere" />
+		<meta property="og:locale" content={OG_LOCALE[locale]} />
+		<meta property="og:title" content={dict.meta.title} />
+		<meta property="og:description" content={dict.meta.description} />
+		<meta property="og:url" content={canonical.href} />
+		<meta property="og:image" content={ogImage.href} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={dict.meta.title} />
+		<meta name="twitter:description" content={dict.meta.description} />
+		<meta name="twitter:image" content={ogImage.href} />
+		{jsonLd.map((schema) => (
+			<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+		))}
+
+		<script is:inline>
+			// JS有効時のみ初期非表示（アニメーション用）。無効時は常に表示。
+			document.documentElement.classList.add('lp-js');
+			// 起動演出（アイコン→アプリ展開）: 描画前にガードを立てて全要素を隠す。
+			// ブラウザのスクロール位置復元は描画後に起こるため、この時点の scrollY では
+			// ページ途中でのリロードを検知できない。離脱時に位置を保存しておき、
+			// ページ先頭（±40px）からの表示のときだけ演出を行う。アンカー付きURLも除外。
+			(function () {
+				var savedY = 0;
+				try {
+					savedY = parseInt(sessionStorage.getItem('lp-scroll-y') || '0', 10) || 0;
+					sessionStorage.removeItem('lp-scroll-y');
+				} catch (e) {
+					/* sessionStorage unavailable */
+				}
+				window.addEventListener('pagehide', function () {
+					try {
+						sessionStorage.setItem('lp-scroll-y', String(Math.round(window.scrollY)));
+					} catch (e) {
+						/* sessionStorage unavailable */
+					}
+				});
+				// スクロール位置が復元されるのはリロード/戻る・進むのときだけ。
+				// 通常のリンク遷移は先頭表示なので保存値は無視する
+				var navEntry = performance.getEntriesByType('navigation')[0];
+				var restores =
+					!!navEntry && (navEntry.type === 'reload' || navEntry.type === 'back_forward');
+				if (
+					!window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+					!window.location.hash &&
+					(!restores || savedY <= 40)
+				) {
+					document.documentElement.classList.add('lp-launching');
+				}
+			})();
+			// テーマ初期化（描画前）。Starlightと同じキーを共有し、未設定はダーク。
+			(function () {
+				var theme = 'dark';
+				try {
+					var saved = localStorage.getItem('starlight-theme');
+					if (saved === 'light') theme = 'light';
+					if (!saved) localStorage.setItem('starlight-theme', 'dark');
+				} catch (e) {
+					/* localStorage unavailable */
+				}
+				document.documentElement.dataset.theme = theme;
+			})();
+			// 言語ページ訪問時に希望言語を保存（Starlight側と同じ仕様）
+			(function () {
+				const path = window.location.pathname;
+				const langMatch = path.match(/^\/([a-z]{2}(-[a-z]+)?)\//);
+				if (langMatch) {
+					const lang = langMatch[1];
+					const supportedLangs = ['ja', 'en', 'th', 'ko', 'zh-hans', 'zh-hant'];
+					if (supportedLangs.includes(lang)) {
+						try {
+							localStorage.setItem('evere_preferred_lang', lang);
+						} catch (e) {
+							/* localStorage unavailable */
+						}
+					}
+				}
+			})();
+		</script>
+	</head>
+	<body class="lp-body">
+		<div class="lp-grain" aria-hidden="true"></div>
+		<!-- 起動演出: ページ全面を覆い、中央にアプリアイコンを表示（lp-launching時のみ可視） -->
+		<div class="lp-launch" data-launch aria-hidden="true">
+			<div class="lp-launch-icon" data-launch-icon>
+				<!-- 影はアイコン形状に沿わせるためラッパーの drop-shadow で描く
+				     （img自体の filter はタップ暗転のtweenが使うので分離） -->
+				<div class="lp-launch-icon-img">
+					<img src={launchIcon.src} width={launchIcon.width} height={launchIcon.height} alt="" />
+				</div>
+				<span>Evere</span>
+			</div>
+		</div>
+		<slot />
+		<script>
+			import { initLp } from '../scripts/lp-animations';
+			initLp();
+		</script>
+	</body>
+</html>

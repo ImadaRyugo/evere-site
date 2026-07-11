@@ -1,0 +1,71 @@
+---
+// ルート: 保存済み言語 → ブラウザ言語 → en の順で判定してLPへリダイレクト
+// （/privacy と同じ仕組み）
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Evere — Split bills, beautifully.</title>
+		<meta name="description" content="The multi-currency bill splitting app. Free on iOS." />
+		<meta name="theme-color" content="#0B0C0E" />
+		<link rel="icon" href="/favicon.png" />
+		<style>
+			body {
+				margin: 0;
+				background: #0b0c0e;
+				color: rgba(244, 244, 245, 0.6);
+				font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 100vh;
+			}
+		</style>
+		<script is:inline>
+			(function () {
+				const supportedLangs = ['ja', 'en', 'th', 'ko', 'zh-hans', 'zh-hant'];
+				const defaultLang = 'en';
+				const LANG_STORAGE_KEY = 'evere_preferred_lang';
+
+				function getSavedLanguage() {
+					try {
+						return localStorage.getItem(LANG_STORAGE_KEY);
+					} catch (e) {
+						return null;
+					}
+				}
+
+				function detectLanguage() {
+					const savedLang = getSavedLanguage();
+					if (savedLang && supportedLangs.includes(savedLang)) return savedLang;
+
+					const browserLangs = navigator.languages || [navigator.language];
+					for (const lang of browserLangs) {
+						const locale = lang.toLowerCase();
+						if (supportedLangs.includes(locale)) return locale;
+						const langPrefix = locale.split('-')[0];
+						if (supportedLangs.includes(langPrefix)) return langPrefix;
+						if (locale.startsWith('zh-')) {
+							if (locale.includes('tw') || locale.includes('hk') || locale.includes('hant')) {
+								return 'zh-hant';
+							}
+							return 'zh-hans';
+						}
+					}
+					return defaultLang;
+				}
+
+				window.location.replace('/' + detectLanguage() + '/');
+			})();
+		</script>
+		<noscript>
+			<meta http-equiv="refresh" content="0; url=/en/" />
+		</noscript>
+	</head>
+	<body>
+		<p>Redirecting…</p>
+	</body>
+</html>

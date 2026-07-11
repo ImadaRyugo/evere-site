@@ -1,0 +1,37 @@
+---
+import PhoneMockup from './PhoneMockup.astro';
+import AppleBadge from './AppleBadge.astro';
+import type { LpLocale, LpDict } from '../../i18n/lp';
+
+interface Props {
+	locale: LpLocale;
+	dict: LpDict;
+}
+
+const { dict } = Astro.props;
+const chips = ['¥', '$', '€', '฿'];
+---
+
+<section class="lp-hero" data-hero>
+	<div class="lp-container lp-hero-inner">
+		<div class="lp-hero-copy">
+			<h1 class="lp-hero-title">
+				{dict.hero.title.map((line) => (
+					<span class="line" data-reveal>{line}</span>
+				))}
+			</h1>
+			<p class="lp-hero-sub" data-reveal>{dict.hero.sub}</p>
+			<div class="lp-hero-actions" data-reveal>
+				<AppleBadge label={dict.hero.cta} />
+				<span class="lp-hero-note">{dict.hero.ctaNote}</span>
+			</div>
+		</div>
+
+		<div class="lp-hero-visual" data-hero-visual>
+			<PhoneMockup dict={dict} />
+			{chips.map((c, i) => (
+				<span class={`lp-float-chip lp-float-chip--${i + 1}`} data-chip aria-hidden="true">{c}</span>
+			))}
+		</div>
+	</div>
+</section>

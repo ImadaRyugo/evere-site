@@ -1,0 +1,59 @@
+---
+import type { LpDict, LpPricingRow } from '../../i18n/lp';
+
+interface Props {
+	dict: LpDict;
+}
+
+const { dict } = Astro.props;
+
+function cellContent(value: boolean | string, isPro: boolean) {
+	if (value === true) return { kind: 'check' as const, isPro };
+	if (value === false) return { kind: 'cross' as const };
+	return { kind: 'chip' as const, text: value, isPro };
+}
+
+const rowsOf = (rows: LpPricingRow[]) =>
+	rows.map((r) => ({
+		name: r.name,
+		free: cellContent(r.free, false),
+		pro: cellContent(r.pro, true),
+	}));
+---
+
+<section class="lp-section" id="pricing">
+	<div class="lp-container">
+		<div data-reveal>
+			<span class="lp-eyebrow">{dict.pricing.eyebrow}</span>
+			<h2 class="lp-h2">{dict.pricing.title}</h2>
+		</div>
+
+		<div class="lp-pricing-table" data-reveal>
+			<div class="lp-price-head">
+				<span>{dict.pricing.featureCol}</span>
+				<span>{dict.pricing.planFree}</span>
+				<span class="pro-col">{dict.pricing.planPro}</span>
+			</div>
+			{dict.pricing.groups.map((group) => (
+				<>
+					<div class="lp-price-group">{group.label}</div>
+					{rowsOf(group.rows).map((row) => (
+						<div class="lp-price-row" data-price-row>
+							<span class="feat">{row.name}</span>
+							{[row.free, row.pro].map((cell) => (
+								<span class="cell">
+									{cell.kind === 'check' && <span class={cell.isPro ? 'yes-pro' : 'yes'}>✓</span>}
+									{cell.kind === 'cross' && <span class="no">✕</span>}
+									{cell.kind === 'chip' && (
+										<span class:list={['lp-chip', cell.isPro ? 'lp-chip--pro' : 'lp-chip--limit']}>{cell.text}</span>
+									)}
+								</span>
+							))}
+						</div>
+					))}
+				</>
+			))}
+		</div>
+		<p class="lp-pricing-note" data-reveal>{dict.pricing.note}</p>
+	</div>
+</section>

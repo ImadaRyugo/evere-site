@@ -52,23 +52,36 @@
 ├── public/
 │   ├── _redirects          # Cloudflare Pages リダイレクト設定
 │   └── favicon.svg
+├── scripts/
+│   └── gen-og.mjs          # OGP画像（public/og.png）生成スクリプト
 ├── src/
 │   ├── assets/
+│   ├── components/lp/      # LP用コンポーネント（Nav/Hero/Features/Pricing/FAQ など）
 │   ├── content/
 │   │   └── docs/
 │   │       ├── en/         # 英語版コンテンツ
-│   │       │   ├── index.mdx
 │   │       │   ├── privacy.md
-│   │       │   └── terms.md
+│   │       │   ├── terms.md
+│   │       │   └── docs/introduction.md
 │   │       ├── ja/         # 日本語
 │   │       ├── ko/         # 韓国語
 │   │       ├── th/         # タイ語
 │   │       ├── zh-hans/    # 簡体中文
-│   │       ├── zh-hant/    # 繁體中文
-│   │       └── index.mdx   # ルートトップページ
+│   │       └── zh-hant/    # 繁體中文
+│   ├── i18n/
+│   │   └── lp.ts           # LPの6言語翻訳辞書（コピー変更はここ）
+│   ├── layouts/
+│   │   └── LandingLayout.astro  # LP用レイアウト（SEO/hreflang/OGP）
 │   ├── pages/
+│   │   ├── index.astro     # ルート: 言語検出→ /{lang}/ へリダイレクト
+│   │   ├── [lang]/index.astro   # 6言語のLP本体
 │   │   ├── privacy.astro   # 言語検出リダイレクトページ
 │   │   └── terms.astro     # 言語検出リダイレクトページ
+│   ├── scripts/
+│   │   └── lp-animations.ts     # GSAP + Lenis のアニメーション定義
+│   ├── styles/
+│   │   ├── lp.css          # LPのデザイントークン/全スタイル
+│   │   └── custom.css      # Starlight テーマ上書き（ダークモノクロ）
 │   └── content.config.ts
 ├── docs/
 │   └── legal/
@@ -91,6 +104,13 @@
 | `npm run preview`         | ビルドしたサイトをローカルでプレビュー             |
 | `npm run astro ...`       | Astro CLI コマンド実行                          |
 | `npm run astro -- --help` | Astro CLI ヘルプ表示                            |
+| `npm run og`              | OGP画像（`public/og.png`）を再生成               |
+
+### LP（トップページ）の更新
+
+- 文言の変更: `src/i18n/lp.ts`（6言語すべて同じ構造。意味を揃えて更新する）
+- スタイル: `src/styles/lp.css`（ダークモノクロのデザイントークンを先頭に定義）
+- アニメーション: `src/scripts/lp-animations.ts`（`prefers-reduced-motion` 時は自動で無効化）
 
 ## ローカル起動
 
@@ -134,7 +154,30 @@ npm run preview
 
 ### 環境変数
 
-特に設定不要です。
+お問い合わせフォーム（`/{lang}/support/`）のメール送信に以下が必要です。
+Cloudflare Pages の **Settings → Environment variables** で設定してください：
+
+| 変数名 | 必須 | 説明 |
+|---|---|---|
+| `RESEND_API_KEY` | ✅ | Resend の APIキー。フォーム送信をメールに変換する |
+| `CONTACT_TO` | - | 送信先（省略時 `support@evereapp.com`） |
+| `CONTACT_FROM` | - | 差出人（省略時 `Evere Support <noreply@evereapp.com>`。Resendで認証済みドメインであること） |
+| `TURNSTILE_SECRET_KEY` | - | 設定すると Cloudflare Turnstile によるボット検証を有効化（フォーム側のウィジェット追加も必要） |
+
+未設定でもサイト自体は動作します（フォーム送信のみ失敗し、ユーザーにはメールへの誘導が表示されます）。
+
+### お問い合わせフォームの仕組み
+
+```
+フォーム (/{lang}/support/)
+  → POST /api/contact (functions/api/contact.js = Cloudflare Pages Functions)
+  → Resend API
+  → support@evereapp.com（Reply-To は送信者のアドレス）
+```
+
+- スパム対策: ハニーポットフィールド（+ 任意で Turnstile）
+- `functions/` ディレクトリは Cloudflare Pages が自動検出するため追加設定は不要
+- ローカルでフォーム送信まで検証する場合: `npm run build && npx wrangler pages dev dist`
 
 ### 自動デプロイ
 

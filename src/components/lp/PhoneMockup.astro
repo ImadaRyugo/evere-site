@@ -1,0 +1,235 @@
+---
+// 実アプリの「支出」タブと「精算」タブを再現したモック。
+// 数秒ごとに2画面が自動で切り替わる（lp-animations.ts の initPhoneScreenCycle）。
+// 構造・配色は apps/mobile/app/(tabs)/expenses.tsx / settlement.tsx / _layout.tsx に準拠:
+//   支出: Folder+プロジェクト名ヘッダー / カード(タイトル+日付+支払者ピル / 金額+換算+精算済バッジ)
+//   精算: サマリーカード(総支払い数・総額) / 精算フローカード / レポート共有ボタン
+//   タブ: Folder / ReceiptText / PlusCircle / Calculator / Settings (lucide)
+import appIcon from '../../assets/evere-app-icon.png';
+import splashLogo from '../../assets/splash-logo.png';
+import type { LpDict } from '../../i18n/lp';
+
+interface Props {
+	dict: LpDict;
+}
+
+const { dict } = Astro.props;
+const { mock } = dict;
+const { settle } = mock;
+
+// lucide icons (ISC License) — アプリと同じアイコンセット
+const icons = {
+	folder: ['M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z'],
+	receipt: [
+		'M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z',
+		'M14 8H8',
+		'M16 12H8',
+		'M13 16H8',
+	],
+	plusCircle: ['M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z', 'M8 12h8', 'M12 8v8'],
+	calculator: [
+		'M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z',
+		'M8 6h8',
+		'M16 14v4',
+		'M16 10h.01',
+		'M12 10h.01',
+		'M8 10h.01',
+		'M12 14h.01',
+		'M8 14h.01',
+		'M12 18h.01',
+		'M8 18h.01',
+	],
+	settings: [
+		'M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z',
+		'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+	],
+	sliders: ['M21 4h-7', 'M10 4H3', 'M21 12h-9', 'M8 12H3', 'M21 20h-5', 'M12 20H3'],
+	check: ['M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z', 'm9 12 2 2 4-4'],
+};
+
+const tabIcons = [icons.folder, icons.receipt, icons.plusCircle, icons.calculator, icons.settings];
+// 支出タブ(1) ⇄ 精算タブ(3) を自動で行き来する
+const initialTab = 1;
+
+// 支払い比較チャート: BarChart.tsx と同様に最大値でスケール（最低4%）
+const chartMax = Math.max(...settle.members.flatMap((m) => [m.paid, m.owes]));
+const barPct = (v: number) => Math.max(4, Math.round((v / chartMax) * 100));
+---
+
+<div class="lp-phone" data-phone>
+	<div class="lp-phone-screen">
+		<div class="lp-phone-status" aria-hidden="true">
+			<span>9:41</span>
+			<span class="icons">
+				<svg viewBox="0 0 18 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.8"/><rect x="5" y="5" width="3" height="6" rx="0.8"/><rect x="10" y="2.5" width="3" height="8.5" rx="0.8"/><rect x="15" y="0" width="3" height="11" rx="0.8"/></svg>
+				<svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 9.4a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8Z"/><path d="M8 5.8c1.6 0 3 .6 4.1 1.6l-1.4 1.5A3.9 3.9 0 0 0 8 7.8c-1 0-2 .4-2.7 1.1L3.9 7.4A5.9 5.9 0 0 1 8 5.8Z"/><path d="M8 2c2.6 0 5 1 6.8 2.7l-1.4 1.4A7.6 7.6 0 0 0 8 4C6 4 4.1 4.8 2.6 6.1L1.2 4.7A9.6 9.6 0 0 1 8 2Z"/></svg>
+				<svg viewBox="0 0 25 12" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="11" rx="3" opacity="0.4"/><rect x="2" y="2" width="15" height="8" rx="1.6" fill="currentColor" stroke="none"/><path d="M23.5 4v4a2 2 0 0 0 0-4Z" fill="currentColor" stroke="none" opacity="0.4"/></svg>
+			</span>
+		</div>
+
+		<!-- ストーリーS2で降りてくるiOSプッシュ通知
+		     （文言は supabase/functions/_shared/i18n.ts + notify-on-expense の実テンプレート） -->
+		<div class="lp-phone-toast" data-phone-toast aria-hidden="true">
+			<img class="appicon" src={appIcon.src} width="52" height="52" alt="" />
+			<div class="txt">
+				<div class="t-title">{mock.toast.title}</div>
+				<div class="t-body">{mock.toast.body}</div>
+			</div>
+			<span class="t-time">{mock.toast.time}</span>
+		</div>
+
+		<div class="lp-phone-header">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				{icons.folder.map((d) => <path d={d} />)}
+			</svg>
+			<span class="lp-phone-project">{mock.project}</span>
+			<svg class="filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+				{icons.sliders.map((d) => <path d={d} />)}
+			</svg>
+		</div>
+
+		<div class="lp-phone-views">
+			<!-- 支出タブ -->
+			<div class="lp-phone-view is-active" data-phone-view="expenses">
+				{mock.expenses.map((e) => (
+					<div class="lpx-card" data-phone-item>
+						<div class="lpx-left">
+							<div class="lpx-title">{e.title}</div>
+							<div class="lpx-meta">
+								<span class="lpx-date">{e.date}</span>
+								<span class="lpx-payer">{e.payer}</span>
+							</div>
+						</div>
+						<div class="lpx-right">
+							<div class="lpx-amt">{e.amount}</div>
+							{e.sub && <div class="lpx-sub">{e.sub}</div>}
+							{e.settled && (
+								<div class="lpx-badge">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										{icons.check.map((d) => <path d={d} />)}
+									</svg>
+									{mock.settled}
+								</div>
+							)}
+						</div>
+					</div>
+				))}
+			</div>
+
+			<!-- 精算タブ -->
+			<div class="lp-phone-view" data-phone-view="settlement">
+				<div class="lps-card">
+					<div class="lps-title">{settle.summary}</div>
+					<div class="lps-row">
+						<span class="label">{settle.totalCount}</span>
+						<span class="val">{settle.countValue}</span>
+					</div>
+					<div class="lps-row">
+						<span class="label">{settle.totalAmount}</span>
+						<span class="col">
+							<span class="big">{settle.totalValue}</span>
+							<span class="sub">{settle.totalSub}</span>
+						</span>
+					</div>
+				</div>
+
+				<div class="lps-card">
+					<div class="lps-title">{settle.status}</div>
+					<div class="lps-progress-row">
+						<div class="lps-progress"><i style={`width:${settle.percent}%`}></i></div>
+						<b>{settle.percent}%</b>
+					</div>
+					<div class="lps-row">
+						<span class="label">{settle.settledLabel}</span>
+						<span class="col">
+							<span class="lps-badge lps-badge--green">{settle.settledValue}</span>
+							<span class="sub">{settle.settledSub}</span>
+						</span>
+					</div>
+					<div class="lps-row">
+						<span class="label">{settle.unsettledLabel}</span>
+						<span class="col">
+							<span class="lps-badge">{settle.unsettledValue}</span>
+							<span class="sub">{settle.unsettledSub}</span>
+						</span>
+					</div>
+				</div>
+
+				<div class="lps-card">
+					<div class="lps-title">{settle.comparison}</div>
+					<div class="lpc-chart">
+						{settle.members.map((m, i) => (
+							<div class="lpc-slot">
+								<div class="lpc-bars">
+									{i === 0 && (
+										<span class="lpc-tip paid" style={`bottom: calc(${barPct(m.paid)}% + 5px)`}>
+											{m.paid.toLocaleString('en-US')}
+										</span>
+									)}
+									{i === 0 && (
+										<span class="lpc-tip owes" style={`bottom: calc(${barPct(m.owes)}% + 5px)`}>
+											{m.owes.toLocaleString('en-US')}
+										</span>
+									)}
+									<i class:list={['paid', { sel: i === 0 }]} style={`height:${barPct(m.paid)}%`}></i>
+									<i class:list={['owes', { sel: i === 0 }]} style={`height:${barPct(m.owes)}%`}></i>
+								</div>
+								<span class:list={['lpc-name', { sel: i === 0 }]}>{m.name}</span>
+							</div>
+						))}
+					</div>
+					<div class="lpc-legend">
+						<span><i class="paid"></i>{settle.paidLabel}</span>
+						<span><i class="owes"></i>{settle.owesLabel}</span>
+					</div>
+				</div>
+
+				<!-- カテゴリ別（settlement.tsx の byCategory 統計。下端で見切れる=スクロール感の演出） -->
+				<div class="lps-card">
+					<div class="lps-title">{settle.byCategory}</div>
+					{settle.categories.map((c) => (
+						<div class="lpg-row">
+							<div class="lpg-head">
+								<span class="ic">{c.icon}</span>
+								<span class="nm">{c.name}</span>
+								<span class="col">
+									<span class="amt">{c.amount}</span>
+									<span class="sub">{c.sub}</span>
+								</span>
+							</div>
+							<div class="lpg-bar">
+								<span class="track"><i style={`width:${c.percent}%`}></i></span>
+								<b>{c.percent}%</b>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+
+		<!-- 実アプリのスプラッシュ画面（app.config.ts: 白背景 + navy-logo）。起動演出でのみ表示。
+		     スプラッシュは常に白なので、テーマ反転の影響を受けない黒文字のステータスバーを内包する -->
+	<div class="lp-phone-splash" data-phone-splash aria-hidden="true">
+		<div class="lp-phone-status">
+			<span>9:41</span>
+			<span class="icons">
+				<svg viewBox="0 0 18 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="0.8"/><rect x="5" y="5" width="3" height="6" rx="0.8"/><rect x="10" y="2.5" width="3" height="8.5" rx="0.8"/><rect x="15" y="0" width="3" height="11" rx="0.8"/></svg>
+				<svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 9.4a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8Z"/><path d="M8 5.8c1.6 0 3 .6 4.1 1.6l-1.4 1.5A3.9 3.9 0 0 0 8 7.8c-1 0-2 .4-2.7 1.1L3.9 7.4A5.9 5.9 0 0 1 8 5.8Z"/><path d="M8 2c2.6 0 5 1 6.8 2.7l-1.4 1.4A7.6 7.6 0 0 0 8 4C6 4 4.1 4.8 2.6 6.1L1.2 4.7A9.6 9.6 0 0 1 8 2Z"/></svg>
+				<svg viewBox="0 0 25 12" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="21" height="11" rx="3" opacity="0.4"/><rect x="2" y="2" width="15" height="8" rx="1.6" fill="currentColor" stroke="none"/><path d="M23.5 4v4a2 2 0 0 0 0-4Z" fill="currentColor" stroke="none" opacity="0.4"/></svg>
+			</span>
+		</div>
+		<img src={splashLogo.src} width={splashLogo.width} height={splashLogo.height} alt="" />
+	</div>
+
+	<div class="lp-phone-tabs" aria-hidden="true">
+			{mock.tabs.map((label, i) => (
+				<span class:list={[{ active: i === initialTab }]} data-phone-tab>
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+						{tabIcons[i].map((d) => <path d={d} />)}
+					</svg>
+					{label}
+				</span>
+			))}
+		</div>
+	</div>
+</div>

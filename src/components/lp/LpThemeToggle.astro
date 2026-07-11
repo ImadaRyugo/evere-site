@@ -1,0 +1,64 @@
+---
+// ライト/ダーク切替。Starlight と同じ localStorage キー（starlight-theme）を
+// 共有し、docs/法務ページとテーマ選択が連動する。
+// 対応ブラウザでは View Transitions API でボタン起点の円形リビールになる。
+---
+
+<button class="lp-theme-btn" type="button" data-theme-toggle aria-label="Toggle theme">
+	<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+		<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+	</svg>
+	<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+		<circle cx="12" cy="12" r="4"></circle>
+		<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+	</svg>
+</button>
+
+<script>
+	const apply = (next: string) => {
+		document.documentElement.dataset.theme = next;
+		try {
+			localStorage.setItem('starlight-theme', next);
+		} catch (e) {
+			/* localStorage unavailable */
+		}
+	};
+
+	document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((btn) => {
+		btn.addEventListener('click', () => {
+			const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+			const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+			if (!document.startViewTransition || reduce) {
+				apply(next);
+				return;
+			}
+
+			// ボタンを中心に円形に広がるテーマ切替
+			const rect = btn.getBoundingClientRect();
+			const x = rect.left + rect.width / 2;
+			const y = rect.top + rect.height / 2;
+			const radius = Math.hypot(
+				Math.max(x, window.innerWidth - x),
+				Math.max(y, window.innerHeight - y),
+			);
+
+			const transition = document.startViewTransition(() => apply(next));
+			transition.ready.then(() => {
+				document.documentElement.animate(
+					{
+						clipPath: [
+							`circle(0px at ${x}px ${y}px)`,
+							`circle(${radius}px at ${x}px ${y}px)`,
+						],
+					},
+					{
+						duration: 550,
+						easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+						pseudoElement: '::view-transition-new(root)',
+					},
+				);
+			});
+		});
+	});
+</script>

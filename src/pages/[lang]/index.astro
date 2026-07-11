@@ -1,0 +1,39 @@
+---
+import LandingLayout from '../../layouts/LandingLayout.astro';
+import LpNav from '../../components/lp/LpNav.astro';
+import LpStory from '../../components/lp/LpStory.astro';
+import CurrencyTicker from '../../components/lp/CurrencyTicker.astro';
+import LpBigWord from '../../components/lp/LpBigWord.astro';
+import LpFeatures from '../../components/lp/LpFeatures.astro';
+import LpSteps from '../../components/lp/LpSteps.astro';
+import LpPricing from '../../components/lp/LpPricing.astro';
+import LpFaq from '../../components/lp/LpFaq.astro';
+import LpReviews from '../../components/lp/LpReviews.astro';
+import LpCta from '../../components/lp/LpCta.astro';
+import LpFooter from '../../components/lp/LpFooter.astro';
+import { LP_LOCALES, lp, type LpLocale } from '../../i18n/lp';
+
+export function getStaticPaths() {
+	return LP_LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as LpLocale;
+const dict = lp[lang];
+---
+
+<LandingLayout locale={lang} dict={dict}>
+	<LpNav locale={lang} dict={dict} />
+	<main>
+		<LpStory locale={lang} dict={dict} />
+		<CurrencyTicker />
+		<LpBigWord words={['SPLIT', 'SYNC', 'SETTLE']} direction={-1} />
+		<LpFeatures dict={dict} />
+		<LpSteps dict={dict} />
+		<LpPricing dict={dict} />
+		<LpReviews dict={dict} />
+		<LpFaq dict={dict} />
+		<LpBigWord words={['EVERE', '¥', 'EVERE', '$', 'EVERE', '€', 'EVERE', '฿']} direction={1} />
+		<LpCta locale={lang} dict={dict} />
+	</main>
+	<LpFooter locale={lang} dict={dict} />
+</LandingLayout>

@@ -1,0 +1,32 @@
+---
+const currencies: [string, string][] = [
+	['¥', 'JPY'],
+	['$', 'USD'],
+	['€', 'EUR'],
+	['฿', 'THB'],
+	['₩', 'KRW'],
+	['£', 'GBP'],
+	['₫', 'VND'],
+	['₹', 'INR'],
+	['A$', 'AUD'],
+	['₱', 'PHP'],
+	['Fr', 'CHF'],
+	['₺', 'TRY'],
+];
+---
+
+<div class="lp-ticker" aria-hidden="true">
+	<div class="lp-ticker-track">
+		{[0, 1].map((dup) => (
+			<div class="lp-ticker-group" aria-hidden={dup === 1 ? 'true' : undefined}>
+				{currencies.map(([sym, code]) => (
+					<span class="lp-ticker-item">
+						<span class="sym">{sym}</span>
+						<span class="code">{code}</span>
+						<span class="dot"></span>
+					</span>
+				))}
+			</div>
+		))}
+	</div>
+</div>

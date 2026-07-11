@@ -4,6 +4,7 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://evereapp.com',
 	integrations: [
 		starlight({
 			title: 'Evere',
@@ -17,6 +18,19 @@ export default defineConfig({
 			customCss: ['./src/styles/custom.css'],
 			defaultLocale: 'en',
 			head: [
+				{
+					// LPと統一するため、未設定時のデフォルトテーマをダークにする
+					// （ユーザーがテーマ切替した場合はその選択が保持される）
+					tag: 'script',
+					attrs: {},
+					content: `
+						try {
+							if (!localStorage.getItem('starlight-theme')) {
+								localStorage.setItem('starlight-theme', 'dark');
+							}
+						} catch (e) {}
+					`
+				},
 				{
 					tag: 'script',
 					attrs: {},
@@ -37,26 +51,6 @@ export default defineConfig({
 								}
 							}
 						})();
-					`
-				},
-				{
-					tag: 'script',
-					attrs: {},
-					content: `
-						(function(d,t) {
-							var BASE_URL="https://app.chatwoot.com";
-							var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-							g.src=BASE_URL+"/packs/js/sdk.js";
-							g.defer = true;
-							g.async = true;
-							s.parentNode.insertBefore(g,s);
-							g.onload=function(){
-								window.chatwootSDK.run({
-									websiteToken: '3Aukaeb7xphwVBX2EBQYbenj',
-									baseUrl: BASE_URL
-								})
-							}
-						})(document,"script");
 					`
 				}
 			],

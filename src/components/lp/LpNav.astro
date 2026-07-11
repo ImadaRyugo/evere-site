@@ -1,0 +1,40 @@
+---
+import logo from '../../assets/nav-app-icon.png';
+import LpLangSwitcher from './LpLangSwitcher.astro';
+import LpThemeToggle from './LpThemeToggle.astro';
+import AppleBadge from './AppleBadge.astro';
+import type { LpLocale, LpDict } from '../../i18n/lp';
+
+interface Props {
+	locale: LpLocale;
+	dict: LpDict;
+}
+
+const { locale, dict } = Astro.props;
+
+// LP上ではページ内アンカー（Lenisのスムーススクロール対象）、
+// サポート等のサブページではLPへ遷移してからスクロールさせる
+const pathname = Astro.url.pathname.replace(/\/?$/, '/');
+const isHome = pathname === `/${locale}/`;
+const anchor = (id: string) => (isHome ? `#${id}` : `/${locale}/#${id}`);
+---
+
+<header class="lp-nav" data-nav>
+	<div class="lp-nav-inner">
+		<a class="lp-nav-logo" href={`/${locale}/`} aria-label="Evere">
+			<img src={logo.src} alt="" width={logo.width} height={logo.height} />
+			<span class="lp-nav-wordmark">Evere</span>
+		</a>
+		<nav class="lp-nav-links">
+			<a href={anchor('features')}>{dict.nav.features}</a>
+			<a href={anchor('pricing')}>{dict.nav.pricing}</a>
+			<a href={anchor('faq')}>{dict.nav.faq}</a>
+			<a href={`/${locale}/support/`}>{dict.nav.support}</a>
+		</nav>
+		<div class="lp-nav-actions">
+			<LpThemeToggle />
+			<LpLangSwitcher locale={locale} label={dict.footer.language} />
+			<AppleBadge label={dict.nav.download} locale={locale} small />
+		</div>
+	</div>
+</header>

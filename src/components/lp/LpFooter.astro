@@ -1,0 +1,59 @@
+---
+import logo from '../../assets/evere-logo-dark.png';
+import LpLangSwitcher from './LpLangSwitcher.astro';
+import LpThemeToggle from './LpThemeToggle.astro';
+import type { LpLocale, LpDict } from '../../i18n/lp';
+
+interface Props {
+	locale: LpLocale;
+	dict: LpDict;
+}
+
+const { locale, dict } = Astro.props;
+const year = new Date().getFullYear();
+
+// LP上ではページ内アンカー、サブページではLPへ遷移してからスクロール
+const pathname = Astro.url.pathname.replace(/\/?$/, '/');
+const isHome = pathname === `/${locale}/`;
+const anchor = (id: string) => (isHome ? `#${id}` : `/${locale}/#${id}`);
+---
+
+<footer class="lp-footer">
+	<div class="lp-container">
+		<div class="lp-footer-grid">
+			<div class="lp-footer-brand">
+				<img src={logo.src} alt="Evere" width={logo.width} height={logo.height} />
+				<p>{dict.footer.tagline}</p>
+			</div>
+			<div class="lp-footer-col">
+				<h4>{dict.footer.product}</h4>
+				<ul>
+					<li><a href={anchor('features')}>{dict.nav.features}</a></li>
+					<li><a href={anchor('pricing')}>{dict.nav.pricing}</a></li>
+					<li><a href={anchor('faq')}>{dict.nav.faq}</a></li>
+				</ul>
+			</div>
+			<div class="lp-footer-col">
+				<h4>{dict.footer.resources}</h4>
+				<ul>
+					<li><a href={`/${locale}/docs/introduction/`}>{dict.footer.guide}</a></li>
+					<li><a href={`/${locale}/support/`}>{dict.footer.support}</a></li>
+				</ul>
+			</div>
+			<div class="lp-footer-col">
+				<h4>{dict.footer.legal}</h4>
+				<ul>
+					<li><a href={`/${locale}/privacy/`}>{dict.footer.privacy}</a></li>
+					<li><a href={`/${locale}/terms/`}>{dict.footer.terms}</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="lp-footer-bottom">
+			<small>© {year} Evere</small>
+			<div class="actions">
+				<LpThemeToggle />
+				<LpLangSwitcher locale={locale} label={dict.footer.language} up />
+			</div>
+		</div>
+	</div>
+</footer>

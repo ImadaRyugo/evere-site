@@ -1,13 +1,53 @@
+/* ============================================================
+   Starlight テーマ上書き — LP と揃えたダークモノクロ基調
+   （アプリ本体のカラー: bg #0B0C0E / accent #F4F4F5）
+   ============================================================ */
+
+/* ダークテーマ（デフォルト） */
+:root[data-theme='dark'] {
+	--sl-color-accent-low: #26272c;
+	--sl-color-accent: #c8c8d0;
+	--sl-color-accent-high: #eeeef0;
+	--sl-color-white: #f4f4f5;
+	--sl-color-gray-1: #e6e6e9;
+	--sl-color-gray-2: #c0c0c6;
+	--sl-color-gray-3: #8f8f98;
+	--sl-color-gray-4: #55565e;
+	--sl-color-gray-5: #34353b;
+	--sl-color-gray-6: #17181d;
+	--sl-color-black: #0b0c0e;
+	--sl-color-bg-nav: rgba(11, 12, 14, 0.88);
+	--sl-color-bg-sidebar: #0b0c0e;
+	--sl-color-hairline: rgba(244, 244, 245, 0.09);
+	--sl-color-hairline-light: rgba(244, 244, 245, 0.07);
+}
+
+/* ライトテーマ（モノクロで統一） */
+:root[data-theme='light'] {
+	--sl-color-accent-low: #e5e5e8;
+	--sl-color-accent: #3f4046;
+	--sl-color-accent-high: #17181d;
+	--sl-color-white: #17181d;
+	--sl-color-gray-1: #24252a;
+	--sl-color-gray-2: #34353b;
+	--sl-color-gray-3: #55565e;
+	--sl-color-gray-4: #8f8f98;
+	--sl-color-gray-5: #d0d0d4;
+	--sl-color-gray-6: #eeeef0;
+	--sl-color-gray-7: #f6f6f7;
+	--sl-color-black: #ffffff;
+}
+
 a.site-title {
-  gap: 0.35rem !important;
-  color: white !important;
+	gap: 0.35rem !important;
+	color: white !important;
 }
 
 [data-theme='light'] a.site-title {
-  color: black !important;
+	color: black !important;
 }
 
 a.site-title img {
-  height: 26px !important;
-  width: auto !important;
+	height: 26px !important;
+	width: auto !important;
 }

@@ -1,0 +1,184 @@
+---
+// レビューセクション: App Storeの実レビュー（全6件・すべて★5）を掲載。
+// 原文が別言語のレビューはLPの言語に合わせて翻訳したものを表示する
+// （翻訳掲載である旨は translatedNote で明示）。
+import type { LpDict } from '../../i18n/lp';
+
+interface Props {
+	dict: LpDict;
+}
+
+const { dict } = Astro.props;
+const t = dict.reviews;
+
+// 月桂樹（羽状の葉が細い茎の両側に交互につく装飾）。
+// 左枝をパス生成し、右枝はCSSの左右反転で表示する
+const LAUREL_VIEWBOX = '0 0 120 300';
+const laurelParts: { d: string; type: 'stem' | 'leaf'; transform?: string }[] = [];
+{
+	const cx = 150;
+	const cy = 155;
+	const r = 130;
+	const T0 = 128;
+	const T1 = 232;
+	const pt = (deg: number): [number, number] => {
+		const t = (deg * Math.PI) / 180;
+		return [cx + r * Math.cos(t), cy + r * Math.sin(t)];
+	};
+	// 茎
+	const stem: string[] = [];
+	for (let i = 0; i <= 40; i++) {
+		const [x, y] = pt(T0 + ((T1 - T0) * i) / 40);
+		stem.push(`${x.toFixed(1)} ${y.toFixed(1)}`);
+	}
+	laurelParts.push({ d: 'M' + stem.join(' L'), type: 'stem' });
+	// 葉（尖ったアーモンド形・先細り・両側交互）
+	const leaf = (s: number): string => {
+		const L = 31 * s;
+		const w = 10.5 * s;
+		return (
+			`M0 0 C ${(L * 0.25).toFixed(1)} ${(-w).toFixed(1)}, ${(L * 0.72).toFixed(1)} ${(-w * 0.72).toFixed(1)}, ${L.toFixed(1)} 0 ` +
+			`C ${(L * 0.72).toFixed(1)} ${(w * 0.72).toFixed(1)}, ${(L * 0.25).toFixed(1)} ${w.toFixed(1)}, 0 0 Z`
+		);
+	};
+	const N = 9;
+	for (let i = 0; i < N; i++) {
+		const p = i / (N - 1);
+		const theta = T0 + 10 + (T1 - T0 - 14) * p;
+		const [x, y] = pt(theta);
+		const scale = 1 - 0.45 * p;
+		for (const side of [-1, 1]) {
+			const ang = theta + 90 + side * 38;
+			laurelParts.push({
+				d: leaf(scale),
+				type: 'leaf',
+				transform: `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${ang.toFixed(1)})`,
+			});
+		}
+	}
+	const [xt, yt] = pt(T1);
+	laurelParts.push({
+		d: leaf(0.5),
+		type: 'leaf',
+		transform: `translate(${xt.toFixed(1)} ${yt.toFixed(1)}) rotate(${(T1 + 90).toFixed(1)})`,
+	});
+}
+---
+
+<section class="lp-section lp-reviews" id="reviews">
+	<div class="lp-container">
+		<div class="lp-reviews-head" data-reveal>
+			<span class="lp-eyebrow">{t.eyebrow}</span>
+			<h2 class="lp-h2">{t.title}</h2>
+		</div>
+
+		<div class="lp-reviews-score" data-reveal>
+			<svg class="laurel" viewBox={LAUREL_VIEWBOX} aria-hidden="true">
+				{laurelParts.map((part) =>
+					part.type === 'stem' ? (
+						<path d={part.d} fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" />
+					) : (
+						<path d={part.d} fill="currentColor" transform={part.transform} />
+					),
+				)}
+			</svg>
+			<div class="col">
+				<span class="score">{t.score}</span>
+				<span class="stars" aria-hidden="true">
+					{[0, 1, 2, 3, 4].map(() => (
+						<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+							<path d="M12 2.6l2.9 5.9 6.5 1-4.7 4.6 1.1 6.5L12 17.5l-5.8 3.1 1.1-6.5L2.6 9.5l6.5-1L12 2.6z" />
+						</svg>
+					))}
+				</span>
+				<span class="note">{t.ratingNote}</span>
+			</div>
+			<svg class="laurel laurel--right" viewBox={LAUREL_VIEWBOX} aria-hidden="true">
+				{laurelParts.map((part) =>
+					part.type === 'stem' ? (
+						<path d={part.d} fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" />
+					) : (
+						<path d={part.d} fill="currentColor" transform={part.transform} />
+					),
+				)}
+			</svg>
+		</div>
+
+		<div class="lp-reviews-grid" data-reviews-grid>
+			{t.items.map((item) => (
+				<figure class="lp-review-card" data-reveal>
+					<span class="stars" aria-label="5 / 5">
+						{[0, 1, 2, 3, 4].map(() => (
+							<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+								<path d="M12 2.6l2.9 5.9 6.5 1-4.7 4.6 1.1 6.5L12 17.5l-5.8 3.1 1.1-6.5L2.6 9.5l6.5-1L12 2.6z" />
+							</svg>
+						))}
+					</span>
+					<figcaption class="title">{item.title}</figcaption>
+					<blockquote>{item.body}</blockquote>
+					<span class="author">{item.author}</span>
+				</figure>
+			))}
+		</div>
+
+		<div class="lp-reviews-expand" data-reviews-expand hidden>
+			<button class="lp-reviews-more" type="button" data-reviews-more>
+				{t.more}
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="m6 9 6 6 6-6" />
+				</svg>
+			</button>
+		</div>
+
+		<p class="lp-reviews-note" data-reveal>{t.translatedNote}</p>
+	</div>
+</section>
+
+<script>
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	// SPでは先頭3件だけ見せて、3件目の後半からフェードで隠す。
+	// JS無効時は全件表示（折りたたみはJSでのみ適用）
+	const grid = document.querySelector<HTMLElement>('[data-reviews-grid]');
+	const expand = document.querySelector<HTMLElement>('[data-reviews-expand]');
+	const moreBtn = document.querySelector<HTMLButtonElement>('[data-reviews-more]');
+
+	if (grid && expand && moreBtn && window.matchMedia('(max-width: 620px)').matches) {
+		const collapse = () => {
+			const third = grid.children[2] as HTMLElement | undefined;
+			if (!third) return;
+			// 3件目の後半（55%）まで見せる。英語以外は本文が長めに翻訳される分、
+			// さらに約3行（76px）深い位置までを表示する（フェードはカード内に収める）
+			const isEn = document.documentElement.lang.toLowerCase().startsWith('en');
+			const extra = isEn ? 0 : 76;
+			const h = third.offsetHeight;
+			const visible = third.offsetTop + Math.min(h * 0.55 + extra, h * 0.88);
+			grid.style.maxHeight = `${Math.round(visible)}px`;
+			grid.classList.add('is-collapsed');
+			expand.hidden = false;
+		};
+		collapse();
+		// 折りたたみでレイアウトが変わるため、reveal系トリガーの位置を再計算
+		requestAnimationFrame(() => ScrollTrigger.refresh());
+
+		moreBtn.addEventListener('click', () => {
+			const from = grid.getBoundingClientRect().height;
+			grid.classList.remove('is-collapsed');
+			grid.style.maxHeight = `${from}px`;
+			requestAnimationFrame(() => {
+				grid.style.transition = 'max-height 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+				grid.style.maxHeight = `${grid.scrollHeight}px`;
+			});
+			grid.addEventListener(
+				'transitionend',
+				() => {
+					grid.style.maxHeight = '';
+					grid.style.transition = '';
+					ScrollTrigger.refresh();
+				},
+				{ once: true },
+			);
+			expand.hidden = true;
+		});
+	}
+</script>

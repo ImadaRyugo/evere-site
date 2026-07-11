@@ -1,0 +1,26 @@
+---
+import type { LpDict } from '../../i18n/lp';
+
+interface Props {
+	dict: LpDict;
+}
+
+const { dict } = Astro.props;
+---
+
+<section class="lp-section">
+	<div class="lp-container">
+		<div data-reveal>
+			<span class="lp-eyebrow">{dict.steps.eyebrow}</span>
+			<h2 class="lp-h2">{dict.steps.title}</h2>
+		</div>
+		<div class="lp-steps-grid">
+			{dict.steps.items.map((s) => (
+				<div class="lp-step" data-reveal>
+					<h3>{s.title}</h3>
+					<p>{s.body}</p>
+				</div>
+			))}
+		</div>
+	</div>
+</section>

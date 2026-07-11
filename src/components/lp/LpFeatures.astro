@@ -1,0 +1,192 @@
+---
+import type { LpDict } from '../../i18n/lp';
+
+interface Props {
+	dict: LpDict;
+}
+
+const { dict } = Astro.props;
+const [fx, split, share, settle] = dict.features;
+
+// 分割モードのデモデータ: [等分, 比率, 手動]
+const splitRows = [
+	{ initial: 'Y', name: 'Yuki', scales: [0.33, 0.5, 0.7], amounts: ['¥4,000', '¥6,000', '¥8,400'] },
+	{ initial: 'R', name: 'Ren', scales: [0.33, 0.3, 0.2], amounts: ['¥4,000', '¥3,600', '¥2,400'] },
+	{ initial: 'A', name: 'Aoi', scales: [0.34, 0.2, 0.1], amounts: ['¥4,000', '¥2,400', '¥1,200'] },
+];
+
+// 為替デモは「そのロケールの普段の通貨」へ換算して見せるため辞書側で定義（fxDemo）
+const { fxDemo } = dict;
+const fxBaseDisplay = fxDemo.base.prefix + fxDemo.base.amount.toLocaleString('en-US');
+
+const settleRows = [
+	{ from: 'Ren', to: 'Yuki', amount: '¥3,150' },
+	{ from: 'Aoi', to: 'Yuki', amount: '¥1,050' },
+];
+
+// 「ほかにも」グリッド用アイコン (lucide, ISC License)
+const moreIcons: Record<string, string[]> = {
+	guest: ['M17 8a5 5 0 1 0-10 0 5 5 0 0 0 10 0Z', 'M20 21a8 8 0 0 0-16 0'],
+	receipt: [
+		'M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z',
+		'M11 9a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z',
+		'm21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21',
+	],
+	category: [
+		'M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z',
+		'M7.5 7.5h.01',
+	],
+	report: [
+		'M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+		'M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+		'M18 22a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+		'm8.59 13.51 6.83 3.98',
+		'm15.41 6.51-6.82 3.98',
+	],
+	budget: [
+		'M10.268 21a2 2 0 0 0 3.464 0',
+		'M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326',
+	],
+	offline: [
+		'M12 20h.01',
+		'M8.5 16.429a5 5 0 0 1 7 0',
+		'M5 12.859a10 10 0 0 1 5.17-2.69',
+		'M19 12.859a10 10 0 0 0-2.007-1.523',
+		'M2 8.82a15 15 0 0 1 4.177-2.643',
+		'M22 8.82a15 15 0 0 0-11.288-3.764',
+		'm2 2 20 20',
+	],
+};
+---
+
+<section class="lp-section" id="features">
+	<div class="lp-container">
+		<div class="lp-features-head" data-reveal>
+			<span class="lp-eyebrow">{dict.featuresHeading.eyebrow}</span>
+			<!-- \n 区切りを「途中で折れないかたまり」として描画。
+			     PCでは1行のまま、SPでは区切り位置で折り返す。
+			     （.lp-h2 は pre-line のため、タグ内で改行整形しないこと） -->
+			<h2 class="lp-h2">{dict.featuresHeading.title.split('\n').map((seg) => <span class="lp-h2-seg">{seg}</span>)}</h2>
+		</div>
+
+		<!-- 1. マルチ通貨 -->
+		<div class="lpf-block" data-feature>
+			<div class="lpf-copy" data-reveal>
+				<span class="lpf-label">{fx.label}</span>
+				<h3 class="lpf-title">{fx.title}</h3>
+				<p class="lpf-body">{fx.body}</p>
+			</div>
+			<div class="lpf-visual" data-reveal>
+				<div class="lpf-card">
+					{fxDemo.rows.map((r) => (
+						<div class="lpf-fx-row">
+							<span class="cur"><b>{r.sym}</b>{r.code}</span>
+							<span class="val">{r.val}</span>
+						</div>
+					))}
+					<div class="lpf-fx-base">
+						<span class="label">{fxDemo.base.code}</span>
+						<span class="val" data-count={fxDemo.base.amount} data-prefix={fxDemo.base.prefix} data-roll>{fxBaseDisplay}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 2. 柔軟な分割 -->
+		<div class="lpf-block" data-feature>
+			<div class="lpf-copy" data-reveal>
+				<span class="lpf-label">{split.label}</span>
+				<h3 class="lpf-title">{split.title}</h3>
+				<!-- \n はPCのみ改行（SPは .lpf-br を非表示にして自然な折返し） -->
+				<p class="lpf-body">{split.body.split('\n').map((seg, i) => (i > 0 ? [<br class="lpf-br" />, seg] : seg))}</p>
+			</div>
+			<div class="lpf-visual" data-reveal>
+				<div class="lpf-card" data-split-demo>
+					<div class="lpf-split-tabs">
+						<span class="lpf-split-indicator" data-split-indicator aria-hidden="true"></span>
+						{dict.splitModes.map((m, i) => (
+							<span class:list={[{ active: i === 0 }]} data-split-tab>{m}</span>
+						))}
+					</div>
+					{splitRows.map((r) => (
+						<div class="lpf-split-row">
+							<span class="who"><i>{r.initial}</i>{r.name}</span>
+							<span class="bar"><i data-split-bar data-scales={JSON.stringify(r.scales)}></i></span>
+							<span class="amt" data-split-amt data-amounts={JSON.stringify(r.amounts)}>{r.amounts[0]}</span>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+
+		<!-- 3. グループ共有 -->
+		<div class="lpf-block" data-feature>
+			<div class="lpf-copy" data-reveal>
+				<span class="lpf-label">{share.label}</span>
+				<h3 class="lpf-title">{share.title}</h3>
+				<p class="lpf-body">{share.body}</p>
+			</div>
+			<div class="lpf-visual" data-reveal>
+				<div class="lpf-card">
+					<div class="lpf-share-avatars" aria-hidden="true">
+						<span>Y</span><span>R</span><span>A</span><span>+</span>
+					</div>
+					<div class="lpf-share-link">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+							<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"></path>
+							<path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"></path>
+						</svg>
+						evere.app/join/8F3KQ
+					</div>
+					<div class="lpf-share-pulse"><i></i>Live</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 4. 精算 -->
+		<div class="lpf-block" data-feature>
+			<div class="lpf-copy" data-reveal>
+				<span class="lpf-label">{settle.label}</span>
+				<h3 class="lpf-title">{settle.title}</h3>
+				<p class="lpf-body">{settle.body}</p>
+			</div>
+			<div class="lpf-visual" data-reveal>
+				<div class="lpf-card">
+					{settleRows.map((r) => (
+						<div class="lpf-settle-row">
+							<span>{r.from}</span>
+							<span class="arrow" aria-hidden="true"></span>
+							<span>{r.to}</span>
+							<span class="sum">{r.amount}</span>
+							<svg class="check" viewBox="0 0 22 22" fill="none" stroke-width="1.8" aria-hidden="true">
+								<circle cx="11" cy="11" r="9.5" data-check-circle></circle>
+								<path d="M6.8 11.4l2.9 2.9 5.6-6.6" data-check-mark stroke-linecap="round" stroke-linejoin="round"></path>
+							</svg>
+						</div>
+					))}
+					<div class="lpf-settle-done">
+						<span>✓ {dict.mock.settled}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- ほかにも（コンパクト機能グリッド） -->
+		<div class="lpm">
+			<h3 class="lpm-title" data-reveal>{dict.more.title}</h3>
+			<div class="lpm-grid">
+				{dict.more.items.map((item) => (
+					<div class="lpm-card">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							{(moreIcons[item.icon] ?? []).map((d) => <path d={d} />)}
+						</svg>
+						<div>
+							<h4>{item.title}</h4>
+							<p>{item.body}</p>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</div>
+</section>
