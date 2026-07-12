@@ -2412,17 +2412,19 @@ html:not([data-theme='light']) .lp-cta-bg-icon {
 
 .lp-story {
 	position: relative;
+	/* はみ出しのクリップはピンボックスではなくセクション（ピンスペーサー全体）で行う。
+	   ピンボックスでクリップすると、iOS Chromeのツールバー収納で表示領域が伸びた瞬間に
+	   ピン固定高さ（ScrollTriggerがインラインpxで固定）の下端でフォンが切れて白帯が出る */
+	overflow: clip;
 }
 
 .lp-story-pin {
 	position: relative;
 	min-height: 100svh;
-	/* iOS Chromeはツールバー収納時に表示領域が伸びるため、動的ビューポートに追従させて
-	   ピン中の下端に空白（白帯）が露出するのを防ぐ（dvh非対応環境はsvhのまま） */
+	/* ツールバー収納時の表示領域拡大に追従（ピン中はScrollTriggerのインライン指定が優先） */
 	min-height: 100dvh;
 	display: flex;
 	align-items: center;
-	overflow: clip;
 	padding-top: 76px;
 	padding-bottom: 12px;
 }
