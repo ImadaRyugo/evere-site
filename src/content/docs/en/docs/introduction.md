@@ -14,11 +14,11 @@ Evere is a mobile application designed to help couples and groups manage bill sp
 - **Project Management**: Organize expenses by projects (trips, shared living, etc.)
 - **Receipt Attachments**: Add receipt images for reference
 - **Settlement Tracking**: Mark individual expenses or entire projects as settled
-- **Offline Support**: Work offline and sync when connected
+- **Offline Support**: Work offline and sync when connected (Pro)
 
 ## Getting Started
 
-1. Download Evere from the App Store (iOS) or Google Play (Android)
+1. Download Evere from the App Store (iOS)
 2. Create an account or use Guest Mode
 3. Create a project and invite participants
 4. Add expenses and split them
@@ -27,12 +27,11 @@ Evere is a mobile application designed to help couples and groups manage bill sp
 ## Supported Platforms
 
 - iOS 15.1 and later
-- Android 7.0 and later
 
 ## Need Help?
 
-- Check our [FAQ](/support/faq/)
-- [Contact Support](/support/contact/)
+- Check our [FAQ](/en/#faq)
+- [Contact Support](/en/support/)
 
 ---
 

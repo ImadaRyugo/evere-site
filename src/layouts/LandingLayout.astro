@@ -43,6 +43,14 @@ const jsonLd = [
 		url: canonical.href,
 		installUrl: APP_STORE_URLS[locale],
 		offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+		// App Storeの実データ（iTunes Lookup API: jp 5.0×6 + us 5.0×1 + th 5.0×1 = 8件）。
+		// レビュー数が動いたら更新すること
+		aggregateRating: {
+			'@type': 'AggregateRating',
+			ratingValue: '5.0',
+			ratingCount: 8,
+			bestRating: '5',
+		},
 		inLanguage: HTML_LANG[locale],
 		image: ogImage.href,
 	},
