@@ -2871,6 +2871,29 @@ html:not(.lp-js) .lp-scene:not(.is-active) {
 	gap: 20px;
 }
 
+/* display: grid が hidden 属性に勝つため明示的に無効化（送信完了時に隠す） */
+.lp-contact-form[hidden] {
+	display: none;
+}
+
+/* 送信完了メッセージ: フォームの代わりに中央表示。
+   状態メッセージ（緑）とは違い完了「画面」なので通常の本文色で落ち着かせる */
+.lp-contact-done {
+	margin-top: clamp(2rem, 5vh, 3rem);
+	padding: clamp(3rem, 12vh, 6rem) 16px;
+	text-align: center;
+}
+
+.lp-contact-done p {
+	margin: 0;
+	font-size: 17px;
+	font-weight: 550;
+	line-height: 1.9;
+	color: var(--lp-text);
+	/* 辞書内の \n で文を2行に分ける */
+	white-space: pre-line;
+}
+
 /* ハニーポット: 視覚的にもスクリーンリーダーからも隠す */
 .lp-contact-form .lp-hp {
 	position: absolute;

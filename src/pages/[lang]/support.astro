@@ -62,6 +62,11 @@ const t = dict.supportPage;
 				</div>
 			</form>
 
+			<!-- 送信完了: フォームの代わりに中央表示（改行は辞書の \n） -->
+			<div class="lp-contact-done" data-contact-done hidden role="status">
+				<p>{t.success}</p>
+			</div>
+
 			<p class="lp-support-mail">
 				{t.mailNote}<a href="mailto:support@evereapp.com">support@evereapp.com</a>
 			</p>
@@ -107,9 +112,10 @@ const t = dict.supportPage;
 				});
 				if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-				form.reset();
-				status.textContent = form.dataset.msgSuccess ?? '';
-				status.dataset.state = 'success';
+				// 成功: フォームを隠して完了メッセージを中央に表示
+				form.hidden = true;
+				const done = document.querySelector<HTMLElement>('[data-contact-done]');
+				if (done) done.hidden = false;
 			} catch {
 				status.textContent = form.dataset.msgError ?? '';
 				status.dataset.state = 'error';
