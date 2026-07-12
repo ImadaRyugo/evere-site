@@ -18,18 +18,13 @@ export default defineConfig({
 			customCss: ['./src/styles/custom.css'],
 			defaultLocale: 'en',
 			head: [
+				// テーマはStarlightの既定（auto=OS追従）に任せる。
+				// 以前あった「未設定時にdarkを保存する」スクリプトは、LP側の
+				// 「保存はトグル操作時のみ・未設定はOS追従」方針と矛盾するため撤去
 				{
-					// LPと統一するため、未設定時のデフォルトテーマをダークにする
-					// （ユーザーがテーマ切替した場合はその選択が保持される）
-					tag: 'script',
-					attrs: {},
-					content: `
-						try {
-							if (!localStorage.getItem('starlight-theme')) {
-								localStorage.setItem('starlight-theme', 'dark');
-							}
-						} catch (e) {}
-					`
+					// iOSホーム画面追加用アイコン
+					tag: 'link',
+					attrs: { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
 				},
 				{
 					tag: 'script',

@@ -151,7 +151,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		meta: {
 			title: '割り勘・精算アプリ Evere｜登録不要で「誰が誰にいくら」を自動計算',
 			description:
-				'割り勘・精算アプリのEvere。支払いを記録するだけで「誰が誰にいくら」の割り勘計算・精算を自動化。旅行の割り勘も日常の立て替えもこれひとつ。162通貨対応・登録不要。iPhoneで無料で使えます。',
+				'162通貨対応の割り勘・精算アプリ。旅先でも、ふだんの生活でも。支払いを登録するだけで、あとはEvereが自動で精算。大切な方やグループでの利用にぜひ。',
 		},
 		nav: { features: '機能', pricing: 'プラン', faq: 'FAQ', support: 'サポート', download: 'ダウンロード' },
 		hero: {
