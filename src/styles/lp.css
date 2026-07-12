@@ -2689,9 +2689,11 @@ html:not(.lp-js) .lp-scene:not(.is-active) {
 	}
 }
 
-/* SPはボタンと「無料・登録不要」を縦積みにするため間隔を詰める */
+/* SPはボタンと「無料・登録不要」を必ず縦積みにする（折り返し任せだと
+   実機のフォント幅次第で横並びに化けるため明示する）。間隔は8px */
 @media (max-width: 900px) {
 	.lp-hero-actions {
+		flex-direction: column;
 		gap: 8px;
 	}
 }
