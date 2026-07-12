@@ -195,12 +195,12 @@ export const lp: Record<LpLocale, LpDict> = {
 		more: {
 			title: 'まだある、便利な機能。',
 			items: [
-				{ icon: 'guest', title: 'ゲストモード', body: 'インストールしたら、そのまま使える' },
-				{ icon: 'receipt', title: 'レシート画像', body: 'レシートを撮って、支払いに添付' },
-				{ icon: 'category', title: 'カテゴリ管理', body: '自分流のカテゴリで支出を整理' },
-				{ icon: 'report', title: '精算レポート共有', body: '結果をコピーして、グループトークへ' },
-				{ icon: 'budget', title: '予算アラート', body: '使いすぎる前に、お知らせ（Pro）' },
-				{ icon: 'offline', title: 'オフラインモード', body: '機内モードでも記録できる（Pro）' },
+				{ icon: 'guest', title: 'ゲストモード', body: 'アカウント登録不要ですぐに使える' },
+				{ icon: 'receipt', title: '画像添付', body: 'レシートやお店の写真を支払いに添付' },
+				{ icon: 'category', title: 'カテゴリ管理', body: 'カテゴリを設定して支出を整理' },
+				{ icon: 'report', title: '共有機能', body: 'アプリを入れてないメンバーにも簡単に支払いを共有' },
+				{ icon: 'budget', title: '予算アラート', body: '使いすぎる前にお知らせ（Pro）' },
+				{ icon: 'offline', title: 'オフラインモード', body: '電波がなくても利用できる（Pro）' },
 			],
 		},
 		steps: {
@@ -224,7 +224,7 @@ export const lp: Record<LpLocale, LpDict> = {
 					label: '基本機能',
 					rows: [
 						{ name: 'プロジェクト数', free: '3個まで', pro: '無制限' },
-						{ name: 'レシート画像', free: '5枚', pro: '無制限' },
+						{ name: '画像添付', free: '5枚', pro: '無制限' },
 						{ name: 'マルチ通貨', free: true, pro: true },
 						{ name: 'メンバー招待', free: true, pro: true },
 						{ name: 'リアルタイム同期', free: true, pro: true },
@@ -435,12 +435,12 @@ export const lp: Record<LpLocale, LpDict> = {
 		more: {
 			title: 'The little things, covered.',
 			items: [
-				{ icon: 'guest', title: 'Guest mode', body: 'Open the app and go — no account' },
-				{ icon: 'receipt', title: 'Receipt photos', body: 'Snap a receipt, attach it in seconds' },
-				{ icon: 'category', title: 'Categories', body: 'Sort spending your way, with custom categories' },
-				{ icon: 'report', title: 'Shareable reports', body: 'Copy the results into any group chat' },
+				{ icon: 'guest', title: 'Guest mode', body: 'No sign-up — start using it right away' },
+				{ icon: 'receipt', title: 'Photo attachments', body: 'Attach receipts or photos to any expense' },
+				{ icon: 'category', title: 'Categories', body: 'Set up categories to organize spending' },
+				{ icon: 'report', title: 'Easy sharing', body: 'Share payments with members without the app' },
 				{ icon: 'budget', title: 'Budget alerts', body: 'A heads-up before you overspend (Pro)' },
-				{ icon: 'offline', title: 'Offline mode', body: 'Works in airplane mode too (Pro)' },
+				{ icon: 'offline', title: 'Offline mode', body: 'Works even without a signal (Pro)' },
 			],
 		},
 		steps: {
@@ -464,7 +464,7 @@ export const lp: Record<LpLocale, LpDict> = {
 					label: 'Basics',
 					rows: [
 						{ name: 'Projects', free: 'Up to 3', pro: 'Unlimited' },
-						{ name: 'Receipt images', free: '5/project', pro: 'Unlimited' },
+						{ name: 'Photo attachments', free: '5/project', pro: 'Unlimited' },
 						{ name: 'Multi-currency (auto rates)', free: true, pro: true },
 						{ name: 'Member invites', free: true, pro: true },
 						{ name: 'Real-time sync', free: true, pro: true },
@@ -672,12 +672,12 @@ export const lp: Record<LpLocale, LpDict> = {
 		more: {
 			title: 'เรื่องเล็ก ๆ ก็คิดมาให้แล้ว',
 			items: [
-				{ icon: 'guest', title: 'โหมด Guest', body: 'เปิดแอปแล้วใช้ได้เลย ไม่ต้องมีบัญชี' },
-				{ icon: 'receipt', title: 'รูปใบเสร็จ', body: 'ถ่ายใบเสร็จแนบกับรายจ่ายได้ทันที' },
-				{ icon: 'category', title: 'หมวดหมู่', body: 'จัดหมวดหมู่ตามสไตล์ของคุณเอง' },
-				{ icon: 'report', title: 'แชร์รายงานการชำระ', body: 'ก๊อปผลเคลียร์ยอดไปวางในแชทกลุ่ม' },
+				{ icon: 'guest', title: 'โหมด Guest', body: 'ใช้ได้ทันที ไม่ต้องสมัครสมาชิก' },
+				{ icon: 'receipt', title: 'แนบรูปภาพ', body: 'แนบใบเสร็จหรือรูปถ่ายไว้กับรายจ่าย' },
+				{ icon: 'category', title: 'หมวดหมู่', body: 'ตั้งหมวดหมู่เพื่อจัดระเบียบรายจ่าย' },
+				{ icon: 'report', title: 'ฟีเจอร์แชร์', body: 'แชร์รายจ่ายให้เพื่อนที่ไม่มีแอปได้ง่ายๆ' },
 				{ icon: 'budget', title: 'แจ้งเตือนงบประมาณ', body: 'เตือนก่อนใช้เงินเกินงบ (Pro)' },
-				{ icon: 'offline', title: 'โหมดออฟไลน์', body: 'ใช้ได้แม้เปิดโหมดเครื่องบิน (Pro)' },
+				{ icon: 'offline', title: 'โหมดออฟไลน์', body: 'ใช้ได้แม้ไม่มีสัญญาณ (Pro)' },
 			],
 		},
 		steps: {
@@ -701,7 +701,7 @@ export const lp: Record<LpLocale, LpDict> = {
 					label: 'พื้นฐาน',
 					rows: [
 						{ name: 'จำนวนโปรเจกต์', free: 'สูงสุด 3', pro: 'ไม่จำกัด' },
-						{ name: 'ภาพใบเสร็จ', free: '5/โปรเจกต์', pro: 'ไม่จำกัด' },
+						{ name: 'แนบรูปภาพ', free: '5/โปรเจกต์', pro: 'ไม่จำกัด' },
 						{ name: 'หลายสกุลเงิน (อัตราอัตโนมัติ)', free: true, pro: true },
 						{ name: 'เชิญสมาชิก', free: true, pro: true },
 						{ name: 'ซิงก์เรียลไทม์', free: true, pro: true },
@@ -909,12 +909,12 @@ export const lp: Record<LpLocale, LpDict> = {
 		more: {
 			title: '작은 것까지 챙겼습니다.',
 			items: [
-				{ icon: 'guest', title: '게스트 모드', body: '앱 열면 바로 시작, 계정 없이도' },
-				{ icon: 'receipt', title: '영수증 사진', body: '영수증 찍어서 바로 첨부' },
-				{ icon: 'category', title: '카테고리 관리', body: '나만의 카테고리로 지출 정리' },
-				{ icon: 'report', title: '정산 보고서 공유', body: '정산 결과를 복사해 단톡방으로' },
+				{ icon: 'guest', title: '게스트 모드', body: '계정 등록 없이 바로 사용 가능' },
+				{ icon: 'receipt', title: '이미지 첨부', body: '영수증이나 가게 사진을 지출에 첨부' },
+				{ icon: 'category', title: '카테고리 관리', body: '카테고리를 설정해 지출 정리' },
+				{ icon: 'report', title: '공유 기능', body: '앱이 없는 멤버에게도 간편하게 지출 공유' },
 				{ icon: 'budget', title: '예산 알림', body: '예산 초과 전에 미리 알림 (Pro)' },
-				{ icon: 'offline', title: '오프라인 모드', body: '비행기 모드에서도 기록 (Pro)' },
+				{ icon: 'offline', title: '오프라인 모드', body: '인터넷이 없어도 사용 가능 (Pro)' },
 			],
 		},
 		steps: {
@@ -938,7 +938,7 @@ export const lp: Record<LpLocale, LpDict> = {
 					label: '기본 기능',
 					rows: [
 						{ name: '프로젝트 수', free: '최대 3개', pro: '무제한' },
-						{ name: '영수증 이미지', free: '5장/PJ', pro: '무제한' },
+						{ name: '이미지 첨부', free: '5장/PJ', pro: '무제한' },
 						{ name: '멀티 통화(자동 환율)', free: true, pro: true },
 						{ name: '멤버 초대', free: true, pro: true },
 						{ name: '실시간 동기화', free: true, pro: true },
@@ -1146,12 +1146,12 @@ export const lp: Record<LpLocale, LpDict> = {
 		more: {
 			title: '细节，也都想到了。',
 			items: [
-				{ icon: 'guest', title: '访客模式', body: '打开就能用，无需账号' },
-				{ icon: 'receipt', title: '收据照片', body: '拍张收据，随手附在支出里' },
-				{ icon: 'category', title: '分类管理', body: '用自定义分类整理支出' },
-				{ icon: 'report', title: '分享结算报告', body: '结算结果复制进群聊' },
+				{ icon: 'guest', title: '访客模式', body: '无需注册账号，立即可用' },
+				{ icon: 'receipt', title: '图片附件', body: '把收据或店铺照片附在支出里' },
+				{ icon: 'category', title: '分类管理', body: '设置分类整理支出' },
+				{ icon: 'report', title: '共享功能', body: '没装应用的成员也能轻松共享支出' },
 				{ icon: 'budget', title: '预算提醒', body: '超支之前，提前提醒（Pro）' },
-				{ icon: 'offline', title: '离线模式', body: '飞行模式也能记账（Pro）' },
+				{ icon: 'offline', title: '离线模式', body: '没有网络也能使用（Pro）' },
 			],
 		},
 		steps: {
@@ -1175,7 +1175,7 @@ export const lp: Record<LpLocale, LpDict> = {
 					label: '基本功能',
 					rows: [
 						{ name: '项目数量', free: '最多3个', pro: '无限制' },
-						{ name: '收据图片', free: '5张/项目', pro: '无限制' },
+						{ name: '图片附件', free: '5张/项目', pro: '无限制' },
 						{ name: '多币种（自动汇率）', free: true, pro: true },
 						{ name: '邀请成员', free: true, pro: true },
 						{ name: '实时同步', free: true, pro: true },
@@ -1383,12 +1383,12 @@ export const lp: Record<LpLocale, LpDict> = {
 		more: {
 			title: '細節，也都想到了。',
 			items: [
-				{ icon: 'guest', title: '訪客模式', body: '打開就能用，不需帳號' },
-				{ icon: 'receipt', title: '收據照片', body: '拍張收據，順手附在支出裡' },
-				{ icon: 'category', title: '分類管理', body: '用自訂分類整理支出' },
-				{ icon: 'report', title: '分享結算報告', body: '結算結果複製進群組' },
+				{ icon: 'guest', title: '訪客模式', body: '不需註冊帳號，立即可用' },
+				{ icon: 'receipt', title: '圖片附件', body: '把收據或店家照片附在支出裡' },
+				{ icon: 'category', title: '分類管理', body: '設定分類整理支出' },
+				{ icon: 'report', title: '共享功能', body: '沒裝 App 的成員也能輕鬆共享支出' },
 				{ icon: 'budget', title: '預算提醒', body: '超支之前，先提醒你（Pro）' },
-				{ icon: 'offline', title: '離線模式', body: '飛航模式也能記帳（Pro）' },
+				{ icon: 'offline', title: '離線模式', body: '沒有網路也能使用（Pro）' },
 			],
 		},
 		steps: {
@@ -1412,7 +1412,7 @@ export const lp: Record<LpLocale, LpDict> = {
 					label: '基本功能',
 					rows: [
 						{ name: '專案數量', free: '最多3個', pro: '無限制' },
-						{ name: '收據圖片', free: '5張/專案', pro: '無限制' },
+						{ name: '圖片附件', free: '5張/專案', pro: '無限制' },
 						{ name: '多幣別（自動匯率）', free: true, pro: true },
 						{ name: '邀請成員', free: true, pro: true },
 						{ name: '即時同步', free: true, pro: true },
