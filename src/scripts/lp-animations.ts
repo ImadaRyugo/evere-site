@@ -98,8 +98,12 @@ function initLaunch(): void {
 			finish();
 			return;
 		}
-		const dx = window.innerWidth / 2 - (rect.left + rect.width / 2);
-		const dy = window.innerHeight / 2 - (rect.top + rect.height / 2);
+		// ズーム先は「画面中央」ではなく実際に表示されているアイコンの中心に合わせる。
+		// iOS Safari/Chrome ではツールバーの表示状態で window.innerHeight が揺れ、
+		// 画面中央の計算とfixed要素（アイコン）の見た目の中央がズレるため、
+		// アイコンの実測座標を唯一の基準にする（実機の「アイコンからアプリが開く」挙動とも一致）
+		const dx = iconRect.left + iconRect.width / 2 - (rect.left + rect.width / 2);
+		const dy = iconRect.top + iconRect.height / 2 - (rect.top + rect.height / 2);
 		const startScale = (iconRect.width * 1.02) / rect.width;
 
 		gsap.set(wrap, { x: dx, y: dy, scale: startScale, autoAlpha: 0, transformOrigin: '50% 50%' });
