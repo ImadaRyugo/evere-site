@@ -77,6 +77,7 @@ function initLaunch(): void {
 	const label = iconWrap?.querySelector<HTMLElement>('span') ?? null;
 	const phone = document.querySelector<HTMLElement>('[data-phone]');
 	const wrap = document.querySelector<HTMLElement>('[data-phone-launch]');
+	const scaler = document.querySelector<HTMLElement>('[data-phone-scale]');
 	const splash = document.querySelector<HTMLElement>('[data-phone-splash]');
 	const hint = document.querySelector<HTMLElement>('[data-story-hint]');
 
@@ -102,8 +103,17 @@ function initLaunch(): void {
 		// iOS Safari/Chrome ではツールバーの表示状態で window.innerHeight が揺れ、
 		// 画面中央の計算とfixed要素（アイコン）の見た目の中央がズレるため、
 		// アイコンの実測座標を唯一の基準にする（実機の「アイコンからアプリが開く」挙動とも一致）
-		const dx = iconRect.left + iconRect.width / 2 - (rect.left + rect.width / 2);
-		const dy = iconRect.top + iconRect.height / 2 - (rect.top + rect.height / 2);
+		//
+		// 注意: SPでは親の [data-phone-scale] に fitPhone() の縮小scaleが掛かる。
+		// wrap への x/y はそのローカル座標系で解釈され画面上では scale 倍に縮むため、
+		// 画面上の距離を親scaleで割って指定する（画面高さが低い実機で顕在化するズレの原因）
+		const parentScale =
+			scaler && scaler.offsetWidth > 0
+				? scaler.getBoundingClientRect().width / scaler.offsetWidth
+				: 1;
+		const dx = (iconRect.left + iconRect.width / 2 - (rect.left + rect.width / 2)) / parentScale;
+		const dy = (iconRect.top + iconRect.height / 2 - (rect.top + rect.height / 2)) / parentScale;
+		// startScale は画面上のサイズ比なので親scaleの影響を受けない（rect が実測値のため）
 		const startScale = (iconRect.width * 1.02) / rect.width;
 
 		gsap.set(wrap, { x: dx, y: dy, scale: startScale, autoAlpha: 0, transformOrigin: '50% 50%' });
