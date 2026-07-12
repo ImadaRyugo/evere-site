@@ -349,7 +349,16 @@ function initStory(): void {
 		scaler.style.transform = scale < 1 ? `scale(${scale.toFixed(3)})` : '';
 	};
 	fitPhone();
-	window.addEventListener('resize', fitPhone);
+	// 幅が変わったとき（回転・ウィンドウリサイズ）だけ再計算する。
+	// iOS Chrome はスクロールでツールバーが収納されると表示領域自体が高くなり
+	// resize が発火するため、高さだけの変化で再計算するとスクロール中に
+	// 縮小が解除されてフォンが巨大化してしまう（Safariはバーを被せるだけで発火しない）
+	let fitWidth = window.innerWidth;
+	window.addEventListener('resize', () => {
+		if (window.innerWidth === fitWidth) return;
+		fitWidth = window.innerWidth;
+		fitPhone();
+	});
 
 	/* --- マスタータイムライン（スクラブ） --- */
 	const tl = gsap.timeline({
