@@ -3,6 +3,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
+// iOS Chrome等はツールバー収納で表示領域ごとリサイズされ resize が発火する。
+// そのたびに全トリガーを再計算するとスクロール中にピンがガタつくため、
+// モバイルのブラウザUI起因のリサイズでは refresh しない（幅変更時は通常どおり実行）
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 let initialized = false;
 // 起動演出の完了後に再生するヒーロー導入タイムライン（initStoryが構築）

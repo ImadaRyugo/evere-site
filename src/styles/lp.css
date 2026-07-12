@@ -2417,6 +2417,9 @@ html:not([data-theme='light']) .lp-cta-bg-icon {
 .lp-story-pin {
 	position: relative;
 	min-height: 100svh;
+	/* iOS Chromeはツールバー収納時に表示領域が伸びるため、動的ビューポートに追従させて
+	   ピン中の下端に空白（白帯）が露出するのを防ぐ（dvh非対応環境はsvhのまま） */
+	min-height: 100dvh;
 	display: flex;
 	align-items: center;
 	overflow: clip;
