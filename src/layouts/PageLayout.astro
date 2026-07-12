@@ -56,17 +56,22 @@ const orgSchema = {
 		<script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
 
 		<script is:inline>
-			// テーマ初期化（描画前）。Starlightと同じキーを共有し、未設定はダーク。
+			// テーマ初期化（描画前）。優先順位: トグルで保存した設定 → 端末(OS)設定 → ライト。
+			// 保存はトグル操作時のみ行う（初回訪問で勝手に固定しない）
 			(function () {
-				var theme = 'dark';
+				var theme = null;
 				try {
 					var saved = localStorage.getItem('starlight-theme');
-					if (saved === 'light') theme = 'light';
-					if (!saved) localStorage.setItem('starlight-theme', 'dark');
+					if (saved === 'light' || saved === 'dark') theme = saved;
 				} catch (e) {
 					/* localStorage unavailable */
 				}
+				if (!theme) {
+					theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+				}
 				document.documentElement.dataset.theme = theme;
+				var meta = document.querySelector('meta[name="theme-color"]');
+				if (meta) meta.setAttribute('content', theme === 'light' ? '#f5f5f7' : '#0b0c0e');
 			})();
 			// 言語ページ訪問時に希望言語を保存
 			(function () {
