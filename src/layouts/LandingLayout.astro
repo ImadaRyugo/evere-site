@@ -93,6 +93,8 @@ const jsonLd = [
 		{jsonLd.map((schema) => (
 			<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 		))}
+		<!-- 起動演出のアイコンを最優先で読み込む（表示遅延でラベルだけ先に見えるのを防ぐ） -->
+		<link rel="preload" as="image" href={launchIcon.src} fetchpriority="high" />
 
 		<script is:inline>
 			// JS有効時のみ初期非表示（アニメーション用）。無効時は常に表示。
@@ -172,10 +174,29 @@ const jsonLd = [
 				<!-- 影はアイコン形状に沿わせるためラッパーの drop-shadow で描く
 				     （img自体の filter はタップ暗転のtweenが使うので分離） -->
 				<div class="lp-launch-icon-img">
-					<img src={launchIcon.src} width={launchIcon.width} height={launchIcon.height} alt="" />
+					<img
+						src={launchIcon.src}
+						width={launchIcon.width}
+						height={launchIcon.height}
+						fetchpriority="high"
+						alt=""
+					/>
 				</div>
 				<span>Evere</span>
 			</div>
+			<script is:inline>
+				// ラベルはアイコン画像の読み込み完了と同時に表示（先に文字だけ見えるのを防ぐ）
+				(function () {
+					var wrap = document.querySelector('[data-launch-icon]');
+					if (!wrap) return;
+					var img = wrap.querySelector('img');
+					var show = function () {
+						wrap.classList.add('is-img-ready');
+					};
+					if (img && !img.complete) img.addEventListener('load', show, { once: true });
+					else show();
+				})();
+			</script>
 		</div>
 		<slot />
 		<script>

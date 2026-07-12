@@ -34,6 +34,11 @@ const { locale, dict } = Astro.props;
 						<AppleBadge label={dict.hero.cta} locale={locale} />
 						<span class="lp-hero-note">{dict.hero.ctaNote}</span>
 					</div>
+					<!-- SP専用スクロールヒント（PCはピン下部の絶対配置版）。
+					     ヒーローの他要素と同じリビールに乗せ、S0退場時はシーンごと消える -->
+					<div class="lp-story-hint lp-story-hint--inline" aria-hidden="true" data-reveal>
+						<span></span>
+					</div>
 				</div>
 
 				<!-- S1〜S3: ストーリーシーン -->

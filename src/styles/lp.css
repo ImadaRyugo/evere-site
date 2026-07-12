@@ -2675,6 +2675,27 @@ html:not(.lp-js) .lp-scene:not(.is-active) {
 	}
 }
 
+/* SP専用のインライン版ヒント: ヒーローのCTA下（noteとフォンの間）に表示 */
+.lp-story-hint--inline {
+	position: static;
+	transform: none;
+	display: none;
+	margin-top: 26px;
+}
+
+@media (max-width: 900px) {
+	.lp-story-hint--inline {
+		display: block;
+	}
+}
+
+/* SPはボタンと「無料・登録不要」を縦積みにするため間隔を詰める */
+@media (max-width: 900px) {
+	.lp-hero-actions {
+		gap: 8px;
+	}
+}
+
 .lp-story-hint span {
 	display: block;
 	width: 20px;
@@ -3222,6 +3243,12 @@ html.lp-launching .lp-launch {
 	font-weight: 550;
 	letter-spacing: 0.01em;
 	color: var(--lp-text-2);
+	/* アイコン画像の読み込み完了までラベルを隠す（文字だけ先に見えるのを防ぐ） */
+	opacity: 0;
+}
+
+.lp-launch-icon.is-img-ready span {
+	opacity: 1;
 }
 
 /* PCでは画面が広いぶん実寸60pxだと小さすぎるため少し拡大（比率は維持） */
