@@ -16,7 +16,7 @@ interface Props {
 
 const { locale, title, description, path } = Astro.props;
 
-const site = Astro.site ?? new URL('https://evereapp.com');
+const site = Astro.site ?? new URL('https://support.evereapp.com');
 const canonical = new URL(`/${locale}/${path}/`, site);
 const alternates = LP_LOCALES.map((l) => ({
 	lang: HTML_LANG[l],
