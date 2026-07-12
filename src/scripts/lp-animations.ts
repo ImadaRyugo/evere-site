@@ -370,7 +370,9 @@ function initStory(): void {
 		scrollTrigger: {
 			trigger: pin,
 			start: 'top top',
-			end: '+=340%',
+			// SPはスワイプでスクロール速度が速く、シーンが一瞬で切り替わってしまうため
+			// 必要なスクロール量を1.5倍にして各アニメーションを見せる時間を確保する
+			end: isMobile ? '+=500%' : '+=340%',
 			pin: true,
 			scrub: 0.6,
 			anticipatePin: 1,
