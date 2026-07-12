@@ -1,5 +1,5 @@
-# 旧ドメイン support.evereapp.com は evereapp.com へ301（App Store登録URL・旧アプリ内リンクの救済）
-https://support.evereapp.com/* https://evereapp.com/:splat 301
+# 注: support.evereapp.com -> evereapp.com の301は Pages の _redirects では書けない
+# （ホスト名付きソース非対応）。Cloudflareゾーンのリダイレクトルールで設定する。
 
 # /en/*, /ja/*, /ko/*, /th/*, /zh-hans/*, /zh-hant/* have explicit paths.
 # Old unprefixed English guide URL -> new /en/ location
