@@ -1,3 +1,6 @@
+# 旧ドメイン support.evereapp.com は evereapp.com へ301（App Store登録URL・旧アプリ内リンクの救済）
+https://support.evereapp.com/* https://evereapp.com/:splat 301
+
 # /en/*, /ja/*, /ko/*, /th/*, /zh-hans/*, /zh-hant/* have explicit paths.
 # Old unprefixed English guide URL -> new /en/ location
 /docs/introduction/ /en/docs/introduction/ 301

@@ -4,7 +4,7 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://support.evereapp.com',
+	site: 'https://evereapp.com',
 	integrations: [
 		starlight({
 			title: 'Evere',
