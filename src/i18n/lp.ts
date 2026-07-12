@@ -198,7 +198,7 @@ export const lp: Record<LpLocale, LpDict> = {
 				{ icon: 'guest', title: 'ゲストモード', body: 'アカウント登録不要ですぐに使える' },
 				{ icon: 'receipt', title: '画像添付', body: 'レシートやお店の写真を支払いに添付' },
 				{ icon: 'category', title: 'カテゴリ管理', body: 'カテゴリを設定して支出を整理' },
-				{ icon: 'report', title: '共有機能', body: 'アプリを入れてないメンバーにも簡単に支払いを共有' },
+				{ icon: 'report', title: '共有機能', body: 'アプリを入れてないメンバーにも簡単に共有' },
 				{ icon: 'budget', title: '予算アラート', body: '使いすぎる前にお知らせ（Pro）' },
 				{ icon: 'offline', title: 'オフラインモード', body: '電波がなくても利用できる（Pro）' },
 			],
