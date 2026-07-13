@@ -156,7 +156,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		nav: { features: '機能', pricing: 'プラン', faq: 'FAQ', support: 'サポート', download: 'ダウンロード' },
 		hero: {
 			title: ['割り勘を、', 'もっと美しく。'],
-			sub: '旅先でも、ふだんの生活でも。払った人と金額を記録するだけで、あとはEvereが自動で精算。',
+			sub: '旅先でも、ふだんの生活でも。支払いを記録するだけで、あとはEvereが自動で精算。',
 			cta: 'App Store でダウンロード',
 			ctaNote: '無料・登録不要',
 		},
@@ -396,7 +396,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		nav: { features: 'Features', pricing: 'Plans', faq: 'FAQ', support: 'Support', download: 'Download' },
 		hero: {
 			title: ['Split bills,', 'beautifully.'],
-			sub: 'Log who paid — Evere does the math and keeps your whole group in sync.',
+			sub: 'On trips or in everyday life. Just log your payments, and Evere handles the rest automatically.',
 			cta: 'Download on the App Store',
 			ctaNote: 'Free · No sign-up needed',
 		},
@@ -633,7 +633,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		nav: { features: 'ฟีเจอร์', pricing: 'แพลน', faq: 'FAQ', support: 'ซัพพอร์ต', download: 'ดาวน์โหลด' },
 		hero: {
 			title: ['หารบิล', 'อย่างสวยงาม'],
-			sub: 'แค่บันทึกว่าใครจ่ายเท่าไหร่ ที่เหลือ Evere คิดให้หมด และซิงก์กับเพื่อนทั้งกลุ่มโดยอัตโนมัติ',
+			sub: 'ทั้งตอนไปเที่ยวและในชีวิตประจำวัน แค่บันทึกรายจ่าย ที่เหลือ Evere เคลียร์ยอดให้อัตโนมัติ',
 			cta: 'ดาวน์โหลดบน App Store',
 			ctaNote: 'ฟรี · ไม่ต้องสมัครสมาชิก',
 		},
@@ -870,7 +870,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		nav: { features: '기능', pricing: '플랜', faq: 'FAQ', support: '지원', download: '다운로드' },
 		hero: {
 			title: ['더치페이를,', '더 아름답게.'],
-			sub: '누가 얼마 냈는지만 기록하세요. 계산은 Evere가 알아서 하고, 그룹과 실시간으로 공유됩니다.',
+			sub: '여행에서도, 일상에서도. 지출만 기록하면 나머지는 Evere가 자동으로 정산해요.',
 			cta: 'App Store에서 다운로드',
 			ctaNote: '무료 · 가입 없이 시작',
 		},
@@ -1107,7 +1107,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		nav: { features: '功能', pricing: '方案', faq: '常见问题', support: '支持', download: '下载' },
 		hero: {
 			title: ['分账，', '也可以很优雅。'],
-			sub: '只需记下谁付了多少，剩下的交给 Evere，全组实时同步。',
+			sub: '旅行也好，日常也好。只需记下支出，剩下的交给 Evere 自动结算。',
 			cta: '在 App Store 下载',
 			ctaNote: '免费 · 无需注册',
 		},
@@ -1344,7 +1344,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		nav: { features: '功能', pricing: '方案', faq: '常見問題', support: '支援', download: '下載' },
 		hero: {
 			title: ['分帳，', '也可以很優雅。'],
-			sub: '只要記下誰付了多少，剩下的交給 Evere，全團即時同步。',
+			sub: '旅行也好，日常也好。只要記下支出，剩下的交給 Evere 自動結算。',
 			cta: '在 App Store 下載',
 			ctaNote: '免費 · 免註冊',
 		},
