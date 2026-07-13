@@ -1,9 +1,9 @@
 ---
-title: 简介
+title: AA制分账应用 Evere 使用指南
+sidebar:
+  label: 使用指南
 description: Evere - 情侣和团体的分账应用
 ---
-
-# 欢迎使用 Evere
 
 Evere 是一款帮助情侣和团体轻松管理分账和结算的移动应用程序。支持多种货币。
 

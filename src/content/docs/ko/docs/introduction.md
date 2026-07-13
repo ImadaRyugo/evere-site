@@ -1,9 +1,9 @@
 ---
-title: 소개
+title: 더치페이·정산 앱 Evere 사용법
+sidebar:
+  label: 사용 가이드
 description: Evere - 커플과 그룹을 위한 더치페이 앱
 ---
-
-# Evere에 오신 것을 환영합니다
 
 Evere는 커플과 그룹의 더치페이와 정산을 손쉽게 관리하는 모바일 애플리케이션입니다. 다중 통화를 지원합니다.
 

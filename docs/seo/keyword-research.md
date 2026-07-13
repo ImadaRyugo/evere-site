@@ -32,6 +32,9 @@
 - 立て替え 誰が誰に払う → 「精算回数を最小にする精算方法」
 - ルームシェア 家賃 光熱費 折半 → 「共同生活の固定費を管理する方法」
 
+### 採用title（2026-07-13）
+- 割り勘・立て替え精算アプリ Evere｜登録不要・無料
+
 ### 競合観察メモ（2026-07 検索時点）
 - 上位は比較記事（アプリブ / Good!Apps / WidgetClub / ポッポライン等）とツール直営（Walica / TATEKA）
 - 「登録不要」訴求は比較記事の主要評価軸になっており、Evereのゲストモードは適合度が高い
@@ -51,10 +54,28 @@
 - splitwise alternative free（比較意図・高コンバージョン）
 - split rent with partner / couple expense splitting app
 
-## その他言語（方針のみ）
-- 韓国語: 더치페이 앱 / 정산 앱 / 여행 정산
-- タイ語: แอปหารบิล / แชร์ค่าใช้จ่าย / หารค่าทริป
-- 中国語: AA制 App / 分帳 App（繁体） / 分账 App（简体）
+## その他言語（2026-07-13 SERP調査済み）
+
+### 韓国語（1ページ目: A형총무의 더치페이 / 더치페이 계산기 / 개미는 뚠뚠 / 카카오뱅크 1/N）
+- 頻出語: 더치페이 / 정산 / **엔빵·N빵**（俗語だが競合タイトルの定番）/ 계산기 / 여행 정산
+- 採用title: 더치페이·엔빵 정산 앱 Evere | 무료·가입 불필요
+
+### タイ語（1ページ目: หารนะ / Harntung / Splital / Splitwise紹介記事 / Pantip）
+- 頻出語: หารบิล / **หารเงินกับเพื่อน** / แชร์ค่าใช้จ่าย / ใช้ฟรี / ไม่ต้องสมัคร
+- 競合も「ไม่ต้องสมัคร（登録不要）」を主訴求にしており正面勝負
+- 採用title: แอปหารบิล Evere | หารเงินกับเพื่อน ใช้ฟรี ไม่ต้องสมัคร
+
+### 中国語簡体（1ページ目: AA账本 / 百事AA记账 / 圈子账本 / 知乎記事）
+- 頻出語: AA制 / 分账 / **记账** / 多人 / 多货币
+- 採用title: AA制分账App Evere｜多人记账、自动结算，免注册免费使用
+
+### 中国語繁体（1ページ目: Bill Bear / Settle Up解説 / Lightsplit / 旅遊系まとめ記事）
+- 頻出語: 分帳 App / **旅遊** / 聚餐 / 自動分帳 / 記帳 / 免下載（LINE系）
+- 採用title: 分帳 App Evere｜旅遊、聚餐自動分帳，免註冊免費使用
+
+### 英語（1ページ目: Splitwise / Tricount / Settle Up / billsplittingapp.com / 比較記事）
+- 頻出語: bill splitting app / **split expenses with friends** / free / no signup / settle
+- 採用title: Bill Splitting App — Evere | Split Expenses Free, No Sign-Up
 
 ## 現状のカバー状況
 - LPのmeta title/description（6言語）: プライマリキーワードは反映済み

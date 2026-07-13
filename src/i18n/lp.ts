@@ -149,7 +149,7 @@ export const lp: Record<LpLocale, LpDict> = {
 	/* ---------------------------------- 日本語 ---------------------------------- */
 	ja: {
 		meta: {
-			title: '割り勘・精算アプリ Evere｜登録不要で「誰が誰にいくら」を自動計算',
+			title: '割り勘・立て替え精算アプリ Evere｜登録不要・無料',
 			description:
 				'162通貨対応の割り勘・精算アプリ。旅先でも、ふだんの生活でも。支払いを登録するだけで、あとはEvereが自動で精算。大切な方やグループでの利用にぜひ。',
 		},
@@ -389,7 +389,7 @@ export const lp: Record<LpLocale, LpDict> = {
 	/* ---------------------------------- English ---------------------------------- */
 	en: {
 		meta: {
-			title: 'Split Bills & Expenses App — Evere | 162 currencies, no sign-up',
+			title: 'Bill Splitting App — Evere | Split Expenses Free, No Sign-Up',
 			description:
 				'Evere is a bill splitting and expense sharing app. Log who paid and it works out who owes whom — across 162 currencies. Perfect for trips, housemates, and everyday IOUs. Free on iOS, no sign-up needed.',
 		},
@@ -626,7 +626,7 @@ export const lp: Record<LpLocale, LpDict> = {
 	/* ---------------------------------- ไทย ---------------------------------- */
 	th: {
 		meta: {
-			title: 'แอปหารบิล & แชร์ค่าใช้จ่าย Evere | 162 สกุลเงิน ไม่ต้องสมัคร',
+			title: 'แอปหารบิล Evere | หารเงินกับเพื่อน ใช้ฟรี ไม่ต้องสมัคร',
 			description:
 				'Evere แอปหารบิลและแชร์ค่าใช้จ่าย บันทึกว่าใครจ่ายเท่าไหร่ แอปคำนวณให้ว่าใครต้องโอนให้ใคร เหมาะกับทริปเที่ยว รูมเมท และค่าใช้จ่ายประจำวัน รองรับ 162 สกุลเงิน ฟรีบน iOS ไม่ต้องสมัครสมาชิก',
 		},
@@ -863,7 +863,7 @@ export const lp: Record<LpLocale, LpDict> = {
 	/* ---------------------------------- 한국어 ---------------------------------- */
 	ko: {
 		meta: {
-			title: '더치페이·정산 앱 Evere | 가입 없이 "누가 누구에게 얼마" 자동 계산',
+			title: '더치페이·엔빵 정산 앱 Evere | 무료·가입 불필요',
 			description:
 				'더치페이·정산 앱 Evere. 누가 얼마 냈는지만 기록하면 "누가 누구에게 얼마"를 자동 계산. 여행 더치페이도 일상 정산도 이 앱 하나로. 162개 통화 지원, 가입 불필요, iOS 무료.',
 		},
@@ -1100,7 +1100,7 @@ export const lp: Record<LpLocale, LpDict> = {
 	/* ---------------------------------- 简体中文 ---------------------------------- */
 	'zh-hans': {
 		meta: {
-			title: 'AA制分账应用 Evere｜免注册自动算清"谁该给谁多少"',
+			title: 'AA制分账App Evere｜多人记账、自动结算，免注册免费使用',
 			description:
 				'AA制分账·结算应用 Evere。只需记下谁付了多少，自动算清"谁该给谁多少"。旅行分账、合租记账都能用。支持 162 种货币，免注册，iOS 免费下载。',
 		},
@@ -1337,7 +1337,7 @@ export const lp: Record<LpLocale, LpDict> = {
 	/* ---------------------------------- 繁體中文 ---------------------------------- */
 	'zh-hant': {
 		meta: {
-			title: '分帳 App Evere｜免註冊自動算清「誰該給誰多少」',
+			title: '分帳 App Evere｜旅遊、聚餐自動分帳，免註冊免費使用',
 			description:
 				'分帳·結算 App Evere。只要記下誰付了多少，自動算清「誰該給誰多少」。旅行分帳、合租記帳都好用。支援 162 種貨幣，免註冊，iOS 免費下載。',
 		},

@@ -1,9 +1,9 @@
 ---
-title: 簡介
+title: 分帳 App Evere 使用指南
+sidebar:
+  label: 使用指南
 description: Evere - 情侶和團體的分帳應用程式
 ---
-
-# 歡迎使用 Evere
 
 Evere 是一款幫助情侶和團體輕鬆管理分帳和結算的行動應用程式。支援多種貨幣。
 

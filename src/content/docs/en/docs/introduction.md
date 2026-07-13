@@ -1,9 +1,9 @@
 ---
-title: Introduction
+title: How to Use Evere — Bill Splitting & Expense App
+sidebar:
+  label: User Guide
 description: Introduction to Evere - Split bills easily across currencies
 ---
-
-# Welcome to Evere
 
 Evere is a mobile application designed to help couples and groups manage bill splitting and settlements effortlessly across multiple currencies.
 
