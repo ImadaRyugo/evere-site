@@ -310,8 +310,8 @@ export const lp: Record<LpLocale, LpDict> = {
 					a: 'はい、そこがEvereの得意分野です。バーツ・ドル・円が入り混じっても、記録するだけで基準通貨に自動換算してすっきり精算。レートは記録した時点のものを保存するので、あとで変動しても安心です。',
 				},
 				{
-					q: '海外にいても、日本の家族や友人と使えますか？',
-					a: 'はい。データはクラウドで同期されるので、国や時差が違っても同じプロジェクトをリアルタイムで共有できます。海外赴任・留学・国際カップルの割り勘も、これひとつで完結します。',
+					q: 'パートナーや友達が海外にいても、一緒に使えますか？',
+					a: 'はい。データはクラウドで同期されるので、離れて暮らしていても、同じプロジェクトをリアルタイムで共有できます。国際カップルや遠距離、海外に住む家族・友人との割り勘も、これひとつで完結します。',
 				},
 				{
 					q: '自分自身の支出管理としても使えますか？',
@@ -548,23 +548,23 @@ export const lp: Record<LpLocale, LpDict> = {
 				{ q: 'Which devices are supported?', a: 'iPhone running iOS 15.1 or later. There’s no Android version at the moment.' },
 				{
 					q: 'How is Evere different from other bill-splitting apps?',
-					a: 'Most apps are built for one-off trips or nights out’—you rebuild the group every time. Evere keeps the same project going, so it fits everyday life. And multi-currency (162 currencies, auto-converted)’—often paywalled or limited elsewhere’—is yours for free. No sign-up, a modern interface: it’s a companion for everyday splitting, not just a calculator.',
+					a: 'Most apps are built for one-off trips or nights out—you rebuild the group every time. Evere keeps the same project going, so it fits everyday life. And multi-currency (162 currencies, auto-converted)—often paywalled or limited elsewhere—is yours for free. No sign-up, a modern interface: it’s a companion for everyday splitting, not just a calculator.',
 				},
 				{
 					q: 'Do we have to settle up every time, or can we keep using it?',
-					a: 'Settle up only when you want to. Balances carry over, so one project handles everything’—from a single trip to shared living costs and everyday splits. Your history stays, too, so it’s easy to look back later.',
+					a: 'Settle up only when you want to. Balances carry over, so one project handles everything—from a single trip to shared living costs and everyday splits. Your history stays, too, so it’s easy to look back later.',
 				},
 				{
 					q: 'Can it settle a project with several currencies mixed together?',
-					a: 'Absolutely’—this is where Evere shines. Baht, dollars, and yen all in one trip? Just log each expense and Evere converts everything to your base currency for a clean settle-up. Rates are saved the moment you log, so later swings don’t matter.',
+					a: 'Absolutely—this is where Evere shines. Baht, dollars, and yen all in one trip? Just log each expense and Evere converts everything to your base currency for a clean settle-up. Rates are saved the moment you log, so later swings don’t matter.',
 				},
 				{
-					q: 'I live abroad{RS}—can I use it with family or friends back home?',
-					a: 'Yes. Everything syncs through the cloud, so no matter the country or time zone, you share the same project in real time. Perfect for expats, students, and international couples.',
+					q: 'What if my partner or a friend lives abroad—can we still use it together?',
+					a: 'Yes. Everything syncs through the cloud, so even when you live apart, you share the same project in real time. Perfect for long-distance and international couples, and for splitting with family or friends overseas.',
 				},
 				{
 					q: 'Can I use it just to track my own spending?',
-					a: 'Yes. Make a project for yourself and it becomes a personal expense log’—organized by category and currency. It’s especially handy for tracking spending across currencies abroad. Splitting or solo budgeting, it’s all in one app.',
+					a: 'Yes. Make a project for yourself and it becomes a personal expense log—organized by category and currency. It’s especially handy for tracking spending across currencies abroad. Splitting or solo budgeting, it’s all in one app.',
 				},
 			],
 		},
@@ -808,8 +808,8 @@ export const lp: Record<LpLocale, LpDict> = {
 					a: 'ได้แน่นอน นี่คือจุดเด่นของ Evere เลย บาท ดอลลาร์ เยน ปนกันในทริปเดียว แค่บันทึกแต่ละรายการ Evere ก็แปลงเป็นสกุลเงินหลักให้เคลียร์ยอดได้อย่างเรียบร้อย เรตถูกบันทึกไว้ตั้งแต่ตอนจด ต่อให้เรตขยับทีหลังก็ไม่ต้องห่วง',
 				},
 				{
-					q: 'อยู่ต่างประเทศ ใช้ร่วมกับครอบครัวหรือเพื่อนที่บ้านได้ไหม?',
-					a: 'ได้ ข้อมูลซิงก์ผ่านคลาวด์ ไม่ว่าจะอยู่คนละประเทศหรือคนละไทม์โซน ก็แชร์โปรเจกต์เดียวกันแบบเรียลไทม์ได้ เหมาะสำหรับคนทำงานต่างแดน นักเรียนนอก และคู่รักต่างชาติ',
+					q: 'ถ้าแฟนหรือเพื่อนอยู่ต่างประเทศ ใช้ด้วยกันได้ไหม?',
+					a: 'ได้ ข้อมูลซิงก์ผ่านคลาวด์ ต่อให้อยู่คนละที่ก็แชร์โปรเจกต์เดียวกันแบบเรียลไทม์ได้ เหมาะกับคู่รักทางไกลและคู่รักต่างชาติ รวมถึงการหารเงินกับครอบครัวหรือเพื่อนที่อยู่ต่างแดน',
 				},
 				{
 					q: 'ใช้จัดการค่าใช้จ่ายของตัวเองคนเดียวได้ไหม?',
@@ -1057,8 +1057,8 @@ export const lp: Record<LpLocale, LpDict> = {
 					a: '물론이죠. 바로 Evere가 잘하는 부분이에요. 바트·달러·원이 섞여 있어도 각 지출을 기록하기만 하면 기준 통화로 자동 환산해 깔끔하게 정산해 줍니다. 환율은 기록한 시점 그대로 저장되니, 나중에 바뀌어도 걱정 없어요.',
 				},
 				{
-					q: '해외에 살아도 한국의 가족이나 친구와 같이 쓸 수 있나요?',
-					a: '네. 데이터가 클라우드로 동기화되어, 나라나 시차가 달라도 같은 프로젝트를 실시간으로 공유할 수 있어요. 해외 근무·유학·국제 커플의 더치페이도 이 하나로.',
+					q: '파트너나 친구가 해외에 있어도 같이 쓸 수 있나요?',
+					a: '네. 데이터가 클라우드로 동기화되어, 서로 떨어져 있어도 같은 프로젝트를 실시간으로 공유할 수 있어요. 장거리 커플이나 국제 커플, 해외에 있는 가족·친구와의 더치페이도 이 하나로.',
 				},
 				{
 					q: '제 지출 관리용으로도 쓸 수 있나요?',
@@ -1306,8 +1306,8 @@ export const lp: Record<LpLocale, LpDict> = {
 					a: '当然，这正是 Evere 的拿手好戏。泰铢、美元、日元混在一起？只要记下每笔支出，Evere 就自动换算成基准货币，干净利落地结清。汇率会按记账当时保存，之后再波动也不用担心。',
 				},
 				{
-					q: '我住在国外，能和国内的家人朋友一起用吗？',
-					a: '可以。数据通过云端同步，无论身在哪个国家、时差多少，都能实时共享同一个项目。外派、留学、跨国情侣的分账，一个就够。',
+					q: '如果伴侣或朋友在国外，也能一起用吗？',
+					a: '可以。数据通过云端同步，即使分隔两地，也能实时共享同一个项目。异地情侣、跨国情侣，以及和身在国外的家人朋友分账，一个就够。',
 				},
 				{
 					q: '能只用来管理自己的支出吗？',
@@ -1555,8 +1555,8 @@ export const lp: Record<LpLocale, LpDict> = {
 					a: '當然，這正是 Evere 的拿手好戲。泰銖、美元、日圓混在一起？只要記下每筆支出，Evere 就自動換算成基準貨幣，乾淨俐落地結清。匯率會按記帳當時保存，之後再波動也不用擔心。',
 				},
 				{
-					q: '我住在國外，能和家鄉的家人朋友一起用嗎？',
-					a: '可以。資料透過雲端同步，無論身在哪個國家、時差多少，都能即時共享同一個專案。外派、留學、跨國情侶的分帳，一個就夠。',
+					q: '如果伴侶或朋友在國外，也能一起用嗎？',
+					a: '可以。資料透過雲端同步，即使分隔兩地，也能即時共享同一個專案。異地情侶、跨國情侶，以及和身在國外的家人朋友分帳，一個就夠。',
 				},
 				{
 					q: '能只用來管理自己的支出嗎？',
