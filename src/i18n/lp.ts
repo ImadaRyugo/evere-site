@@ -187,7 +187,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			{
 				label: '精算',
 				title: '「誰が誰にいくら」を一瞬で。',
-				body: '精算は、最小の回数で。どんなに入り組んだ立て替えも、誰が誰に払えばいいかを自動で計算します。精算状況も、いつでも確認できます。',
+				body: '精算は、最小の回数で。どんなに入り組んだ立て替えも、誰が誰に払えばいいかを自動で計算します。支払いごとでも、まとめてでも自由に精算できます。',
 			},
 		],
 		splitModes: ['均等割', '割合指定', '金額指定'],
@@ -207,9 +207,9 @@ export const lp: Record<LpLocale, LpDict> = {
 			eyebrow: '使い方',
 			title: '使い方は、これだけ。',
 			items: [
-				{ title: 'プロジェクトを作成', body: '旅行、デート、飲み会。シーンごとに作って、メンバーを呼ぶだけ。登録は要りません。' },
-				{ title: '支払いを記録', body: '払った人と金額を入れるだけ。通貨の指定もレシート添付も、その場でサッと。' },
-				{ title: '精算する', body: '「誰が誰にいくら」はEvereが計算。送金したらチェックして、おしまい。' },
+				{ title: 'プロジェクトを作成', body: '旅行、デート、飲み会。シーンごとに作って、メンバーを追加するだけ。' },
+				{ title: '支払いを記録', body: '支払いをかんたんに記録。通貨の指定やレシートの添付、お店のリンクをメモとして残すことも。' },
+				{ title: '精算する', body: '誰にいくら払えばいいかを、Evereが自動で計算。誰の精算が済んだかは記録に残るから、返し忘れも起きません。' },
 			],
 		},
 		pricing: {
@@ -298,12 +298,24 @@ export const lp: Record<LpLocale, LpDict> = {
 					a: 'iOS 15.1 以降の iPhone に対応しています。Android版は現在提供していません。',
 				},
 				{
-					q: '何通貨に対応していますか？',
-					a: '162通貨に対応し、為替レートは自動で取得されます。Pro では手動レートの入力もできます。',
+					q: '他の割り勘アプリとは何が違うのですか？',
+					a: '多くのアプリは旅行や飲み会など「1回きり」向けで、使うたびにグループを作り直す必要があります。Evereは同じプロジェクトを続けて使えるので、日常の割り勘にぴったり。さらに、他アプリでは有料や制限つきになりがちな多通貨対応（162通貨・自動換算）を、無料で存分に使えます。登録不要ですぐ始められる、毎日の割り勘の相棒です。',
 				},
 				{
-					q: '一緒に使う人もアプリのインストールが必要ですか？',
-					a: '招待リンクから参加してもらう場合は必要です。アプリを使わない人は、名前だけの参加者として追加でき、各支払い・精算結果も簡単に共有できます。',
+					q: '毎回精算しなくても、続けて使えますか？',
+					a: 'はい。精算は「したい時」だけでOK。貸し借りはそのまま繰り越せるので、旅行の単発利用から、同棲の生活費や日々の割り勘まで、ひとつのプロジェクトでずっと使い続けられます。履歴も残るので、あとから見返すのもかんたんです。',
+				},
+				{
+					q: '複数の通貨が混ざっても精算できますか？',
+					a: 'はい、そこがEvereの得意分野です。バーツ・ドル・円が入り混じっても、記録するだけで基準通貨に自動換算してすっきり精算。レートは記録した時点のものを保存するので、あとで変動しても安心です。',
+				},
+				{
+					q: '海外にいても、日本の家族や友人と使えますか？',
+					a: 'はい。データはクラウドで同期されるので、国や時差が違っても同じプロジェクトをリアルタイムで共有できます。海外赴任・留学・国際カップルの割り勘も、これひとつで完結します。',
+				},
+				{
+					q: '自分自身の支出管理としても使えますか？',
+					a: 'はい。ひとりだけのプロジェクトを作れば、自分専用の支出記録に。カテゴリや通貨ごとに整理できるので、特に海外での多通貨の出費管理にも便利です。割り勘も個人の家計も、これひとつで。',
 				},
 			],
 		},
@@ -427,7 +439,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			{
 				label: 'Settle up',
 				title: '“Who owes whom, how much” — instantly.',
-				body: 'Settle up in as few payments as possible. However messy it gets, Evere works out who pays whom — and you can check the settlement status anytime.',
+				body: 'Settle up in as few payments as possible. However messy it gets, Evere works out who pays whom — then clear it payment by payment, or all at once.',
 			},
 		],
 		splitModes: ['Equal', 'By Percentage', 'By Amount'],
@@ -447,9 +459,9 @@ export const lp: Record<LpLocale, LpDict> = {
 			eyebrow: 'How it works',
 			title: 'Three steps to settled.',
 			items: [
-				{ title: 'Create a project', body: 'A trip, a flat, a night out — make a project and invite the crew. No sign-up needed.' },
-				{ title: 'Log expenses', body: 'Who paid, how much, done. Add a currency or a receipt photo if you need it.' },
-				{ title: 'Settle up', body: 'Evere works out who owes whom. Pay up, tick it off, move on.' },
+				{ title: 'Create a project', body: 'A trip, a flat, a night out — make a project and add your crew.' },
+				{ title: 'Log expenses', body: 'Logging an expense is simple. Add a currency, a receipt, or a note — even a link to the place you went.' },
+				{ title: 'Settle up', body: 'Evere works out exactly who pays whom. Who\u2019s paid and who hasn\u2019t is always tracked, so nothing slips through.' },
 			],
 		},
 		pricing: {
@@ -535,12 +547,24 @@ export const lp: Record<LpLocale, LpDict> = {
 				},
 				{ q: 'Which devices are supported?', a: 'iPhone running iOS 15.1 or later. There’s no Android version at the moment.' },
 				{
-					q: 'How many currencies are supported?',
-					a: '162 currencies, with exchange rates fetched automatically. Pro also lets you enter rates manually.',
+					q: 'How is Evere different from other bill-splitting apps?',
+					a: 'Most apps are built for one-off trips or nights out’—you rebuild the group every time. Evere keeps the same project going, so it fits everyday life. And multi-currency (162 currencies, auto-converted)’—often paywalled or limited elsewhere’—is yours for free. No sign-up, a modern interface: it’s a companion for everyday splitting, not just a calculator.',
 				},
 				{
-					q: 'Does everyone need the app?',
-					a: 'Only members who join through an invite link need it. Friends without the app can be added by name, and you can easily share expenses and settlement results with them.',
+					q: 'Do we have to settle up every time, or can we keep using it?',
+					a: 'Settle up only when you want to. Balances carry over, so one project handles everything’—from a single trip to shared living costs and everyday splits. Your history stays, too, so it’s easy to look back later.',
+				},
+				{
+					q: 'Can it settle a project with several currencies mixed together?',
+					a: 'Absolutely’—this is where Evere shines. Baht, dollars, and yen all in one trip? Just log each expense and Evere converts everything to your base currency for a clean settle-up. Rates are saved the moment you log, so later swings don’t matter.',
+				},
+				{
+					q: 'I live abroad{RS}—can I use it with family or friends back home?',
+					a: 'Yes. Everything syncs through the cloud, so no matter the country or time zone, you share the same project in real time. Perfect for expats, students, and international couples.',
+				},
+				{
+					q: 'Can I use it just to track my own spending?',
+					a: 'Yes. Make a project for yourself and it becomes a personal expense log’—organized by category and currency. It’s especially handy for tracking spending across currencies abroad. Splitting or solo budgeting, it’s all in one app.',
 				},
 			],
 		},
@@ -664,7 +688,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			{
 				label: 'เคลียร์ยอด',
 				title: '"ใครต้องจ่ายใคร เท่าไหร่" รู้ทันที',
-				body: 'เคลียร์ยอดด้วยจำนวนครั้งน้อยที่สุด ยอดยืมกันวุ่นแค่ไหน Evere ก็คำนวณให้ว่าใครต้องจ่ายให้ใคร และเช็กสถานะการเคลียร์ยอดได้ตลอดเวลา',
+				body: 'เคลียร์ยอดด้วยจำนวนครั้งน้อยที่สุด ยอดยืมกันวุ่นแค่ไหน Evere ก็คำนวณให้ว่าใครต้องจ่ายให้ใคร จะเคลียร์ทีละรายการหรือรวบทีเดียวก็ได้',
 			},
 		],
 		splitModes: ['แบ่งเท่ากัน', 'เปอร์เซ็นต์', 'จำนวนเงิน'],
@@ -684,9 +708,9 @@ export const lp: Record<LpLocale, LpDict> = {
 			eyebrow: 'วิธีใช้งาน',
 			title: 'ใช้งานง่ายแค่นี้เอง',
 			items: [
-				{ title: 'สร้างโปรเจกต์', body: 'ทริป ห้องแชร์ หรือปาร์ตี้ สร้างโปรเจกต์แล้วชวนเพื่อนเข้ามา ไม่ต้องสมัครสมาชิก' },
-				{ title: 'บันทึกรายจ่าย', body: 'ใส่แค่ใครจ่ายกับจำนวนเงิน จะเลือกสกุลเงินหรือแนบใบเสร็จก็ทำได้ทันที' },
-				{ title: 'เคลียร์ยอด', body: '"ใครต้องโอนให้ใคร" Evere คิดให้ โอนเสร็จติ๊กถูกก็จบ' },
+				{ title: 'สร้างโปรเจกต์', body: 'ทริป ห้องแชร์ หรือปาร์ตี้ สร้างโปรเจกต์แล้วเพิ่มเพื่อนเข้ามาได้เลย' },
+				{ title: 'บันทึกรายจ่าย', body: 'บันทึกรายจ่ายได้ง่ายๆ เลือกสกุลเงิน แนบใบเสร็จ หรือจดลิงก์ร้านไว้ในโน้ตก็ได้' },
+				{ title: 'เคลียร์ยอด', body: 'Evere คำนวณให้ว่าใครต้องจ่ายให้ใครเท่าไหร่ ใครเคลียร์แล้วบ้างระบบบันทึกไว้ให้ จะได้ไม่มีใครลืมจ่าย' },
 			],
 		},
 		pricing: {
@@ -772,12 +796,24 @@ export const lp: Record<LpLocale, LpDict> = {
 				},
 				{ q: 'รองรับอุปกรณ์อะไรบ้าง?', a: 'iPhone ที่ใช้ iOS 15.1 ขึ้นไป ยังไม่มีเวอร์ชัน Android ในตอนนี้' },
 				{
-					q: 'รองรับกี่สกุลเงิน?',
-					a: '162 สกุลเงิน พร้อมอัตราแลกเปลี่ยนอัตโนมัติ Pro ยังใส่อัตราเองได้ด้วย',
+					q: 'Evere ต่างจากแอปหารบิลอื่นยังไง?',
+					a: 'แอปส่วนใหญ่ทำมาเพื่อทริปหรือปาร์ตี้ครั้งเดียว ต้องสร้างกลุ่มใหม่ทุกครั้ง แต่ Evere ใช้โปรเจกต์เดิมต่อเนื่องได้ จึงเข้ากับชีวิตประจำวัน แถมรองรับหลายสกุลเงิน (162 สกุลเงิน แปลงอัตโนมัติ) ที่แอปอื่นมักคิดเงินเพิ่มหรือจำกัด แต่ที่นี่ใช้ฟรีเต็มที่ ไม่ต้องสมัคร UI ทันสมัย เป็นเพื่อนคู่ใจเรื่องหารเงินในทุกวัน ไม่ใช่แค่เครื่องคิดเลข',
 				},
 				{
-					q: 'เพื่อนต้องติดตั้งแอปด้วยไหม?',
-					a: 'ต้องติดตั้งเฉพาะคนที่เข้าร่วมผ่านลิงก์เชิญ เพื่อนที่ไม่ใช้แอปก็เพิ่มแค่ชื่อได้ และยังแชร์รายการจ่ายกับผลการเคลียร์ยอดให้เขาได้ง่าย ๆ',
+					q: 'ต้องเคลียร์ยอดทุกครั้งไหม หรือใช้ต่อเนื่องได้?',
+					a: 'เคลียร์ยอดเมื่อไหร่ก็ได้ตามต้องการ ยอดค้างยกไปได้เรื่อย ๆ โปรเจกต์เดียวใช้ได้หมด ตั้งแต่ทริปครั้งเดียวไปจนถึงค่าใช้จ่ายในบ้านและการหารรายวัน แถมประวัติยังอยู่ครบ ย้อนดูทีหลังก็ง่าย',
+				},
+				{
+					q: 'ถ้าในโปรเจกต์มีหลายสกุลเงินปนกัน เคลียร์ยอดได้ไหม?',
+					a: 'ได้แน่นอน นี่คือจุดเด่นของ Evere เลย บาท ดอลลาร์ เยน ปนกันในทริปเดียว แค่บันทึกแต่ละรายการ Evere ก็แปลงเป็นสกุลเงินหลักให้เคลียร์ยอดได้อย่างเรียบร้อย เรตถูกบันทึกไว้ตั้งแต่ตอนจด ต่อให้เรตขยับทีหลังก็ไม่ต้องห่วง',
+				},
+				{
+					q: 'อยู่ต่างประเทศ ใช้ร่วมกับครอบครัวหรือเพื่อนที่บ้านได้ไหม?',
+					a: 'ได้ ข้อมูลซิงก์ผ่านคลาวด์ ไม่ว่าจะอยู่คนละประเทศหรือคนละไทม์โซน ก็แชร์โปรเจกต์เดียวกันแบบเรียลไทม์ได้ เหมาะสำหรับคนทำงานต่างแดน นักเรียนนอก และคู่รักต่างชาติ',
+				},
+				{
+					q: 'ใช้จัดการค่าใช้จ่ายของตัวเองคนเดียวได้ไหม?',
+					a: 'ได้ สร้างโปรเจกต์คนเดียวก็กลายเป็นสมุดบันทึกรายจ่ายส่วนตัว จัดตามหมวดหมู่และสกุลเงินได้ สะดวกเป็นพิเศษเวลาต้องจัดการรายจ่ายหลายสกุลเงินในต่างประเทศ ทั้งหารบิลและดูแลเงินตัวเอง จบในแอปเดียว',
 				},
 			],
 		},
@@ -901,7 +937,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			{
 				label: '정산',
 				title: '"누가 누구에게 얼마"를 한 번에.',
-				body: '정산은 최소한의 횟수로. 아무리 꼬인 돈 관계도 누가 누구에게 주면 되는지 자동으로 계산합니다. 정산 상황도 언제든 확인할 수 있어요.',
+				body: '정산은 최소한의 횟수로. 아무리 꼬인 돈 관계도 누가 누구에게 주면 되는지 자동으로 계산합니다. 지출별로든 한 번에 몰아서든 자유롭게 정산할 수 있어요.',
 			},
 		],
 		splitModes: ['균등', '비율', '금액 지정'],
@@ -921,9 +957,9 @@ export const lp: Record<LpLocale, LpDict> = {
 			eyebrow: '사용 방법',
 			title: '사용법은 이게 전부입니다.',
 			items: [
-				{ title: '프로젝트 만들기', body: '여행, 자취방, 회식. 상황별로 프로젝트를 만들고 멤버를 부르면 끝. 가입은 필요 없어요.' },
-				{ title: '지출 기록', body: '낸 사람과 금액만 입력하면 끝. 통화 선택도 영수증 첨부도 그 자리에서 바로.' },
-				{ title: '정산하기', body: '"누가 누구에게 얼마"는 Evere가 계산. 보내고 체크하면 끝.' },
+				{ title: '프로젝트 만들기', body: '여행, 자취방, 회식. 상황별로 프로젝트를 만들고 멤버를 추가하면 끝.' },
+				{ title: '지출 기록', body: '지출 기록은 간단해요. 통화 선택, 영수증 첨부, 가게 링크를 메모로 남기는 것도.' },
+				{ title: '정산하기', body: '누가 누구에게 얼마를 내면 되는지 Evere가 자동으로 계산. 누가 정산했는지 기록에 남으니 갚는 걸 깜빡할 일도 없어요.' },
 			],
 		},
 		pricing: {
@@ -1009,12 +1045,24 @@ export const lp: Record<LpLocale, LpDict> = {
 				},
 				{ q: '지원 기기는?', a: 'iOS 15.1 이상의 iPhone을 지원합니다. Android 버전은 아직 제공하지 않습니다.' },
 				{
-					q: '몇 개의 통화를 지원하나요?',
-					a: '162개 통화를 지원하며 환율은 자동으로 가져옵니다. Pro에서는 수동 입력도 가능합니다.',
+					q: '다른 더치페이 앱과 뭐가 다른가요?',
+					a: '대부분의 앱은 여행이나 모임 “한 번”을 위한 것이라 쓸 때마다 그룹을 새로 만들어야 해요. Evere는 같은 프로젝트를 계속 쓸 수 있어 일상에 딱 맞습니다. 게다가 다른 앱에서는 유료거나 제한되기 쉬운 다중 통화(162개 통화·자동 환산)를 무료로 마음껏. 가입 없이 바로, UI도 세련되게 — 계산기가 아니라 매일의 더치페이 파트너예요.',
 				},
 				{
-					q: '같이 쓰는 사람도 앱을 설치해야 하나요?',
-					a: '초대 링크로 참여하는 멤버만 설치하면 됩니다. 앱을 쓰지 않는 사람은 이름만으로 추가할 수 있고, 각 지출과 정산 결과도 간편하게 공유할 수 있습니다.',
+					q: '매번 정산하지 않고 계속 써도 되나요?',
+					a: '네. 정산은 원할 때만 하면 돼요. 빌린 돈은 그대로 이월되니, 한 번의 여행부터 동거 생활비, 매일의 더치페이까지 프로젝트 하나로 쭉 쓸 수 있어요. 기록도 남아서 나중에 돌아보기도 쉽습니다.',
+				},
+				{
+					q: '여러 통화가 섞인 프로젝트도 정산되나요?',
+					a: '물론이죠. 바로 Evere가 잘하는 부분이에요. 바트·달러·원이 섞여 있어도 각 지출을 기록하기만 하면 기준 통화로 자동 환산해 깔끔하게 정산해 줍니다. 환율은 기록한 시점 그대로 저장되니, 나중에 바뀌어도 걱정 없어요.',
+				},
+				{
+					q: '해외에 살아도 한국의 가족이나 친구와 같이 쓸 수 있나요?',
+					a: '네. 데이터가 클라우드로 동기화되어, 나라나 시차가 달라도 같은 프로젝트를 실시간으로 공유할 수 있어요. 해외 근무·유학·국제 커플의 더치페이도 이 하나로.',
+				},
+				{
+					q: '제 지출 관리용으로도 쓸 수 있나요?',
+					a: '네. 혼자만의 프로젝트를 만들면 나만의 지출 기록장이 돼요. 카테고리와 통화별로 정리할 수 있어, 특히 해외에서 여러 통화 지출을 관리할 때 편리합니다. 더치페이도, 개인 가계부도 이 하나로.',
 				},
 			],
 		},
@@ -1138,7 +1186,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			{
 				label: '结算',
 				title: '"谁该给谁多少钱"，立刻知道。',
-				body: '用最少的结算次数搞定。再乱的账，也能自动算清谁该给谁多少，结算状态随时可查。',
+				body: '用最少的结算次数搞定。再乱的账，也能自动算清谁该给谁多少。逐笔结算或一次清账，都随你。',
 			},
 		],
 		splitModes: ['平均分摊', '按比例', '按金额'],
@@ -1158,9 +1206,9 @@ export const lp: Record<LpLocale, LpDict> = {
 			eyebrow: '使用方法',
 			title: '用法就这么简单。',
 			items: [
-				{ title: '创建项目', body: '旅行、合租、聚餐，按场景建项目、拉人进来就行。不用注册。' },
-				{ title: '记录支出', body: '填上谁付的、付了多少就行。选货币、附收据，顺手的事。' },
-				{ title: '结算', body: '"谁该给谁多少"由 Evere 计算。转完账打个勾，收工。' },
+				{ title: '创建项目', body: '旅行、合租、聚餐，按场景建项目、拉人进来就行。' },
+				{ title: '记录支出', body: '记一笔很轻松。选货币、附收据，还能把店铺链接记在备注里。' },
+				{ title: '结算', body: '谁该给谁多少，Evere 自动算好。谁结清了都有记录，再也不会漏还钱。' },
 			],
 		},
 		pricing: {
@@ -1246,12 +1294,24 @@ export const lp: Record<LpLocale, LpDict> = {
 				},
 				{ q: '支持哪些设备？', a: '支持 iOS 15.1 及以上版本的 iPhone。暂无 Android 版。' },
 				{
-					q: '支持多少种货币？',
-					a: '支持 162 种货币，汇率自动获取。Pro 版还可手动输入汇率。',
+					q: '和其他分账 App 有什么不一样？',
+					a: '大多数 App 是为一次旅行或聚会设计的，每次都得重新建群。Evere 可以一直用同一个项目，更贴合日常。而且多货币（162 种货币、自动换算）——在别处常常要付费或受限——在这里免费随便用。免注册、马上上手、界面时髦：它不是一个计算器，而是你每天分账的好搭档。',
 				},
 				{
-					q: '一起用的人也需要安装应用吗？',
-					a: '只有通过邀请链接加入的成员需要安装。不用应用的朋友，填个名字就能加进来，每笔支出和结算结果也能轻松分享给对方。',
+					q: '每次都要结清吗，还是可以一直用下去？',
+					a: '想结清时再结清就好。欠款会自动结转，所以一个项目就能搞定一切——从一次旅行到同居生活费、每天的分账。记录也都会保留下来，之后回看也方便。',
+				},
+				{
+					q: '一个项目里混着好几种货币，也能结算吗？',
+					a: '当然，这正是 Evere 的拿手好戏。泰铢、美元、日元混在一起？只要记下每笔支出，Evere 就自动换算成基准货币，干净利落地结清。汇率会按记账当时保存，之后再波动也不用担心。',
+				},
+				{
+					q: '我住在国外，能和国内的家人朋友一起用吗？',
+					a: '可以。数据通过云端同步，无论身在哪个国家、时差多少，都能实时共享同一个项目。外派、留学、跨国情侣的分账，一个就够。',
+				},
+				{
+					q: '能只用来管理自己的支出吗？',
+					a: '可以。建一个只有自己的项目，它就成了你的私人记账本——按分类和货币整理。尤其在国外管理多货币支出时特别方便。分账也好，个人记账也好，一个 App 全搞定。',
 				},
 			],
 		},
@@ -1375,7 +1435,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			{
 				label: '結算',
 				title: '「誰該給誰多少錢」，立刻知道。',
-				body: '用最少的結算次數搞定。再亂的帳，也能自動算清誰該給誰多少，結算狀態隨時可查。',
+				body: '用最少的結算次數搞定。再亂的帳，也能自動算清誰該給誰多少。逐筆結算或一次清帳，都隨你。',
 			},
 		],
 		splitModes: ['平均分攤', '按比例', '按金額'],
@@ -1395,9 +1455,9 @@ export const lp: Record<LpLocale, LpDict> = {
 			eyebrow: '使用方法',
 			title: '用法就這麼簡單。',
 			items: [
-				{ title: '建立專案', body: '旅行、合租、聚餐，按情境建專案、拉人進來就行。不用註冊。' },
-				{ title: '記錄支出', body: '填上誰付的、付了多少就行。選貨幣、附收據，順手的事。' },
-				{ title: '結算', body: '「誰該給誰多少」由 Evere 計算。轉完帳打個勾，收工。' },
+				{ title: '建立專案', body: '旅行、合租、聚餐，按情境建專案、拉人進來就行。' },
+				{ title: '記錄支出', body: '記一筆很輕鬆。選貨幣、附收據，還能把店家連結記在備註裡。' },
+				{ title: '結算', body: '誰該給誰多少，Evere 自動算好。誰結清了都有記錄，再也不會漏還錢。' },
 			],
 		},
 		pricing: {
@@ -1483,12 +1543,24 @@ export const lp: Record<LpLocale, LpDict> = {
 				},
 				{ q: '支援哪些裝置？', a: '支援 iOS 15.1 以上版本的 iPhone。目前沒有 Android 版。' },
 				{
-					q: '支援多少種貨幣？',
-					a: '支援 162 種貨幣，匯率自動取得。Pro 版還可手動輸入匯率。',
+					q: '和其他分帳 App 有什麼不一樣？',
+					a: '大多數 App 是為一次旅行或聚會設計的，每次都得重新建群。Evere 可以一直用同一個專案，更貼合日常。而且多貨幣（162 種貨幣、自動換算）——在別處常常要付費或受限——在這裡免費盡情用。免註冊、馬上上手、介面時髦：它不是計算機，而是你每天分帳的好夥伴。',
 				},
 				{
-					q: '一起用的人也需要安裝 App 嗎？',
-					a: '只有透過邀請連結加入的成員需要安裝。沒有用 App 的朋友，填個名字就能加進來，每筆支出和結算結果也能輕鬆分享給對方。',
+					q: '每次都要結清嗎，還是可以一直用下去？',
+					a: '想結清時再結清就好。欠款會自動結轉，所以一個專案就能搞定一切——從一次旅行到同居生活費、每天的分帳。記錄也都會保留下來，之後回看也方便。',
+				},
+				{
+					q: '一個專案裡混著好幾種貨幣，也能結算嗎？',
+					a: '當然，這正是 Evere 的拿手好戲。泰銖、美元、日圓混在一起？只要記下每筆支出，Evere 就自動換算成基準貨幣，乾淨俐落地結清。匯率會按記帳當時保存，之後再波動也不用擔心。',
+				},
+				{
+					q: '我住在國外，能和家鄉的家人朋友一起用嗎？',
+					a: '可以。資料透過雲端同步，無論身在哪個國家、時差多少，都能即時共享同一個專案。外派、留學、跨國情侶的分帳，一個就夠。',
+				},
+				{
+					q: '能只用來管理自己的支出嗎？',
+					a: '可以。建一個只有自己的專案，它就成了你的私人記帳本——按分類和貨幣整理。尤其在國外管理多貨幣支出時特別方便。分帳也好，個人記帳也好，一個 App 全搞定。',
 				},
 			],
 		},
