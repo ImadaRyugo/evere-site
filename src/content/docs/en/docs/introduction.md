@@ -1,38 +1,43 @@
 ---
-title: How to Use Evere — Bill Splitting & Expense App
+title: 👋 How to Use Evere — Bill Splitting & Expense App
+description: The Evere user guide. Start here to learn the core concepts and screen layout.
 sidebar:
-  label: User Guide
-description: Introduction to Evere - Split bills easily across currencies
+  label: 👋 Introduction
+  order: 1
 ---
 
-Evere is a mobile application designed to help couples and groups manage bill splitting and settlements effortlessly across multiple currencies.
+Evere is an iOS app that makes it easy for couples and groups to split bills and settle up. It supports many currencies, so everything — from trips to everyday shared costs — lives in one app.
 
-## Key Features
+This guide will help you get the most out of Evere. Let's start with the core concepts and the screen layout.
 
-- **Multi-Currency Support**: Handle expenses in different currencies with automatic conversion
-- **Flexible Splitting**: Equal split, ratio-based, or manual amount entry
-- **Project Management**: Organize expenses by projects (trips, shared living, etc.)
-- **Receipt Attachments**: Add receipt images for reference
-- **Settlement Tracking**: Mark individual expenses or entire projects as settled
-- **Offline Support**: Work offline and sync when connected (Pro)
+## The 4 core concepts
 
-## Getting Started
+Keep these four ideas in mind and everything else falls into place.
 
-1. Download Evere from the App Store (iOS)
-2. Create an account or use Guest Mode
-3. Create a project and invite participants
-4. Add expenses and split them
-5. Track settlements
+- **Project** — the "unit" of splitting. You create one per scene: a trip, dating, shared living, and so on. All expenses live inside a project.
+- **Base currency** — the currency your settlement is calculated in. You choose it when you create the project.
+- **Participants** — the members who share a project. People with the app can join via an invite link; people without it can be added by name.
+- **Settlement** — Evere automatically works out "who pays whom, and how much." Just keep logging expenses and you can check the settlement status anytime.
 
-## Supported Platforms
+## Screen layout (5 tabs)
 
-- iOS 15.1 and later
+There are 5 tabs at the bottom of Evere.
 
-## Need Help?
+| Tab | Role |
+| --- | --- |
+| **Projects** | List, create, switch, and configure projects |
+| **Expenses** | The list of expenses in the active project |
+| **Add** | Log an expense |
+| **Settlement** | The "who pays whom" result and settlement status |
+| **Settings** | Account, plan, currency, notifications, and more |
 
-- Check our [FAQ](/en/#faq)
-- [Contact Support](/en/support/)
+The Expenses and Settlement tabs show the **currently active project**. Select a different project in the Projects tab to switch what they display.
 
----
+## Supported environment
 
-*Documentation coming soon*
+- Works on **iPhone with iOS 15.1 or later**.
+- An Android version is not available at this time.
+
+## Next step
+
+The fastest way to learn is to try it. In the next "Quickstart," you'll go from creating a project all the way to settling up.
