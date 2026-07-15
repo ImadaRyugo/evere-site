@@ -155,7 +155,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		},
 		nav: { features: '機能', pricing: 'プラン', faq: 'FAQ', support: 'サポート', download: 'ダウンロード' },
 		hero: {
-			title: ['割り勘を、', 'もっと美しく。'],
+			title: ['ふたりの支出も、', 'みんなでの割り勘も。'],
 			sub: '旅先でも、ふだんの生活でも。支払いを記録するだけで、あとはEvereが自動で精算。',
 			cta: 'App Store でダウンロード',
 			ctaNote: '無料・登録不要',
@@ -407,7 +407,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		},
 		nav: { features: 'Features', pricing: 'Plans', faq: 'FAQ', support: 'Support', download: 'Download' },
 		hero: {
-			title: ['Split bills,', 'beautifully.'],
+			title: ['Spending for two,', 'splitting for everyone.'],
 			sub: 'On trips or in everyday life. Just log your payments, and Evere handles the rest automatically.',
 			cta: 'Download on the App Store',
 			ctaNote: 'Free · No sign-up needed',
@@ -656,7 +656,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		},
 		nav: { features: 'ฟีเจอร์', pricing: 'แพลน', faq: 'FAQ', support: 'ซัพพอร์ต', download: 'ดาวน์โหลด' },
 		hero: {
-			title: ['หารบิล', 'อย่างสวยงาม'],
+			title: ['ทั้งรายจ่ายของสองคน', 'และหารบิลกันทุกคน'],
 			sub: 'ทั้งตอนไปเที่ยวและในชีวิตประจำวัน แค่บันทึกรายจ่าย ที่เหลือ Evere เคลียร์ยอดให้อัตโนมัติ',
 			cta: 'ดาวน์โหลดบน App Store',
 			ctaNote: 'ฟรี · ไม่ต้องสมัครสมาชิก',
@@ -905,7 +905,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		},
 		nav: { features: '기능', pricing: '플랜', faq: 'FAQ', support: '지원', download: '다운로드' },
 		hero: {
-			title: ['더치페이를,', '더 아름답게.'],
+			title: ['둘의 지출도,', '다 함께 더치페이도.'],
 			sub: '여행에서도, 일상에서도. 지출만 기록하면 나머지는 Evere가 자동으로 정산해요.',
 			cta: 'App Store에서 다운로드',
 			ctaNote: '무료 · 가입 없이 시작',
@@ -1154,7 +1154,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		},
 		nav: { features: '功能', pricing: '方案', faq: '常见问题', support: '支持', download: '下载' },
 		hero: {
-			title: ['分账，', '也可以很优雅。'],
+			title: ['两个人的支出也好，', '大家一起分摊也好。'],
 			sub: '旅行也好，日常也好。只需记下支出，剩下的交给 Evere 自动结算。',
 			cta: '在 App Store 下载',
 			ctaNote: '免费 · 无需注册',
@@ -1403,7 +1403,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		},
 		nav: { features: '功能', pricing: '方案', faq: '常見問題', support: '支援', download: '下載' },
 		hero: {
-			title: ['分帳，', '也可以很優雅。'],
+			title: ['兩個人的支出也好，', '大家一起分攤也好。'],
 			sub: '旅行也好，日常也好。只要記下支出，剩下的交給 Evere 自動結算。',
 			cta: '在 App Store 下載',
 			ctaNote: '免費 · 免註冊',

@@ -560,10 +560,43 @@ html[data-theme='light'] .lp-footer-brand img {
 }
 
 .lp-hero-title {
-	font-size: clamp(2.35rem, 1.4rem + 5.4vw, 4.4rem);
+	/* ベースは最も長い日本語に合わせ、コピー列内で折り返さないサイズ。
+	   余裕のある言語は下で一段大きくする（各言語で最適化） */
+	font-size: clamp(2rem, 1.55rem + 2.3vw, 3.3rem);
 	font-weight: 680;
 	letter-spacing: -0.03em;
-	line-height: 1.06;
+	line-height: 1.2;
+	/* .lp-scene が align-items:center の flex のため、指定しないと h1 が
+	   max-content 幅になり長い見出しが折り返さず溢れる */
+	max-width: 100%;
+}
+
+/* SPは行間をもう少しだけ広げる */
+@media (max-width: 900px) {
+	.lp-hero-title {
+		line-height: 1.3;
+	}
+}
+
+/* 英語は行が長いのでPCは2.85rem止まり。SPは他言語並み（約2.05rem）に上げる */
+html[lang='en'] .lp-hero-title {
+	font-size: clamp(2.05rem, 1.45rem + 2.4vw, 2.85rem);
+}
+
+/* タイ語は文字列が長いのでPCは3.3rem。SPは他言語並み（約2.05rem）に上げる */
+html[lang='th'] .lp-hero-title {
+	font-size: clamp(2.05rem, 1.3rem + 2.9vw, 3.3rem);
+}
+
+/* 韓国語は文字が短く、さらに大きくできる */
+html[lang='ko'] .lp-hero-title {
+	font-size: clamp(2.4rem, 1.8rem + 3vw, 4.2rem);
+}
+
+/* 中国語は「也好」で1行が長くなるので日本語ベースに近いサイズに抑える */
+html[lang='zh-CN'] .lp-hero-title,
+html[lang='zh-TW'] .lp-hero-title {
+	font-size: clamp(2.1rem, 1.6rem + 2.3vw, 3.5rem);
 }
 
 .lp-hero-title .line {
@@ -2466,6 +2499,9 @@ html:not([data-theme='light']) .lp-cta-bg-icon {
 	z-index: 1;
 	display: grid;
 	grid-template-rows: auto 1fr;
+	/* 列を明示しないと暗黙の auto 列が内容の max-content で広がり、
+	   長い見出しが折り返さず横に溢れる。minmax(0,…) で列をコンテナ幅に固定 */
+	grid-template-columns: minmax(0, 1fr);
 	gap: 0.5rem;
 	align-items: center;
 	text-align: center;
@@ -2719,7 +2755,7 @@ html:not(.lp-js) .lp-scene:not(.is-active) {
 	position: static;
 	transform: none;
 	display: none;
-	margin-top: 26px;
+	margin-top: 48px;
 }
 
 @media (max-width: 900px) {
