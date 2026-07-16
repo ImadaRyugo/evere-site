@@ -28,6 +28,7 @@ const anchor = (id: string) => (isHome ? `#${id}` : `/${locale}/#${id}`);
 		<nav class="lp-nav-links">
 			<a href={anchor('features')}>{dict.nav.features}</a>
 			<a href={anchor('pricing')}>{dict.nav.pricing}</a>
+			<a href={`/${locale}/docs/introduction/`}>{dict.footer.guide}</a>
 			<a href={anchor('faq')}>{dict.nav.faq}</a>
 			<a href={`/${locale}/support/`}>{dict.nav.support}</a>
 		</nav>
