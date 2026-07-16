@@ -1,7 +1,7 @@
 ---
 title: "[ja] Dummy article for pipeline verification"
 description: "This is a dummy article used to verify the blog publishing pipeline. It will be deleted."
-pubDate: 2026-01-01
+pubDate: 2026-07-16
 tags: ["dummy"]
 ---
 

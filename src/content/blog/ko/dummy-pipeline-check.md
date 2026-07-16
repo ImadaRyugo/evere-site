@@ -1,13 +1,13 @@
 ---
-title: "[zh-hant] Dummy article for pipeline verification"
+title: "[ko] Dummy article for pipeline verification"
 description: "This is a dummy article used to verify the blog publishing pipeline. It will be deleted."
-pubDate: 2026-01-01
+pubDate: 2026-07-16
 tags: ["dummy"]
 ---
 
 ## Heading level 2
 
-This is a **dummy article** (zh-hant) used only to verify that the blog build,
+This is a **dummy article** (ko) used only to verify that the blog build,
 SEO tags, and the publishing queue work end-to-end. It will be deleted.
 
 ### Heading level 3
@@ -21,4 +21,4 @@ SEO tags, and the publishing queue work end-to-end. It will be deleted.
 
 > A blockquote for style checking.
 
-[A link to the guide](/zh-hant/docs/introduction/)
+[A link to the guide](/ko/docs/introduction/)
