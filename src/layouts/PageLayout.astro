@@ -44,13 +44,13 @@ const orgSchema = {
 ---
 
 <!doctype html>
-<html lang={HTML_LANG[locale]}>
+<html lang={HTML_LANG[locale]} data-theme="light">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta name="theme-color" content="#0B0C0E" />
+		<meta name="theme-color" content="#f5f5f7" />
 		<link rel="icon" href="/favicon.png" type="image/png" sizes="96x96" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link rel="canonical" href={canonical.href} />
@@ -67,7 +67,7 @@ const orgSchema = {
 		<slot name="head" />
 
 		<script is:inline>
-			// テーマ初期化（描画前）。優先順位: トグルで保存した設定 → 端末(OS)設定 → ライト。
+			// テーマ初期化（描画前）。優先順位: トグルで保存した設定 → ライト。
 			// 保存はトグル操作時のみ行う（初回訪問で勝手に固定しない）
 			(function () {
 				var theme = null;
@@ -77,9 +77,7 @@ const orgSchema = {
 				} catch (e) {
 					/* localStorage unavailable */
 				}
-				if (!theme) {
-					theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-				}
+				if (!theme) theme = 'light';
 				document.documentElement.dataset.theme = theme;
 				var meta = document.querySelector('meta[name="theme-color"]');
 				if (meta) meta.setAttribute('content', theme === 'light' ? '#f5f5f7' : '#0b0c0e');
