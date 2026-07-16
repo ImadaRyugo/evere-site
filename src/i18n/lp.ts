@@ -94,6 +94,7 @@ export interface LpDict {
 		resources: string;
 		legal: string;
 		guide: string;
+		blog: string;
 		support: string;
 		privacy: string;
 		terms: string;
@@ -330,6 +331,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			resources: 'リソース',
 			legal: '法務',
 			guide: '使い方ガイド',
+			blog: 'ブログ',
 			support: 'サポート',
 			privacy: 'プライバシーポリシー',
 			terms: '利用規約',
@@ -579,6 +581,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			resources: 'Resources',
 			legal: 'Legal',
 			guide: 'User guide',
+			blog: 'Blog',
 			support: 'Support',
 			privacy: 'Privacy Policy',
 			terms: 'Terms of Service',
@@ -828,6 +831,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			resources: 'แหล่งข้อมูล',
 			legal: 'กฎหมาย',
 			guide: 'คู่มือการใช้งาน',
+			blog: 'บล็อก',
 			support: 'ซัพพอร์ต',
 			privacy: 'นโยบายความเป็นส่วนตัว',
 			terms: 'ข้อกำหนดการใช้บริการ',
@@ -1077,6 +1081,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			resources: '리소스',
 			legal: '법적 고지',
 			guide: '사용 가이드',
+			blog: '블로그',
 			support: '지원',
 			privacy: '개인정보 처리방침',
 			terms: '이용약관',
@@ -1326,6 +1331,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			resources: '资源',
 			legal: '法务',
 			guide: '使用指南',
+			blog: '博客',
 			support: '支持',
 			privacy: '隐私政策',
 			terms: '服务条款',
@@ -1575,6 +1581,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			resources: '資源',
 			legal: '法務',
 			guide: '使用指南',
+			blog: '部落格',
 			support: '支援',
 			privacy: '隱私權政策',
 			terms: '服務條款',

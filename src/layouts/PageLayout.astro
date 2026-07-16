@@ -12,16 +12,25 @@ interface Props {
 	description: string;
 	/** 言語プレフィックスを除いたパス（例: 'support'） */
 	path: string;
+	/**
+	 * このパスが存在する言語。省略時は全言語（support等の共通ページ向け）。
+	 * ブログ記事のように一部言語にしか翻訳がないページで指定する。
+	 */
+	alternateLocales?: readonly LpLocale[];
+	/** og:type（記事ページは 'article'） */
+	ogType?: 'website' | 'article';
 }
 
-const { locale, title, description, path } = Astro.props;
+const { locale, title, description, path, alternateLocales = LP_LOCALES, ogType = 'website' } = Astro.props;
 
 const site = Astro.site ?? new URL('https://evereapp.com');
 const canonical = new URL(`/${locale}/${path}/`, site);
-const alternates = LP_LOCALES.map((l) => ({
+const alternates = alternateLocales.map((l) => ({
 	lang: HTML_LANG[l],
 	href: new URL(`/${l}/${path}/`, site).href,
 }));
+// x-default は英語版がある場合のみ（無い言語ページを既定にしない）
+const xDefault = alternateLocales.includes('en') ? new URL(`/en/${path}/`, site).href : null;
 const ogImage = new URL('/og.png', site);
 
 const orgSchema = {
@@ -46,8 +55,8 @@ const orgSchema = {
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link rel="canonical" href={canonical.href} />
 		{alternates.map((alt) => <link rel="alternate" hreflang={alt.lang} href={alt.href} />)}
-		<link rel="alternate" hreflang="x-default" href={new URL(`/en/${path}/`, site).href} />
-		<meta property="og:type" content="website" />
+		{xDefault && <link rel="alternate" hreflang="x-default" href={xDefault} />}
+		<meta property="og:type" content={ogType} />
 		<meta property="og:site_name" content="Evere" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
@@ -55,6 +64,7 @@ const orgSchema = {
 		<meta property="og:image" content={ogImage.href} />
 		<meta name="twitter:card" content="summary_large_image" />
 		<script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+		<slot name="head" />
 
 		<script is:inline>
 			// テーマ初期化（描画前）。優先順位: トグルで保存した設定 → 端末(OS)設定 → ライト。

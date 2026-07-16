@@ -1,0 +1,118 @@
+---
+// ブログ記事ページ。
+// hreflang は「同じ slug の翻訳が実際に存在する言語」だけに出す
+// （PageLayout の alternateLocales で上書き）。
+import { getCollection, render } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import LpNav from '../../../components/lp/LpNav.astro';
+import LpFooter from '../../../components/lp/LpFooter.astro';
+import { LP_LOCALES, HTML_LANG, APP_STORE_URLS, lp, type LpLocale } from '../../../i18n/lp';
+import { blogDict, formatDate } from '../../../i18n/blog';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('blog');
+	// slug → 存在する言語一覧（翻訳ペアの hreflang 用）
+	const langsBySlug = new Map<string, LpLocale[]>();
+	const parsed = entries.map((entry) => {
+		const [entryLang, ...rest] = entry.id.split('/');
+		const slug = rest.join('/').replace(/\.md$/, '');
+		const lang = entryLang as LpLocale;
+		langsBySlug.set(slug, [...(langsBySlug.get(slug) ?? []), lang]);
+		return { entry, lang, slug };
+	});
+	return parsed.map(({ entry, lang, slug }) => ({
+		params: { lang, slug },
+		props: {
+			entry,
+			// LP_LOCALES の並び順で安定させる
+			availableLocales: LP_LOCALES.filter((l) => langsBySlug.get(slug)!.includes(l)),
+		},
+	}));
+}
+
+const { entry, availableLocales } = Astro.props;
+const lang = Astro.params.lang as LpLocale;
+const slug = Astro.params.slug as string;
+const dict = lp[lang];
+const t = blogDict[lang];
+const { data } = entry;
+const { Content } = await render(entry);
+
+const site = Astro.site ?? new URL('https://evereapp.com');
+const canonical = new URL(`/${lang}/blog/${slug}/`, site);
+
+const blogPostingSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
+	headline: data.title,
+	description: data.description,
+	inLanguage: HTML_LANG[lang],
+	datePublished: data.pubDate.toISOString().slice(0, 10),
+	...(data.updatedDate ? { dateModified: data.updatedDate.toISOString().slice(0, 10) } : {}),
+	mainEntityOfPage: canonical.href,
+	image: new URL('/og.png', site).href,
+	author: { '@type': 'Organization', name: 'Evere', url: site.href },
+	publisher: {
+		'@type': 'Organization',
+		name: 'Evere',
+		url: site.href,
+		logo: { '@type': 'ImageObject', url: new URL('/favicon.png', site).href },
+	},
+};
+---
+
+<PageLayout
+	locale={lang}
+	title={`${data.title} — Evere`}
+	description={data.description}
+	path={`blog/${slug}`}
+	alternateLocales={availableLocales}
+	ogType="article"
+>
+	<Fragment slot="head">
+		<meta property="article:published_time" content={data.pubDate.toISOString().slice(0, 10)} />
+		{
+			data.updatedDate && (
+				<meta property="article:modified_time" content={data.updatedDate.toISOString().slice(0, 10)} />
+			)
+		}
+		<script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
+	</Fragment>
+
+	<LpNav locale={lang} dict={dict} />
+	<main class="lp-blog">
+		<article class="lp-container lp-blog-article">
+			<header class="lp-blog-header">
+				<p class="lp-blog-meta">
+					<time datetime={data.pubDate.toISOString().slice(0, 10)}>
+						{t.published}: {formatDate(data.pubDate, lang)}
+					</time>
+					{
+						data.updatedDate && (
+							<time datetime={data.updatedDate.toISOString().slice(0, 10)}>
+								{t.updated}: {formatDate(data.updatedDate, lang)}
+							</time>
+						)
+					}
+				</p>
+				<h1>{data.title}</h1>
+				<p class="lp-blog-lead">{data.description}</p>
+			</header>
+
+			<div class="lp-blog-body">
+				<Content />
+			</div>
+
+			<aside class="lp-blog-cta">
+				<h2>{t.ctaTitle}</h2>
+				<p>{t.ctaBody}</p>
+				<a class="lp-btn" href={APP_STORE_URLS[lang]} rel="noopener">{t.ctaButton}</a>
+			</aside>
+
+			<p class="lp-blog-back">
+				<a href={`/${lang}/blog/`}>← {t.backToList}</a>
+			</p>
+		</article>
+	</main>
+	<LpFooter locale={lang} dict={dict} />
+</PageLayout>

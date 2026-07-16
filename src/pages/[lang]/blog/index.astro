@@ -1,0 +1,60 @@
+---
+// ブログ一覧ページ。src/content/blog/{lang}/*.md を新しい順に表示する。
+import { getCollection } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import LpNav from '../../../components/lp/LpNav.astro';
+import LpFooter from '../../../components/lp/LpFooter.astro';
+import { LP_LOCALES, lp, type LpLocale } from '../../../i18n/lp';
+import { blogDict, formatDate } from '../../../i18n/blog';
+
+export function getStaticPaths() {
+	return LP_LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as LpLocale;
+const dict = lp[lang];
+const t = blogDict[lang];
+
+const posts = (await getCollection('blog', (entry) => entry.id.startsWith(`${lang}/`)))
+	.map((entry) => ({
+		slug: entry.id.slice(lang.length + 1).replace(/\.md$/, ''),
+		data: entry.data,
+	}))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<PageLayout
+	locale={lang}
+	title={`${t.listTitle} — Evere`}
+	description={t.listDescription}
+	path="blog"
+>
+	<LpNav locale={lang} dict={dict} />
+	<main class="lp-blog">
+		<div class="lp-container">
+			<h1 class="lp-blog-title">{t.heading}</h1>
+			<p class="lp-blog-intro">{t.intro}</p>
+
+			{
+				posts.length === 0 ? (
+					<p class="lp-blog-empty">{t.empty}</p>
+				) : (
+					<ul class="lp-blog-list">
+						{posts.map((post) => (
+							<li>
+								<a class="lp-blog-card" href={`/${lang}/blog/${post.slug}/`}>
+									<time datetime={post.data.pubDate.toISOString().slice(0, 10)}>
+										{formatDate(post.data.pubDate, lang)}
+									</time>
+									<h2>{post.data.title}</h2>
+									<p>{post.data.description}</p>
+								</a>
+							</li>
+						))}
+					</ul>
+				)
+			}
+		</div>
+	</main>
+	<LpFooter locale={lang} dict={dict} />
+</PageLayout>

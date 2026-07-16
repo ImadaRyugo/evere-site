@@ -3400,3 +3400,237 @@ html.lp-launching .lp-story-hint {
 html.lp-launching .lp-phone-launch {
 	opacity: 0;
 }
+
+/* ============================================================
+   ブログ（/{lang}/blog/ 一覧・記事）
+   ============================================================ */
+
+.lp-blog {
+	padding-top: calc(64px + clamp(2.5rem, 8vh, 5rem));
+	padding-bottom: clamp(4rem, 10vh, 7rem);
+}
+
+.lp-blog .lp-container {
+	max-width: 720px;
+}
+
+.lp-blog-title {
+	font-size: clamp(1.9rem, 1.3rem + 3vw, 3rem);
+	font-weight: 680;
+	letter-spacing: -0.03em;
+	line-height: 1.15;
+}
+
+.lp-blog-intro {
+	margin-top: 14px;
+	color: var(--lp-text-2);
+	line-height: 1.8;
+}
+
+.lp-blog-empty {
+	margin-top: clamp(2.5rem, 6vh, 4rem);
+	padding: clamp(2.5rem, 8vh, 4rem) 16px;
+	text-align: center;
+	color: var(--lp-text-3);
+	border: 1px dashed var(--lp-border-strong);
+	border-radius: var(--lp-radius);
+}
+
+/* ---- 一覧カード ---- */
+
+.lp-blog-list {
+	margin-top: clamp(2rem, 5vh, 3rem);
+	list-style: none;
+	padding: 0;
+	display: grid;
+	gap: 16px;
+}
+
+.lp-blog-card {
+	display: block;
+	padding: clamp(20px, 4vw, 28px);
+	background: var(--lp-fill-soft);
+	border: 1px solid var(--lp-border);
+	border-radius: var(--lp-radius);
+	text-decoration: none;
+	color: inherit;
+	transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.lp-blog-card:hover {
+	border-color: var(--lp-border-strong);
+	background: var(--lp-fill);
+}
+
+.lp-blog-card time {
+	font-size: 12.5px;
+	color: var(--lp-text-3);
+}
+
+.lp-blog-card h2 {
+	margin-top: 8px;
+	font-size: clamp(1.1rem, 1rem + 0.8vw, 1.35rem);
+	font-weight: 640;
+	letter-spacing: -0.02em;
+	line-height: 1.4;
+}
+
+.lp-blog-card p {
+	margin-top: 8px;
+	font-size: 14px;
+	color: var(--lp-text-2);
+	line-height: 1.75;
+}
+
+/* ---- 記事ページ ---- */
+
+.lp-blog-meta {
+	display: flex;
+	gap: 16px;
+	flex-wrap: wrap;
+	font-size: 12.5px;
+	color: var(--lp-text-3);
+}
+
+.lp-blog-header h1 {
+	margin-top: 12px;
+	font-size: clamp(1.6rem, 1.1rem + 2.6vw, 2.5rem);
+	font-weight: 680;
+	letter-spacing: -0.03em;
+	line-height: 1.25;
+}
+
+.lp-blog-lead {
+	margin-top: 14px;
+	color: var(--lp-text-2);
+	line-height: 1.8;
+}
+
+/* Markdown本文のタイポグラフィ */
+.lp-blog-body {
+	margin-top: clamp(2rem, 5vh, 3rem);
+	line-height: 1.9;
+	color: var(--lp-text-2);
+	font-size: 15.5px;
+}
+
+.lp-blog-body :where(h2) {
+	margin-top: clamp(2.2rem, 5vh, 3rem);
+	font-size: clamp(1.25rem, 1.05rem + 1vw, 1.55rem);
+	font-weight: 660;
+	letter-spacing: -0.02em;
+	line-height: 1.4;
+	color: var(--lp-text);
+}
+
+.lp-blog-body :where(h3) {
+	margin-top: 1.8rem;
+	font-size: 1.1rem;
+	font-weight: 640;
+	letter-spacing: -0.01em;
+	color: var(--lp-text);
+}
+
+.lp-blog-body :where(p, ul, ol) {
+	margin-top: 1em;
+}
+
+.lp-blog-body :where(ul, ol) {
+	padding-left: 1.4em;
+}
+
+.lp-blog-body :where(li) {
+	margin-top: 0.4em;
+}
+
+.lp-blog-body :where(strong) {
+	color: var(--lp-text);
+	font-weight: 640;
+}
+
+.lp-blog-body :where(a) {
+	color: var(--lp-text);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.lp-blog-body :where(blockquote) {
+	margin-top: 1em;
+	padding: 4px 0 4px 18px;
+	border-left: 2px solid var(--lp-border-strong);
+	color: var(--lp-text-3);
+}
+
+.lp-blog-body :where(table) {
+	margin-top: 1em;
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+
+.lp-blog-body :where(th, td) {
+	padding: 10px 12px;
+	border: 1px solid var(--lp-border);
+	text-align: left;
+	vertical-align: top;
+}
+
+.lp-blog-body :where(th) {
+	background: var(--lp-fill-soft);
+	color: var(--lp-text);
+	font-weight: 620;
+}
+
+.lp-blog-body :where(hr) {
+	margin-top: 2rem;
+	border: 0;
+	border-top: 1px solid var(--lp-border);
+}
+
+.lp-blog-body :where(code) {
+	font-size: 0.9em;
+	background: var(--lp-fill);
+	border-radius: 6px;
+	padding: 2px 6px;
+}
+
+/* 記事末尾のアプリ誘導CTA */
+.lp-blog-cta {
+	margin-top: clamp(2.5rem, 6vh, 4rem);
+	padding: clamp(24px, 5vw, 36px);
+	background: var(--lp-fill-soft);
+	border: 1px solid var(--lp-border);
+	border-radius: var(--lp-radius);
+	text-align: center;
+}
+
+.lp-blog-cta h2 {
+	font-size: clamp(1.15rem, 1rem + 0.8vw, 1.4rem);
+	font-weight: 660;
+	letter-spacing: -0.02em;
+}
+
+.lp-blog-cta p {
+	margin-top: 10px;
+	font-size: 14px;
+	color: var(--lp-text-2);
+	line-height: 1.75;
+}
+
+.lp-blog-cta .lp-btn {
+	margin-top: 18px;
+}
+
+.lp-blog-back {
+	margin-top: clamp(2rem, 5vh, 3rem);
+	font-size: 14px;
+}
+
+.lp-blog-back a {
+	color: var(--lp-text-2);
+	text-decoration: none;
+}
+
+.lp-blog-back a:hover {
+	color: var(--lp-text);
+}
