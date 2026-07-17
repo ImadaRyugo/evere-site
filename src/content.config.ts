@@ -18,6 +18,11 @@ export const collections = {
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			tags: z.array(z.string()).default([]),
+			// 一覧カード・記事ヘッダーに表示するアイコン絵文字
+			emoji: z.string().optional(),
+			// 記事末尾CTAのサブコピー。その記事を読み終えた人に刺さる一文を記事ごとに書く。
+			// 未設定なら lp.ts の cta.sub（「無料・登録不要。」）にフォールバックする。
+			ctaSub: z.string().optional(),
 		}),
 	}),
 };

@@ -15,10 +15,16 @@ const lang = Astro.params.lang as LpLocale;
 const dict = lp[lang];
 const t = blogDict[lang];
 
+import { estimateReadingMinutes } from '../../../i18n/blog';
+
 const posts = (await getCollection('blog', (entry) => entry.id.startsWith(`${lang}/`)))
 	.map((entry) => ({
 		slug: entry.id.slice(lang.length + 1).replace(/\.md$/, ''),
 		data: entry.data,
+		readingLabel: blogDict[lang].readingTime.replace(
+			'{n}',
+			String(estimateReadingMinutes(entry.body ?? '', lang)),
+		),
 	}))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
@@ -42,12 +48,36 @@ const posts = (await getCollection('blog', (entry) => entry.id.startsWith(`${lan
 					<ul class="lp-blog-list">
 						{posts.map((post) => (
 							<li>
-								<a class="lp-blog-card" href={`/${lang}/blog/${post.slug}/`}>
-									<time datetime={post.data.pubDate.toISOString().slice(0, 10)}>
-										{formatDate(post.data.pubDate, lang)}
-									</time>
-									<h2>{post.data.title}</h2>
-									<p>{post.data.description}</p>
+								{/* data-hue: 先頭タグの色相。カード左のレールと絵文字タイルに効く */}
+								<a
+									class="lp-blog-card"
+									href={`/${lang}/blog/${post.slug}/`}
+									data-hue={post.data.tags[0]}
+								>
+									{post.data.emoji && (
+										<span class="lp-blog-card-emoji" aria-hidden="true">
+											{post.data.emoji}
+										</span>
+									)}
+									<span class="lp-blog-card-body">
+										<span class="lp-blog-card-meta">
+											<time datetime={post.data.pubDate.toISOString().slice(0, 10)}>
+												{formatDate(post.data.pubDate, lang)}
+											</time>
+											<span>⏱ {post.readingLabel}</span>
+										</span>
+										<h2>{post.data.title}</h2>
+										<p>{post.data.description}</p>
+										{post.data.tags.length > 0 && (
+											<span class="lp-blog-chips">
+												{post.data.tags.map((tag) => (
+													<span class="lp-chip" data-hue={tag}>
+														#{tag}
+													</span>
+												))}
+											</span>
+										)}
+									</span>
 								</a>
 							</li>
 						))}

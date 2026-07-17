@@ -19,12 +19,18 @@ export interface BlogDict {
 	published: string;
 	/** 更新日ラベル */
 	updated: string;
-	/** 記事末尾CTAの見出し */
+	/**
+	 * 記事末尾CTAの見出し。トップページ最終CTA（lp.ts の cta.title）と同じメッセージだが、
+	 * 記事では1行で見せるため改行なしの言い回しにしたもの。
+	 * 直下のサブコピーは記事ごとに frontmatter の ctaSub で書く。
+	 */
 	ctaTitle: string;
-	/** 記事末尾CTAの本文 */
-	ctaBody: string;
-	/** 記事末尾CTAのボタン */
-	ctaButton: string;
+	/** 目次の見出し */
+	toc: string;
+	/** 関連記事セクションの見出し */
+	related: string;
+	/** 読了時間（{n} が分数に置換される） */
+	readingTime: string;
 }
 
 export const blogDict: Record<LpLocale, BlogDict> = {
@@ -38,9 +44,10 @@ export const blogDict: Record<LpLocale, BlogDict> = {
 		backToList: 'Back to Blog',
 		published: 'Published',
 		updated: 'Updated',
-		ctaTitle: 'Split bills the easy way',
-		ctaBody: 'Evere keeps track of who paid what — even across currencies.',
-		ctaButton: 'Download Evere',
+		ctaTitle: 'With anyone, anywhere.',
+		toc: 'Contents',
+		related: 'Related articles',
+		readingTime: '{n} min read',
 	},
 	ja: {
 		listTitle: 'ブログ',
@@ -52,9 +59,10 @@ export const blogDict: Record<LpLocale, BlogDict> = {
 		backToList: 'ブログ一覧へ戻る',
 		published: '公開日',
 		updated: '更新日',
-		ctaTitle: '割り勘を、もっとシンプルに',
-		ctaBody: '誰がいくら立て替えたか、通貨が違っても Evere が自動で整理します。',
-		ctaButton: 'Evere をダウンロード',
+		ctaTitle: 'だれとでも、どこへでも。',
+		toc: '目次',
+		related: '関連記事',
+		readingTime: '約{n}分で読めます',
 	},
 	th: {
 		listTitle: 'บล็อก',
@@ -66,9 +74,10 @@ export const blogDict: Record<LpLocale, BlogDict> = {
 		backToList: 'กลับไปที่บล็อก',
 		published: 'เผยแพร่เมื่อ',
 		updated: 'อัปเดตเมื่อ',
-		ctaTitle: 'หารบิลแบบง่าย ๆ',
-		ctaBody: 'Evere ช่วยจดว่าใครจ่ายอะไร แม้ต่างสกุลเงินก็คำนวณให้อัตโนมัติ',
-		ctaButton: 'ดาวน์โหลด Evere',
+		ctaTitle: 'กับใครก็ได้ ที่ไหนก็ได้',
+		toc: 'สารบัญ',
+		related: 'บทความที่เกี่ยวข้อง',
+		readingTime: 'อ่านประมาณ {n} นาที',
 	},
 	ko: {
 		listTitle: '블로그',
@@ -80,9 +89,10 @@ export const blogDict: Record<LpLocale, BlogDict> = {
 		backToList: '블로그 목록으로',
 		published: '게시일',
 		updated: '업데이트',
-		ctaTitle: '더치페이를 더 간단하게',
-		ctaBody: '누가 얼마를 냈는지, 통화가 달라도 Evere가 자동으로 정리해 드립니다.',
-		ctaButton: 'Evere 다운로드',
+		ctaTitle: '누구와도, 어디서나.',
+		toc: '목차',
+		related: '관련 글',
+		readingTime: '약 {n}분 소요',
 	},
 	'zh-hans': {
 		listTitle: '博客',
@@ -93,9 +103,10 @@ export const blogDict: Record<LpLocale, BlogDict> = {
 		backToList: '返回博客列表',
 		published: '发布于',
 		updated: '更新于',
-		ctaTitle: '让分账更简单',
-		ctaBody: '谁垫付了多少，即使币种不同，Evere 也会自动帮你算清。',
-		ctaButton: '下载 Evere',
+		ctaTitle: '无论与谁，无论去哪。',
+		toc: '目录',
+		related: '相关文章',
+		readingTime: '阅读约 {n} 分钟',
 	},
 	'zh-hant': {
 		listTitle: '部落格',
@@ -106,11 +117,29 @@ export const blogDict: Record<LpLocale, BlogDict> = {
 		backToList: '返回部落格列表',
 		published: '發佈於',
 		updated: '更新於',
-		ctaTitle: '讓分帳更簡單',
-		ctaBody: '誰墊付了多少，即使幣別不同，Evere 也會自動幫你算清。',
-		ctaButton: '下載 Evere',
+		ctaTitle: '無論與誰，無論去哪。',
+		toc: '目錄',
+		related: '相關文章',
+		readingTime: '閱讀約 {n} 分鐘',
 	},
 };
+
+/** 読了時間（分）の概算。CJK/タイ語は文字数、それ以外は単語数ベース */
+export function estimateReadingMinutes(markdown: string, locale: LpLocale): number {
+	// frontmatter・コード・リンクURL・記号を除いた本文で概算する
+	const text = markdown
+		.replace(/^---[\s\S]*?---/, '')
+		.replace(/```[\s\S]*?```/g, '')
+		.replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+		.replace(/[#>*|`\-]/g, '');
+	if (locale === 'en') {
+		const words = text.split(/\s+/).filter(Boolean).length;
+		return Math.max(1, Math.round(words / 200));
+	}
+	// 日本語・韓国語・中国語・タイ語: 500文字/分 前後で概算
+	const chars = text.replace(/\s/g, '').length;
+	return Math.max(1, Math.round(chars / 500));
+}
 
 /** pubDate 表示用のロケール別フォーマッタ（ビルド時に実行される） */
 export function formatDate(date: Date, locale: LpLocale): string {

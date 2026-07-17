@@ -6,8 +6,10 @@ import { getCollection, render } from 'astro:content';
 import PageLayout from '../../../layouts/PageLayout.astro';
 import LpNav from '../../../components/lp/LpNav.astro';
 import LpFooter from '../../../components/lp/LpFooter.astro';
-import { LP_LOCALES, HTML_LANG, APP_STORE_URLS, lp, type LpLocale } from '../../../i18n/lp';
-import { blogDict, formatDate } from '../../../i18n/blog';
+import AppleBadge from '../../../components/lp/AppleBadge.astro';
+import ctaIcon from '../../../assets/cta-app-icon.png';
+import { LP_LOCALES, HTML_LANG, lp, type LpLocale } from '../../../i18n/lp';
+import { blogDict, formatDate, estimateReadingMinutes } from '../../../i18n/blog';
 
 export async function getStaticPaths() {
 	const entries = await getCollection('blog');
@@ -26,20 +28,51 @@ export async function getStaticPaths() {
 			entry,
 			// LP_LOCALES の並び順で安定させる
 			availableLocales: LP_LOCALES.filter((l) => langsBySlug.get(slug)!.includes(l)),
+			// 関連記事: 同言語・自分以外。タグが重なるものを優先し、新しい順で最大3件
+			related: parsed
+				.filter((p) => p.lang === lang && p.slug !== slug)
+				.sort((a, b) => {
+					const aShared = a.entry.data.tags.filter((t) => entry.data.tags.includes(t)).length;
+					const bShared = b.entry.data.tags.filter((t) => entry.data.tags.includes(t)).length;
+					if (aShared !== bShared) return bShared - aShared;
+					return b.entry.data.pubDate.valueOf() - a.entry.data.pubDate.valueOf();
+				})
+				.slice(0, 3)
+				.map((p) => ({ slug: p.slug, data: p.entry.data })),
 		},
 	}));
 }
 
-const { entry, availableLocales } = Astro.props;
+const { entry, availableLocales, related } = Astro.props;
 const lang = Astro.params.lang as LpLocale;
 const slug = Astro.params.slug as string;
 const dict = lp[lang];
 const t = blogDict[lang];
 const { data } = entry;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
+
+const toc = headings.filter((h) => h.depth === 2);
+const readingMinutes = estimateReadingMinutes(entry.body ?? '', lang);
+const readingLabel = t.readingTime.replace('{n}', String(readingMinutes));
 
 const site = Astro.site ?? new URL('https://evereapp.com');
 const canonical = new URL(`/${lang}/blog/${slug}/`, site);
+
+// パンくず。FAQリッチリザルトと違い BreadcrumbList は現在もSERPに表示される
+const breadcrumbSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement: [
+		{ '@type': 'ListItem', position: 1, name: 'Evere', item: new URL(`/${lang}/`, site).href },
+		{
+			'@type': 'ListItem',
+			position: 2,
+			name: t.heading,
+			item: new URL(`/${lang}/blog/`, site).href,
+		},
+		{ '@type': 'ListItem', position: 3, name: data.title, item: canonical.href },
+	],
+};
 
 const blogPostingSchema = {
 	'@context': 'https://schema.org',
@@ -63,7 +96,9 @@ const blogPostingSchema = {
 
 <PageLayout
 	locale={lang}
-	title={`${data.title} — Evere`}
+	{/* 記事は「— Evere」を付けない。約8文字ぶんSERPの表示枠を食い、
+	    タイトル末尾が切れるため。ブランドは og:site_name で伝わる */}
+	title={data.title}
 	description={data.description}
 	path={`blog/${slug}`}
 	alternateLocales={availableLocales}
@@ -77,12 +112,21 @@ const blogPostingSchema = {
 			)
 		}
 		<script type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
+		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 	</Fragment>
 
 	<LpNav locale={lang} dict={dict} />
 	<main class="lp-blog">
-		<article class="lp-container lp-blog-article">
+		{/* data-hue: 記事のアクセント色。先頭タグの色相をこの記事全体に流す */}
+		<article class="lp-container lp-blog-article" data-hue={data.tags[0]}>
+			<nav class="lp-blog-crumbs" aria-label="Breadcrumb">
+				<a href={`/${lang}/`}>Evere</a>
+				<span aria-hidden="true">›</span>
+				<a href={`/${lang}/blog/`}>{t.heading}</a>
+			</nav>
 			<header class="lp-blog-header">
+				{data.emoji && <p class="lp-blog-emoji" aria-hidden="true">{data.emoji}</p>}
+				<h1>{data.title}</h1>
 				<p class="lp-blog-meta">
 					<time datetime={data.pubDate.toISOString().slice(0, 10)}>
 						{t.published}: {formatDate(data.pubDate, lang)}
@@ -94,20 +138,87 @@ const blogPostingSchema = {
 							</time>
 						)
 					}
+					<span>⏱ {readingLabel}</span>
 				</p>
-				<h1>{data.title}</h1>
+				{
+					data.tags.length > 0 && (
+						<p class="lp-blog-chips">
+							{data.tags.map((tag) => (
+								<span class="lp-chip" data-hue={tag}>
+									#{tag}
+								</span>
+							))}
+						</p>
+					)
+				}
 				<p class="lp-blog-lead">{data.description}</p>
 			</header>
+
+			{
+				toc.length > 1 && (
+					<nav class="lp-blog-toc" aria-label={t.toc}>
+						<p class="lp-blog-toc-title">📑 {t.toc}</p>
+						<ol>
+							{toc.map((h) => (
+								<li>
+									<a href={`#${h.slug}`}>{h.text}</a>
+								</li>
+							))}
+						</ol>
+					</nav>
+				)
+			}
 
 			<div class="lp-blog-body">
 				<Content />
 			</div>
 
+			{/* トップページの最終CTAと同じ文言・意匠・バッジを使う（lp.ts の cta を共用） */}
 			<aside class="lp-blog-cta">
-				<h2>{t.ctaTitle}</h2>
-				<p>{t.ctaBody}</p>
-				<a class="lp-btn" href={APP_STORE_URLS[lang]} rel="noopener">{t.ctaButton}</a>
+				<img
+					class="lp-blog-cta-icon"
+					src={ctaIcon.src}
+					width={ctaIcon.width}
+					height={ctaIcon.height}
+					alt=""
+					loading="lazy"
+					aria-hidden="true"
+				/>
+				<h2 class="lp-cta-title">{t.ctaTitle}</h2>
+				<p class="lp-cta-sub">{data.ctaSub ?? dict.cta.sub}</p>
+				<div class="lp-cta-actions">
+					<AppleBadge label={dict.cta.button} locale={lang} />
+				</div>
 			</aside>
+
+			{
+				related.length > 0 && (
+					<section class="lp-blog-related">
+						<h2>{t.related}</h2>
+						<ul>
+							{related.map((post) => (
+								<li>
+									<a
+										class="lp-blog-related-card"
+										href={`/${lang}/blog/${post.slug}/`}
+										data-hue={post.data.tags[0]}
+									>
+										<span class="lp-blog-related-emoji" aria-hidden="true">
+											{post.data.emoji ?? '📄'}
+										</span>
+										<span class="lp-blog-related-text">
+											<span class="lp-blog-related-title">{post.data.title}</span>
+											<time datetime={post.data.pubDate.toISOString().slice(0, 10)}>
+												{formatDate(post.data.pubDate, lang)}
+											</time>
+										</span>
+									</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				)
+			}
 
 			<p class="lp-blog-back">
 				<a href={`/${lang}/blog/`}>← {t.backToList}</a>

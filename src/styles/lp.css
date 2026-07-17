@@ -1,5 +1,5 @@
 /* ============================================================
-   Evere LP — monochrome design system (dark default / light)
+   Evere LP — monochrome design system (light default / dark)
    テーマは html[data-theme] で切替（Starlightと同じ localStorage キーを共有）
    ============================================================ */
 
@@ -3436,6 +3436,115 @@ html.lp-launching .lp-phone-launch {
 	border-radius: var(--lp-radius);
 }
 
+/* ---- カテゴリ別アクセント ----
+   LP本体はモノクロを維持し、ブログだけは「タグ由来の色相」を1つだけ持たせて、
+   アクセント色はすべてそこから導出する。色を足すときはこの色相表に1行足すだけ。
+   記事全体は tags[0] の色、タグチップは自分のタグの色になる（data-hue 属性）。
+   既定色は Evere の「精算済み」グリーン（--ph-green）と同じ色相。 */
+
+.lp-blog {
+	--blog-h: 155;
+}
+
+.lp-blog [data-hue='currency'] {
+	--blog-h: 155;
+}
+.lp-blog [data-hue='settlement'] {
+	--blog-h: 180;
+}
+.lp-blog [data-hue='communication'] {
+	--blog-h: 215;
+}
+.lp-blog [data-hue='travel'] {
+	--blog-h: 245;
+}
+.lp-blog [data-hue='group'] {
+	--blog-h: 265;
+}
+.lp-blog [data-hue='how-to'] {
+	--blog-h: 295;
+}
+.lp-blog [data-hue='couple'] {
+	--blog-h: 5;
+}
+.lp-blog [data-hue='cohabitation'] {
+	--blog-h: 55;
+}
+.lp-blog [data-hue='party'] {
+	--blog-h: 85;
+}
+
+/* 導出トークン。色相を持つ要素ごとに再計算させるため
+   .lp-blog と [data-hue] の両方で宣言する（子孫での --blog-h 上書きを効かせるため）。
+   用途で2種類に分ける:
+     --blog-line … 枠線・全周リング（面積が広いのでダークでは彩度を落とす）
+     --blog-edge … 3px前後の意図的な色帯（面積が狭いのでダークでも色を残す）
+   ここは oklch 非対応ブラウザ用のフォールバック（全カテゴリが精算グリーンになる）。 */
+.lp-blog,
+.lp-blog [data-hue] {
+	--blog-ink: #5fd47f;
+	--blog-line: rgba(52, 199, 89, 0.28);
+	--blog-edge: rgba(52, 199, 89, 0.7);
+	--blog-fill: rgba(52, 199, 89, 0.1);
+	--blog-fill-soft: rgba(52, 199, 89, 0.05);
+	--blog-glow: transparent;
+}
+
+html[data-theme='light'] :is(.lp-blog, .lp-blog [data-hue]) {
+	--blog-ink: #1e9e50;
+	--blog-line: rgba(30, 158, 80, 0.5);
+	--blog-edge: rgba(30, 158, 80, 0.5);
+	--blog-fill: rgba(30, 158, 80, 0.12);
+	--blog-fill-soft: rgba(30, 158, 80, 0.06);
+	--blog-glow: rgba(30, 158, 80, 0.16);
+}
+
+/* oklch は色相を変えても明るさが揃うので、9色でも彩度・明度が暴れない */
+@supports (color: oklch(0.5 0.1 200)) {
+	/* ダークは「線」で色を出すと発光して見えるので、色は文字（ink）と
+	   ごく薄い面（fill）だけで持たせ、罫線は彩度・明度とも大きく落とす。
+	   グローは使わない（--blog-glow は透明）。 */
+	.lp-blog,
+	.lp-blog [data-hue] {
+		--blog-ink: oklch(0.8 0.09 var(--blog-h));
+		--blog-line: oklch(0.55 0.05 var(--blog-h) / 0.5);
+		--blog-edge: oklch(0.68 0.13 var(--blog-h) / 0.85);
+		--blog-fill: oklch(0.62 0.08 var(--blog-h) / 0.1);
+		--blog-fill-soft: oklch(0.62 0.08 var(--blog-h) / 0.05);
+		--blog-glow: transparent;
+	}
+
+	html[data-theme='light'] :is(.lp-blog, .lp-blog [data-hue]) {
+		--blog-ink: oklch(0.5 0.15 var(--blog-h));
+		--blog-line: oklch(0.58 0.16 var(--blog-h) / 0.5);
+		--blog-edge: oklch(0.58 0.16 var(--blog-h) / 0.5);
+		--blog-fill: oklch(0.62 0.16 var(--blog-h) / 0.12);
+		--blog-fill-soft: oklch(0.62 0.16 var(--blog-h) / 0.06);
+		--blog-glow: oklch(0.62 0.18 var(--blog-h) / 0.16);
+	}
+}
+
+/* ---- タグチップ・メタ情報（一覧/記事 共通） ---- */
+
+.lp-blog-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+/* .lp-chip は料金表と共用のため、ブログ用の見た目は必ず .lp-blog 配下に限定する */
+.lp-blog .lp-chip {
+	display: inline-block;
+	padding: 3px 10px;
+	font-size: 11.5px;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+	color: var(--blog-ink);
+	background: var(--blog-fill);
+	border: 1px solid var(--blog-line);
+	border-radius: 999px;
+}
+
 /* ---- 一覧カード ---- */
 
 .lp-blog-list {
@@ -3447,22 +3556,65 @@ html.lp-launching .lp-phone-launch {
 }
 
 .lp-blog-card {
-	display: block;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	gap: 16px;
+	align-items: flex-start;
 	padding: clamp(20px, 4vw, 28px);
 	background: var(--lp-fill-soft);
 	border: 1px solid var(--lp-border);
 	border-radius: var(--lp-radius);
 	text-decoration: none;
 	color: inherit;
-	transition: border-color 0.25s ease, background 0.25s ease;
+	transition:
+		border-color 0.25s ease,
+		background 0.25s ease,
+		transform 0.25s var(--lp-ease);
+}
+
+/* 左端のカテゴリ色レール。一覧を眺めたときに分類が色で分かる */
+.lp-blog-card::before {
+	content: '';
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: 3px;
+	background: var(--blog-edge);
+	opacity: 0.75;
+	transition: opacity 0.25s ease;
 }
 
 .lp-blog-card:hover {
-	border-color: var(--lp-border-strong);
-	background: var(--lp-fill);
+	border-color: var(--blog-line);
+	background: var(--blog-fill-soft);
+	transform: translateY(-2px);
 }
 
-.lp-blog-card time {
+.lp-blog-card:hover::before {
+	opacity: 1;
+}
+
+.lp-blog-card-emoji {
+	flex: 0 0 auto;
+	display: grid;
+	place-items: center;
+	width: 52px;
+	height: 52px;
+	font-size: 26px;
+	background: var(--blog-fill);
+	border: 1px solid var(--blog-line);
+	border-radius: 14px;
+}
+
+.lp-blog-card-body {
+	display: block;
+	min-width: 0;
+}
+
+.lp-blog-card-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
 	font-size: 12.5px;
 	color: var(--lp-text-3);
 }
@@ -3482,9 +3634,58 @@ html.lp-launching .lp-phone-launch {
 	line-height: 1.75;
 }
 
-/* ---- 記事ページ ---- */
+.lp-blog-card .lp-blog-chips {
+	margin-top: 12px;
+}
+
+/* ---- 記事ヘッダー ---- */
+
+/* ---- パンくず ---- */
+
+.lp-blog-crumbs {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 20px;
+	font-size: 12.5px;
+	color: var(--lp-text-3);
+}
+
+.lp-blog-crumbs a {
+	color: var(--lp-text-3);
+	text-decoration: none;
+}
+
+.lp-blog-crumbs a:hover {
+	color: var(--lp-text);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+/* 記事の顔。カテゴリ色のタイル+グローで、記事ごとに表情を変える */
+.lp-blog-emoji {
+	display: grid;
+	place-items: center;
+	width: clamp(56px, 12vw, 72px);
+	height: clamp(56px, 12vw, 72px);
+	font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.4rem);
+	line-height: 1;
+	background: var(--blog-fill);
+	border: 1px solid var(--blog-line);
+	border-radius: 18px;
+	box-shadow: 0 12px 32px -10px var(--blog-glow);
+}
+
+.lp-blog-header h1 {
+	margin-top: 14px;
+	font-size: clamp(1.6rem, 1.1rem + 2.6vw, 2.5rem);
+	font-weight: 680;
+	letter-spacing: -0.03em;
+	line-height: 1.25;
+}
 
 .lp-blog-meta {
+	margin-top: 14px;
 	display: flex;
 	gap: 16px;
 	flex-wrap: wrap;
@@ -3492,43 +3693,99 @@ html.lp-launching .lp-phone-launch {
 	color: var(--lp-text-3);
 }
 
-.lp-blog-header h1 {
+.lp-blog-header .lp-blog-chips {
 	margin-top: 12px;
-	font-size: clamp(1.6rem, 1.1rem + 2.6vw, 2.5rem);
-	font-weight: 680;
-	letter-spacing: -0.03em;
-	line-height: 1.25;
 }
 
 .lp-blog-lead {
-	margin-top: 14px;
+	margin-top: 18px;
+	padding: 16px 18px;
 	color: var(--lp-text-2);
-	line-height: 1.8;
+	line-height: 1.85;
+	background: var(--blog-fill-soft);
+	border-left: 3px solid var(--blog-edge);
+	border-radius: 0 var(--lp-radius-sm) var(--lp-radius-sm) 0;
 }
 
-/* Markdown本文のタイポグラフィ */
+/* ---- 目次 ---- */
+
+.lp-blog-toc {
+	margin-top: clamp(2rem, 5vh, 3rem);
+	padding: 20px 22px;
+	background: var(--blog-fill-soft);
+	border: 1px solid var(--blog-line);
+	border-radius: var(--lp-radius);
+}
+
+.lp-blog-toc-title {
+	font-size: 13px;
+	font-weight: 650;
+	letter-spacing: 0.02em;
+	color: var(--blog-ink);
+}
+
+.lp-blog-toc li::marker {
+	color: var(--blog-ink);
+	font-weight: 600;
+}
+
+.lp-blog-toc ol {
+	margin: 10px 0 0;
+	padding-left: 1.3em;
+	display: grid;
+	gap: 7px;
+}
+
+.lp-blog-toc li {
+	font-size: 14px;
+	color: var(--lp-text-3);
+}
+
+.lp-blog-toc a {
+	color: var(--lp-text-2);
+	text-decoration: none;
+}
+
+.lp-blog-toc a:hover {
+	color: var(--lp-text);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+/* ---- Markdown本文のタイポグラフィ ---- */
+
 .lp-blog-body {
 	margin-top: clamp(2rem, 5vh, 3rem);
-	line-height: 1.9;
+	line-height: 1.95;
 	color: var(--lp-text-2);
 	font-size: 15.5px;
 }
 
+/* 下線はカテゴリ色から罫線色へ流れるグラデーション（border ではなく背景で描く） */
 .lp-blog-body :where(h2) {
-	margin-top: clamp(2.2rem, 5vh, 3rem);
+	margin-top: clamp(2.4rem, 5vh, 3.2rem);
+	padding-bottom: 10px;
+	background-image: linear-gradient(90deg, var(--blog-edge), var(--lp-border) 45%, transparent);
+	background-size: 100% 1px;
+	background-position: 0 100%;
+	background-repeat: no-repeat;
 	font-size: clamp(1.25rem, 1.05rem + 1vw, 1.55rem);
 	font-weight: 660;
 	letter-spacing: -0.02em;
 	line-height: 1.4;
 	color: var(--lp-text);
+	scroll-margin-top: 90px;
 }
 
 .lp-blog-body :where(h3) {
-	margin-top: 1.8rem;
+	margin-top: 2rem;
+	padding-left: 12px;
+	border-left: 3px solid var(--blog-edge);
 	font-size: 1.1rem;
 	font-weight: 640;
 	letter-spacing: -0.01em;
 	color: var(--lp-text);
+	scroll-margin-top: 90px;
 }
 
 .lp-blog-body :where(p, ul, ol) {
@@ -3536,49 +3793,93 @@ html.lp-launching .lp-phone-launch {
 }
 
 .lp-blog-body :where(ul, ol) {
-	padding-left: 1.4em;
+	padding-left: 1.5em;
 }
 
 .lp-blog-body :where(li) {
-	margin-top: 0.4em;
+	margin-top: 0.45em;
+}
+
+.lp-blog-body :where(li)::marker {
+	color: var(--blog-ink);
 }
 
 .lp-blog-body :where(strong) {
 	color: var(--lp-text);
-	font-weight: 640;
+	font-weight: 650;
+	/* さりげないマーカー風の下地（カテゴリ色の蛍光ペン） */
+	background: linear-gradient(transparent 68%, var(--blog-fill) 68%);
+	padding: 0 1px;
 }
 
 .lp-blog-body :where(a) {
-	color: var(--lp-text);
+	color: var(--blog-ink);
 	text-decoration: underline;
 	text-underline-offset: 3px;
+	text-decoration-color: var(--blog-edge);
 }
 
+.lp-blog-body :where(a:hover) {
+	text-decoration-color: currentColor;
+}
+
+/* 引用はカード型のコールアウトとして表示（文例・実例に使用） */
 .lp-blog-body :where(blockquote) {
-	margin-top: 1em;
-	padding: 4px 0 4px 18px;
-	border-left: 2px solid var(--lp-border-strong);
-	color: var(--lp-text-3);
+	margin-top: 1.2em;
+	padding: 16px 18px;
+	background: var(--blog-fill-soft);
+	border: 1px solid var(--lp-border);
+	border-left: 3px solid var(--blog-edge);
+	border-radius: var(--lp-radius-sm);
+	color: var(--lp-text-2);
+}
+
+.lp-blog-body :where(blockquote p:first-child) {
+	margin-top: 0;
+}
+
+/* 表: ラッパー（rehypeTableWrap が生成）が枠と横スクロールを担当し、
+   表本体は幅100%を維持する */
+.lp-blog-body :where(.lp-table-wrap) {
+	margin-top: 1.2em;
+	overflow-x: auto;
+	border: 1px solid var(--lp-border);
+	border-radius: var(--lp-radius-sm);
+	background: var(--lp-surface);
 }
 
 .lp-blog-body :where(table) {
-	margin-top: 1em;
 	width: 100%;
 	border-collapse: collapse;
 	font-size: 14px;
 }
 
 .lp-blog-body :where(th, td) {
-	padding: 10px 12px;
-	border: 1px solid var(--lp-border);
+	padding: 11px 14px;
+	border-bottom: 1px solid var(--lp-border);
 	text-align: left;
 	vertical-align: top;
+	min-width: 88px;
+}
+
+.lp-blog-body :where(td:not(:last-child), th:not(:last-child)) {
+	border-right: 1px solid var(--lp-border);
+}
+
+.lp-blog-body :where(tr:last-child td) {
+	border-bottom: none;
 }
 
 .lp-blog-body :where(th) {
-	background: var(--lp-fill-soft);
+	background: var(--blog-fill-soft);
 	color: var(--lp-text);
-	font-weight: 620;
+	font-weight: 630;
+	white-space: nowrap;
+	box-shadow: inset 0 2px 0 var(--blog-edge);
+}
+
+.lp-blog-body :where(tbody tr:nth-child(even) td) {
+	background: var(--lp-fill-soft);
 }
 
 .lp-blog-body :where(hr) {
@@ -3594,31 +3895,143 @@ html.lp-launching .lp-phone-launch {
 	padding: 2px 6px;
 }
 
-/* 記事末尾のアプリ誘導CTA */
+/* ---- 記事末尾のアプリ誘導CTA ----
+   トップページの最終CTA（.lp-cta）のミニ版。文言・タイトルの意匠・App Storeバッジは
+   LPと同じものを使い回し、記事幅に収まるサイズだけを上書きする。
+   ここはカテゴリ色を使わない（ブランドのモノクロをLPと揃える）。 */
+
 .lp-blog-cta {
+	position: relative;
+	overflow: clip;
 	margin-top: clamp(2.5rem, 6vh, 4rem);
-	padding: clamp(24px, 5vw, 36px);
+	padding: clamp(28px, 5vw, 40px) clamp(20px, 4vw, 32px);
 	background: var(--lp-fill-soft);
 	border: 1px solid var(--lp-border);
 	border-radius: var(--lp-radius);
 	text-align: center;
 }
 
-.lp-blog-cta h2 {
-	font-size: clamp(1.15rem, 1rem + 0.8vw, 1.4rem);
-	font-weight: 660;
-	letter-spacing: -0.02em;
+/* LPのCTAと同じ、足元から立ち上がるグロー */
+.lp-blog-cta::before {
+	content: '';
+	position: absolute;
+	bottom: -40%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 120%;
+	height: 85%;
+	background: radial-gradient(ellipse 45% 70% at 50% 100%, var(--lp-glow), transparent 70%);
+	pointer-events: none;
 }
 
-.lp-blog-cta p {
-	margin-top: 10px;
+/* アプリアイコンはボックスの背景として薄く敷く（高さを増やさない） */
+.lp-blog-cta-icon {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	translate: -50% -50%;
+	rotate: -12deg;
+	width: min(300px, 62%);
+	height: auto;
+	/* ダーク: アイコン本体が白いので、そのまま薄くすれば角丸の輪郭ごと透ける */
+	opacity: 0.09;
+	z-index: 0;
+	pointer-events: none;
+}
+
+/* ライト: 本体が白いままだと明るい背景に溶けて、中の濃いロゴだけが
+   浮いて見える。明暗を反転して「濃いシルエット」にし、ダークと対称の見え方にする
+   （色相のズレを避けるため grayscale を先にかける） */
+html[data-theme='light'] .lp-blog-cta-icon {
+	filter: grayscale(1) invert(1);
+	opacity: 0.1;
+}
+
+/* 記事カラム幅に合わせてLPのタイトルを縮める（意匠はLP側の定義を継承）。
+   トップと違い1行で見せるため、行ごとの左右ずらしは効かせない */
+.lp-blog-cta .lp-cta-title {
+	position: relative;
+	z-index: 1;
+	font-size: clamp(1.4rem, 1.1rem + 1.5vw, 1.95rem);
+}
+
+.lp-blog-cta .lp-cta-sub {
+	position: relative;
+	z-index: 1;
+	margin-top: clamp(10px, 1.6vh, 14px);
 	font-size: 14px;
-	color: var(--lp-text-2);
 	line-height: 1.75;
 }
 
-.lp-blog-cta .lp-btn {
-	margin-top: 18px;
+/* ---- 関連記事 ---- */
+
+.lp-blog-related {
+	margin-top: clamp(2.5rem, 6vh, 4rem);
+}
+
+.lp-blog-related h2 {
+	font-size: 1.05rem;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+	color: var(--lp-text-2);
+}
+
+.lp-blog-related ul {
+	margin-top: 14px;
+	list-style: none;
+	padding: 0;
+	display: grid;
+	gap: 10px;
+}
+
+.lp-blog-related-card {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 14px 16px;
+	background: var(--lp-fill-soft);
+	border: 1px solid var(--lp-border);
+	border-radius: var(--lp-radius-sm);
+	text-decoration: none;
+	color: inherit;
+	transition:
+		border-color 0.25s ease,
+		background 0.25s ease;
+}
+
+.lp-blog-related-card:hover {
+	border-color: var(--blog-line);
+	background: var(--blog-fill-soft);
+}
+
+.lp-blog-related-emoji {
+	flex: 0 0 auto;
+	display: grid;
+	place-items: center;
+	width: 34px;
+	height: 34px;
+	font-size: 17px;
+	background: var(--blog-fill);
+	border: 1px solid var(--blog-line);
+	border-radius: 10px;
+}
+
+.lp-blog-related-text {
+	display: grid;
+	gap: 3px;
+	min-width: 0;
+}
+
+.lp-blog-related-title {
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.5;
+	color: var(--lp-text);
+}
+
+.lp-blog-related-text time {
+	font-size: 12px;
+	color: var(--lp-text-3);
 }
 
 .lp-blog-back {
@@ -3633,4 +4046,18 @@ html.lp-launching .lp-phone-launch {
 
 .lp-blog-back a:hover {
 	color: var(--lp-text);
+}
+
+/* SP: カードの絵文字を少しコンパクトに */
+@media (max-width: 480px) {
+	.lp-blog-card {
+		gap: 12px;
+	}
+
+	.lp-blog-card-emoji {
+		width: 42px;
+		height: 42px;
+		font-size: 21px;
+		border-radius: 12px;
+	}
 }

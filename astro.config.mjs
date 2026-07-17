@@ -2,9 +2,35 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+// Markdownの<table>を<div class="lp-table-wrap">で包む。
+// 表を幅100%のまま保ちつつ、はみ出すときだけラッパー側で横スクロールさせるため
+// （tableにdisplay:blockを当てると幅いっぱいに広がらなくなる）
+function rehypeTableWrap() {
+	/** @param {any} node */
+	const walk = (node) => {
+		if (!node.children) return;
+		node.children = node.children.map((/** @type {any} */ child) => {
+			if (child.type === 'element' && child.tagName === 'table') {
+				return {
+					type: 'element',
+					tagName: 'div',
+					properties: { className: ['lp-table-wrap'] },
+					children: [child],
+				};
+			}
+			walk(child);
+			return child;
+		});
+	};
+	return (/** @type {any} */ tree) => walk(tree);
+}
+
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://evereapp.com',
+	markdown: {
+		rehypePlugins: [rehypeTableWrap],
+	},
 	integrations: [
 		starlight({
 			title: 'Evere',
