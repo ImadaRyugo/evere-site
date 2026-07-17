@@ -3439,7 +3439,8 @@ html.lp-launching .lp-phone-launch {
 /* ---- カテゴリ別アクセント ----
    LP本体はモノクロを維持し、ブログだけは「タグ由来の色相」を1つだけ持たせて、
    アクセント色はすべてそこから導出する。色を足すときはこの色相表に1行足すだけ。
-   記事全体は tags[0] の色、タグチップは自分のタグの色になる（data-hue 属性）。
+   色を持つのは記事/カード単位（先頭タグ = tags[0] の色相を data-hue で流す）。
+   タグチップは色を持たない（複数の色が並ぶと安っぽく見えるため）。
    既定色は Evere の「精算済み」グリーン（--ph-green）と同じ色相。 */
 
 .lp-blog {
@@ -3532,16 +3533,18 @@ html[data-theme='light'] :is(.lp-blog, .lp-blog [data-hue]) {
 	gap: 6px;
 }
 
-/* .lp-chip は料金表と共用のため、ブログ用の見た目は必ず .lp-blog 配下に限定する */
+/* .lp-chip は料金表と共用のため、ブログ用の見た目は必ず .lp-blog 配下に限定する。
+   タグごとに色を変えると、1枚のカードに複数の色が並んで安っぽく見えるため、
+   チップはモノクロで固定する（カテゴリ色はカードのレールと絵文字タイルだけで示す） */
 .lp-blog .lp-chip {
 	display: inline-block;
 	padding: 3px 10px;
 	font-size: 11.5px;
 	font-weight: 600;
 	letter-spacing: 0.01em;
-	color: var(--blog-ink);
-	background: var(--blog-fill);
-	border: 1px solid var(--blog-line);
+	color: var(--lp-text-2);
+	background: var(--lp-fill);
+	border: 1px solid var(--lp-border);
 	border-radius: 999px;
 }
 

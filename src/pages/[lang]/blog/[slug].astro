@@ -144,9 +144,7 @@ const blogPostingSchema = {
 					data.tags.length > 0 && (
 						<p class="lp-blog-chips">
 							{data.tags.map((tag) => (
-								<span class="lp-chip" data-hue={tag}>
-									#{tag}
-								</span>
+								<span class="lp-chip">#{tag}</span>
 							))}
 						</p>
 					)

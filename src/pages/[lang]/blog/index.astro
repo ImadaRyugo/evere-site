@@ -71,9 +71,7 @@ const posts = (await getCollection('blog', (entry) => entry.id.startsWith(`${lan
 										{post.data.tags.length > 0 && (
 											<span class="lp-blog-chips">
 												{post.data.tags.map((tag) => (
-													<span class="lp-chip" data-hue={tag}>
-														#{tag}
-													</span>
+													<span class="lp-chip">#{tag}</span>
 												))}
 											</span>
 										)}
