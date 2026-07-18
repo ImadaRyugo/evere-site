@@ -1,7 +1,7 @@
 ---
 title: "How to Split Bills Abroad When Currencies Don't Match"
 description: "Splitting costs abroad gets messy because of mixed currencies and exchange rates. Here's a step-by-step guide: how to record expenses, which currency to settle in, and how to pick a rate everyone accepts."
-pubDate: 2026-01-01
+pubDate: 2026-07-18
 tags: ["travel", "currency"]
 emoji: "✈️"
 ctaSub: "Log it in the currency you paid. Evere handles the conversion, and the settling."
