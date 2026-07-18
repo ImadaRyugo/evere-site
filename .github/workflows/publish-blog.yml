@@ -1,0 +1,49 @@
+name: Publish daily blog post
+
+# 公開待ちキュー（content-queue/）の先頭1本を毎朝 src/content/blog/ へ移し、
+# pubDate を当日(Asia/Tokyo)に更新して main へ push する。実処理はすべて
+# scripts/publish-queue.mjs が行い、このワークフローはそれを起動するだけ。
+#
+# 以前はクラウドの Claude Code routine で起動していたが、エージェント層の
+# 実行エラーで一度も公開に到達しなかったため、LLM を介さない GitHub Actions に移行した。
+
+on:
+  schedule:
+    # 00:02 UTC = 09:02 JST。pubDate と同日ガードはスクリプト側が Asia/Tokyo で
+    # 計算するので、分の値は「いつ走るか」だけに影響し、正しさには影響しない。
+    - cron: "2 0 * * *"
+  # 手動テスト・臨時公開用
+  workflow_dispatch: {}
+
+# publish-queue.mjs の commit & push を通すため、GITHUB_TOKEN に書き込み権限を与える。
+permissions:
+  contents: write
+
+# 二重起動を防ぐ（同日ガードもあるが念のため）。
+concurrency:
+  group: publish-blog
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          # スクリプトが git pull --rebase するため全履歴を取得
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Configure git identity
+        run: |
+          git config user.name "Evere Blog Bot"
+          git config user.email "bot@evereapp.com"
+
+      - name: Publish next queued article
+        run: node scripts/publish-queue.mjs
