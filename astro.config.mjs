@@ -42,6 +42,10 @@ export default defineConfig({
 			},
 			favicon: '/favicon.png',
 			customCss: ['./src/styles/custom.css'],
+			components: {
+				// docsページにも言語別OGP画像を出す（src/components/StarlightHead.astro）
+				Head: './src/components/StarlightHead.astro',
+			},
 			defaultLocale: 'en',
 			head: [
 				// テーマはStarlightの既定（auto=OS追従）に任せる。

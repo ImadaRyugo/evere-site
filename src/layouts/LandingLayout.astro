@@ -19,7 +19,8 @@ const alternates = LP_LOCALES.map((l) => ({
 	lang: HTML_LANG[l],
 	href: new URL(`/${l}/`, site).href,
 }));
-const ogImage = new URL('/og.png', site);
+// OGP画像は言語別（scripts/gen-og.mjs で生成。コピー変更時は再生成すること）
+const ogImage = new URL(`/og-${locale}.png`, site);
 
 const OG_LOCALE: Record<string, string> = {
 	en: 'en_US',
@@ -95,6 +96,8 @@ const jsonLd = [
 		<meta property="og:description" content={dict.meta.description} />
 		<meta property="og:url" content={canonical.href} />
 		<meta property="og:image" content={ogImage.href} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={dict.meta.title} />
 		<meta name="twitter:description" content={dict.meta.description} />
