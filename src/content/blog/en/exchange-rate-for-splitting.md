@@ -1,7 +1,7 @@
 ---
 title: "Which Exchange Rate Should You Use to Split Travel Expenses?"
 description: "Every international group trip hits the same question: convert at which rate, from which day? We compare payment-date, settlement-date, and fixed rates on fairness and effort, and show the practical answer."
-pubDate: 2026-01-01
+pubDate: 2026-07-19
 tags: ["travel", "currency"]
 emoji: "💱"
 ctaSub: "Never look up a rate again. Evere locks it in the moment you record."
