@@ -1,7 +1,7 @@
 ---
 title: "Splitting Expenses by Income Ratio: Fairer Than 50/50"
 description: "When one partner earns much more, a strict 50/50 split slowly crushes the lower earner. Here's how to split by income ratio instead — the math, the day-to-day workflow, and how to propose it to your partner."
-pubDate: 2026-01-01
+pubDate: 2026-07-20
 tags: ["couple"]
 emoji: "⚖️"
 ctaSub: "Enter 60/40 in Evere once. You never do that math again."
