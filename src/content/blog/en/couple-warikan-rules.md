@@ -1,7 +1,7 @@
 ---
 title: "How Couples Should Split Expenses: Rules You Both Agree On"
 description: "Split the bill or treat each other? There's no single right answer for couples — but there is a proven way to build rules you're both happy with. Here are the four common models and how to talk it through."
-pubDate: 2026-01-01
+pubDate: 2026-07-21
 tags: ["couple"]
 emoji: "💑"
 ctaSub: "Stop pulling out two wallets on every date. Log it in Evere, and settle once a month."
