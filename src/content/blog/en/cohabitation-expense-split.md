@@ -1,7 +1,7 @@
 ---
 title: "How to Split Living Costs When You Move In Together"
 description: "Cohabiting couples split living costs one of three ways: straight 50/50, by income ratio, or by category. We compare the strengths and traps of each, plus the record-keeping and settlement-day rules that prevent fights."
-pubDate: 2026-01-01
+pubDate: 2026-07-22
 tags: ["couple", "cohabitation"]
 emoji: "🏠"
 ctaSub: "No more \"didn't I pay for that?\" Two people, one ledger: Evere."
