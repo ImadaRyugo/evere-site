@@ -1,7 +1,7 @@
 ---
 title: "Equal, Ratio, or Manual? The 3 Ways to Split Any Bill"
 description: "Every bill split in the world reduces to three methods: equal, ratio, and manual. Learn how each works, when to use which, and how to combine them on a trip or dinner — with worked examples."
-pubDate: 2026-01-01
+pubDate: 2026-07-23
 tags: ["how-to"]
 emoji: "🧮"
 ctaSub: "Equal, ratio, manual. Just pick one per expense; Evere squares up the rest."
