@@ -2,6 +2,8 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+import cloudflare from "@astrojs/cloudflare";
+
 // Markdownの<table>を<div class="lp-table-wrap">で包む。
 // 表を幅100%のまま保ちつつ、はみ出すときだけラッパー側で横スクロールさせるため
 // （tableにdisplay:blockを当てると幅いっぱいに広がらなくなる）
@@ -27,11 +29,13 @@ function rehypeTableWrap() {
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://evereapp.com',
-	markdown: {
+    site: 'https://evereapp.com',
+
+    markdown: {
 		rehypePlugins: [rehypeTableWrap],
 	},
-	integrations: [
+
+    integrations: [
 		starlight({
 			title: 'Evere',
 			description: 'Split bills easily across currencies.',
@@ -107,4 +111,6 @@ export default defineConfig({
 			},
 		}),
 	],
+
+    adapter: cloudflare()
 });
