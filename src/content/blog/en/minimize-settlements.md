@@ -1,7 +1,7 @@
 ---
 title: "How to Settle Up in the Fewest Payments"
 description: "Paying back every individual IOU turns a group trip into a blizzard of transfers. Net out the debts instead and a group of n people settles in at most n−1 payments. Here's the method, worked through with 4 people."
-pubDate: 2026-01-01
+pubDate: 2026-07-24
 tags: ["how-to", "settlement"]
 emoji: "🤝"
 ctaSub: "One payment per person is enough. Evere's smart settlement works out the rest."
