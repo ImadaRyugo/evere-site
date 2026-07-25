@@ -1,7 +1,7 @@
 ---
 title: "The Complete Guide to Group Trip Money"
 description: "\"The organizer pays for everything\" is how group trip finances fall apart. Here's the timeline that prevents fights: what to agree on before you go, the recording habit during the trip, and settling within 24 hours of getting home."
-pubDate: 2026-01-01
+pubDate: 2026-07-25
 tags: ["travel", "group"]
 emoji: "🧳"
 ctaSub: "Stop making the organizer front everything. Whoever pays adds one line to Evere."
