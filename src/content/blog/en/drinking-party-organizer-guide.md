@@ -1,7 +1,7 @@
 ---
 title: "The Group Dinner Organizer's Guide to Splitting the Bill"
 description: "Organizing a group dinner goes wrong before and after the meal, not at the table. Announcing the cost, handling people who don't drink, rounding, late arrivals, the bar afterward, and chasing payments — the full playbook."
-pubDate: 2026-01-01
+pubDate: 2026-07-26
 tags: ["group", "party"]
 emoji: "🍻"
 ctaSub: "Never send \"hey, still waiting?\" again. Evere shows everyone who hasn't paid."
