@@ -19,3 +19,8 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# Instagram 生成物（マーケ素材。リポジトリには含めない）
+ig/
+# Remotion 動画プロジェクトの依存
+video/node_modules/

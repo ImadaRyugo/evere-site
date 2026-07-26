@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "og": "node scripts/gen-og.mjs"
+    "og": "node scripts/gen-og.mjs",
+    "ig": "node scripts/gen-ig.mjs"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.37.6",
