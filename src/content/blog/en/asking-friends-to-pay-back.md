@@ -1,7 +1,7 @@
 ---
 title: "How to Ask a Friend to Pay You Back Without It Getting Weird"
 description: "Chasing money you fronted is hardest when the amount is small. Here are the three principles that keep it from getting awkward, plus copy-paste scripts for the next day, a week later, a month later, and the group chat."
-pubDate: 2026-01-01
+pubDate: 2026-07-27
 tags: ["group", "communication"]
 emoji: "💬"
 ctaSub: "You never have to say \"you owe me.\" With Evere, you just say: let's settle up."
