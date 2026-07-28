@@ -1,7 +1,7 @@
 ---
 title: "Tracking Who Paid Abroad When Cash, Cards, and Apps All Mix"
 description: "Abroad, cash, credit cards, and mobile payments end up mixed together, and the numbers stop adding up. Here's why each payment method breaks your records differently, and how recording face amounts fixes it."
-pubDate: 2026-01-01
+pubDate: 2026-07-28
 tags: ["travel", "currency"]
 emoji: "💳"
 ctaSub: "Stop squinting at card statements. Evere records the face amount and nothing else."
