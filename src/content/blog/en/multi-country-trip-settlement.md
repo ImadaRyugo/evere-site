@@ -1,7 +1,7 @@
 ---
 title: "Settling a Multi-Country Trip: Split by Currency, or Combine?"
 description: "Once a trip crosses three or four currencies, you have to decide how to structure the settlement. We compare splitting per currency against combining everything, measured in transfers and effort."
-pubDate: 2026-01-01
+pubDate: 2026-07-29
 tags: ["currency", "travel"]
 emoji: "🗺️"
 ctaSub: "Three currencies on one trip, one settlement at the end. Evere adds it all up."
