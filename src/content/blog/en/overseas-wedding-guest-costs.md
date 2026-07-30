@@ -1,7 +1,7 @@
 ---
 title: "Destination Weddings: What Guests Pay, and What Hosts Should Say"
 description: "Destination weddings put flights and hotels on the guests, and nobody knows what to do about the gift. Here's what guests actually carry, what the couple should say up front, and how to split costs on the ground."
-pubDate: 2026-01-01
+pubDate: 2026-07-30
 tags: ["group", "travel"]
 emoji: "💒"
 ctaSub: "Flights, hotel, the after-party. Evere shows who fronted what, at a glance."
