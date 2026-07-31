@@ -1,7 +1,7 @@
 ---
 title: "Who Pays the Tip? Splitting It, or Keeping It Personal"
 description: "Tips abroad mix money the group shares with money individuals owe. Sorting them into service charges, table tips, and personal tips gives your group a line that doesn't cause arguments."
-pubDate: 2026-01-01
+pubDate: 2026-07-31
 tags: ["travel", "currency"]
 emoji: "🧾"
 ctaSub: "\"I'll get the tip\" shouldn't vanish. One line in Evere and it doesn't."
