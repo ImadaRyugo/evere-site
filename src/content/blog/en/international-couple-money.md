@@ -1,7 +1,7 @@
 ---
 title: "Money Rules for International Couples: Two Currencies, Two Price Levels"
 description: "International couples deal with an income gap plus a currency gap and a cost-of-living gap. Which currency to anchor on, how to handle price differences, and how to split the cost of visits."
-pubDate: 2026-01-01
+pubDate: 2026-08-01
 tags: ["couple", "currency"]
 emoji: "🌏"
 ctaSub: "Two currencies going back and forth, one record. Evere keeps both straight."
