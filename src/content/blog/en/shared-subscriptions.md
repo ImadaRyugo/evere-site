@@ -1,7 +1,7 @@
 ---
 title: "Shared Subscriptions: Who Pays for Streaming and Music?"
 description: "Streaming, music and cloud subscriptions quietly pile up on whoever's card is on file. Here are three ways to divide them, how to handle family plans, and why the logging usually stops."
-pubDate: 2026-01-01
+pubDate: 2026-08-02
 tags: ["cohabitation", "couple"]
 emoji: "📺"
 ctaSub: "Recurring costs are the easiest to forget. Log them in Evere once a month."
