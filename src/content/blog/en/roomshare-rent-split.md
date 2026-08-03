@@ -1,7 +1,7 @@
 ---
 title: "Roomshare Rent: How to Split It Fairly by Room Size"
 description: "Dividing rent by headcount punishes whoever took the small room. Here's the area-ratio method, why common space should be split evenly, how to price light and storage, and how to prorate a mid-month move."
-pubDate: 2026-01-01
+pubDate: 2026-08-03
 tags: ["how-to", "cohabitation"]
 emoji: "🔑"
 ctaSub: "Different rooms, different rent. Set the ratio in Evere once and you're done."
