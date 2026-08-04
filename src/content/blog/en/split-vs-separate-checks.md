@@ -1,7 +1,7 @@
 ---
 title: "Split the Bill or Separate Checks? Which Is Actually Faster"
 description: "Whether to split evenly or ask for separate checks depends on three things: how different the orders were, how many people are at the table, and what the restaurant can handle. Plus the option that beats both once the group gets big."
-pubDate: 2026-01-01
+pubDate: 2026-08-04
 tags: ["group", "how-to"]
 emoji: "🍽️"
 ctaSub: "Beats waiting through six card taps. One person pays, Evere does the rest."
