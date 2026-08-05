@@ -1,7 +1,7 @@
 ---
 title: "Separate Finances: Why You Need a Monthly Settlement Day"
 description: "Couples who keep money separate don't fail because they picked the wrong split. They fail because they never picked a day to settle. Here's what one fixed date changes, and the monthly routine that follows."
-pubDate: 2026-01-01
+pubDate: 2026-08-05
 tags: ["couple", "settlement"]
 emoji: "📆"
 ctaSub: "On settlement day you only open Evere. The totalling is already done."
