@@ -1,7 +1,7 @@
 ---
 title: "Splitting Utilities When One of You Works From Home"
 description: "When one person is home all day, the electricity bill isn't shared equally in any real sense. You still can't measure it per room. Three ways to divide utilities without measuring, plus how to handle seasonal swings."
-pubDate: 2026-01-01
+pubDate: 2026-08-06
 tags: ["cohabitation", "group"]
 emoji: "💡"
 ctaSub: "Usage shifts, so shift the ratio. Evere works out the difference for you."
