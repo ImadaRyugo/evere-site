@@ -1,7 +1,7 @@
 ---
 title: "Excel、LINE、App，分帳管理用哪個好？"
 description: "記分帳的帳，用試算表或者群組聊天都能運作，只是各自的極限來得不一樣。本文講清楚每種方式會在哪裡崩掉，以及人數和天數超過多少就該換工具。"
-pubDate: 2026-01-01
+pubDate: 2026-08-07
 tags: ["how-to", "settlement"]
 emoji: "🛠️"
 ctaSub: "用 Evere，輸入當場就完成。不需要專門空一天出來算帳。"

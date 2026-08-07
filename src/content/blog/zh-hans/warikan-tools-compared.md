@@ -1,7 +1,7 @@
 ---
 title: "Excel、微信群、App，分账管理用哪个好？"
 description: "记分账的账，用表格或者群聊都能转起来，只是各自的极限来得不一样。本文讲清楚每种方式会在哪里崩掉，以及人数和天数超过多少就该换工具。"
-pubDate: 2026-01-01
+pubDate: 2026-08-07
 tags: ["how-to", "settlement"]
 emoji: "🛠️"
 ctaSub: "用 Evere，录入当场就完成。不需要专门腾一天出来算账。"

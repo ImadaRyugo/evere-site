@@ -1,7 +1,7 @@
 ---
 title: "Spreadsheet, Group Chat or App for Splitting Costs?"
 description: "Shared expenses can be tracked in a spreadsheet or a group chat and it works fine, until it doesn't. Each tool fails in its own way. Here's where each one breaks, and the group size and trip length that should make you switch."
-pubDate: 2026-01-01
+pubDate: 2026-08-07
 tags: ["how-to", "settlement"]
 emoji: "🛠️"
 ctaSub: "In Evere the entry is done on the spot. No day spent adding things up."
