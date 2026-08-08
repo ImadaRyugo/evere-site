@@ -24,3 +24,9 @@ pnpm-debug.log*
 ig/
 # Remotion 動画プロジェクトの依存
 video/node_modules/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
