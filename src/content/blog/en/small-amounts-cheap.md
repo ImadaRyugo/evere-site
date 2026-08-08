@@ -1,7 +1,7 @@
 ---
 title: "Is It Petty to Ask for $4 Back? Where to Draw the Line"
 description: "Why a $4.20 coffee is harder to ask about than $300. It isn't the size of the amount, it's what the act of asking says about you. A look at staying on the right side of petty without absorbing the losses."
-pubDate: 2026-01-01
+pubDate: 2026-08-08
 tags: ["group", "communication"]
 emoji: "🪙"
 ctaSub: "You don't have to bring it up. Small amounts logged in Evere settle themselves."
