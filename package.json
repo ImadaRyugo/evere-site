@@ -12,6 +12,7 @@
     "ig": "node scripts/gen-ig.mjs"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "@astrojs/starlight": "^0.37.6",
     "@fontsource-variable/instrument-sans": "^5.2.8",
     "astro": "^5.6.1",

@@ -1,6 +1,23 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import sitemap from '@astrojs/sitemap';
+
+// Starlightとsitemapの両方から参照する。片方だけ言語を足す事故を防ぐため一箇所で定義
+const defaultLocale = 'en';
+const locales = {
+	en: { label: 'English', lang: 'en' },
+	ja: { label: '日本語', lang: 'ja' },
+	th: { label: 'ไทย', lang: 'th' },
+	ko: { label: '한국어', lang: 'ko' },
+	'zh-hans': { label: '简体中文', lang: 'zh-CN' },
+	'zh-hant': { label: '繁體中文', lang: 'zh-TW' },
+};
+
+// 言語判定してリダイレクトするだけのページ（src/pages/index.astro / privacy.astro / terms.astro）。
+// これらはnoindexなので、sitemapに載せると「クロールしろ」と「登録するな」を同時に送ることになる。
+// 実体は /{lang}/ 配下にあり、そちらがsitemapに載っている
+const NOINDEX_ROUTES = new Set(['/', '/privacy/', '/terms/']);
 
 // Markdownの<table>を<div class="lp-table-wrap">で包む。
 // 表を幅100%のまま保ちつつ、はみ出すときだけラッパー側で横スクロールさせるため
@@ -46,7 +63,7 @@ export default defineConfig({
 				// docsページにも言語別OGP画像を出す（src/components/StarlightHead.astro）
 				Head: './src/components/StarlightHead.astro',
 			},
-			defaultLocale: 'en',
+			defaultLocale,
 			head: [
 				// テーマはStarlightの既定（auto=OS追従）に任せる。
 				// 以前あった「未設定時にdarkを保存する」スクリプトは、LP側の
@@ -79,31 +96,21 @@ export default defineConfig({
 					`
 				}
 			],
-			locales: {
-				en: {
-					label: 'English',
-					lang: 'en',
-				},
-				ja: {
-					label: '日本語',
-					lang: 'ja',
-				},
-				th: {
-					label: 'ไทย',
-					lang: 'th',
-				},
-				ko: {
-					label: '한국어',
-					lang: 'ko',
-				},
-				'zh-hans': {
-					label: '简体中文',
-					lang: 'zh-CN',
-				},
-				'zh-hant': {
-					label: '繁體中文',
-					lang: 'zh-TW',
-				},
+			locales,
+		}),
+		// integrationsに@astrojs/sitemapがあるとStarlightは自前の追加をスキップするので、
+		// Starlightが生成するのと同じi18n設定を渡した上でfilterだけ足す
+		sitemap({
+			i18n: {
+				defaultLocale,
+				locales: Object.fromEntries(
+					Object.entries(locales).map(([locale, { lang }]) => [locale, lang])
+				),
+			},
+			filter: (page) => {
+				const { pathname } = new URL(page);
+				const normalized = pathname.endsWith('/') ? pathname : `${pathname}/`;
+				return !NOINDEX_ROUTES.has(normalized);
 			},
 		}),
 	],
