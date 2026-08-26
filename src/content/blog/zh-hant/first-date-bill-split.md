@@ -1,7 +1,7 @@
 ---
 title: "第一次約會該不該分帳？不尷尬的結帳方式"
 description: "第一次約會結帳會尷尬，原因不是金額，而是沒有先說好。買單前該說的那一句、三次約會的負擔對比，以及對方堅持全付時該怎麼接。"
-pubDate: 2026-08-27
+pubDate: 2026-08-26
 tags: ["couple", "communication"]
 emoji: "☕"
 ctaSub: "別在櫃檯前猜對方的心思，記進 Evere 就結束了。"

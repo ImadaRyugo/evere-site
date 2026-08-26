@@ -1,7 +1,7 @@
 ---
 title: "第一次约会该不该AA？不尴尬的结账方式"
 description: "第一次约会结账会尴尬，原因不是金额，而是没有事先说定。买单前该说的那一句、三次约会的负担对比、以及对方坚持全付时该怎么接。"
-pubDate: 2026-08-27
+pubDate: 2026-08-26
 tags: ["couple", "communication"]
 emoji: "☕"
 ctaSub: "别在收银台前猜对方心思，记进 Evere 就结束了。"

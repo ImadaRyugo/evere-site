@@ -1,7 +1,7 @@
 ---
 title: "Splitting the Bill on a First Date Without the Awkwardness"
 description: "First-date bills get awkward because nobody decided in advance, not because of the amount. The one line to say before the bill arrives, three dates compared, and how to accept an offer to pay."
-pubDate: 2026-08-27
+pubDate: 2026-08-26
 tags: ["couple", "communication"]
 emoji: "☕"
 ctaSub: "Stop reading the room at the till. Log it in Evere and move on."
