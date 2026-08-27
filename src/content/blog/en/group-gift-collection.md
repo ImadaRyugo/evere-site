@@ -1,7 +1,7 @@
 ---
 title: "Group Gifts: Collecting the Money Without Chasing People"
 description: "A gift everyone chips in for is harder to collect than to choose. Setting the cap first, how to ask, handling the remainder on $230 across seven people, and keeping the buyer out of pocket."
-pubDate: 2026-08-28
+pubDate: 2026-08-27
 tags: ["group", "how-to"]
 emoji: "🎁"
 ctaSub: "Let Evere remember who still owes, so you don't have to."
