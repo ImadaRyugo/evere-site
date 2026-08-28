@@ -1,7 +1,7 @@
 ---
 title: "The Friend Who Always Forgets Their Wallet"
 description: "What to change once the third apology about a forgotten wallet arrives. Decide the repayment method instead of the amount, see six months of totals, and set up the format that stops it recurring."
-pubDate: 2026-08-29
+pubDate: 2026-08-28
 tags: ["group", "communication"]
 emoji: "👛"
 ctaSub: "Being the only one who remembers is the part Evere takes over."

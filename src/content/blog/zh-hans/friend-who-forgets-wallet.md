@@ -1,7 +1,7 @@
 ---
 title: "总是忘带钱包的朋友，怎么不让垫款越积越多"
 description: "当「回头还你」出现第三次时该改什么。先定还钱的方式而不是金额、半年累计的真实数字，以及让它不再重演的先付安排。"
-pubDate: 2026-08-29
+pubDate: 2026-08-28
 tags: ["group", "communication"]
 emoji: "👛"
 ctaSub: "只有你一个人记得垫了多少，交给 Evere 记吧。"

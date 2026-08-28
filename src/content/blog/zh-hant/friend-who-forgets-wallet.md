@@ -1,7 +1,7 @@
 ---
 title: "老是忘記帶錢包的朋友，怎麼不讓代墊越積越多"
 description: "當「回頭還你」出現第三次時該改什麼。先定還錢的方式而不是金額、半年累計的真實數字，以及讓它不再重演的先付安排。"
-pubDate: 2026-08-29
+pubDate: 2026-08-28
 tags: ["group", "communication"]
 emoji: "👛"
 ctaSub: "只有你一個人記得代墊了多少，交給 Evere 記吧。"
