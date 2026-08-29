@@ -1,7 +1,7 @@
 ---
 title: "打工度假分租：週付房租和生活費分攤怎麼並行"
 description: "週付房租和按月的生活費一混，帳就對不上了。四週與一個月的差額、押金該怎麼單獨處理，以及把台幣和當地貨幣分開管理的方法。"
-pubDate: 2026-08-30
+pubDate: 2026-08-29
 tags: ["cohabitation", "currency"]
 emoji: "🎒"
 ctaSub: "兩種貨幣的生活費，用 Evere 只看一個餘額。"

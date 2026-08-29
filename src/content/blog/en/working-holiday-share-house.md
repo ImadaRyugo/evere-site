@@ -1,7 +1,7 @@
 ---
 title: "Working Holiday Share Houses: Weekly Rent and Splitting"
 description: "Weekly rent and monthly living costs stop adding up once they run side by side. The gap between four weeks and a month, how to handle the bond, and keeping two currencies apart."
-pubDate: 2026-08-30
+pubDate: 2026-08-29
 tags: ["cohabitation", "currency"]
 emoji: "🎒"
 ctaSub: "Two currencies, one balance to look at. That's what Evere is for."
