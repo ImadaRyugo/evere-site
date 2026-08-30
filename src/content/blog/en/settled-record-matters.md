@@ -1,7 +1,7 @@
 ---
 title: "Why Marking a Debt Settled Matters More Than the Maths"
 description: "Disputes about whether money changed hands happen because both memories are honest. The three states of a settlement, why a record has to be reversible, and how much detail is worth keeping."
-pubDate: 2026-08-31
+pubDate: 2026-08-30
 tags: ["settlement", "how-to"]
 emoji: "✅"
 ctaSub: "Remembering whether you paid them back isn't your job with Evere."
