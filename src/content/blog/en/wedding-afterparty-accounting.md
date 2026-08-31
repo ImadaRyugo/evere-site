@@ -1,7 +1,7 @@
 ---
 title: "Wedding After-Party: Setting a Ticket Price That Breaks Even"
 description: "After-party losses come from fixed costs, not from headcount. How to find the break-even number, why you divide by 80% of your estimate, and where to draw the line on no-shows and walk-ins."
-pubDate: 2026-09-01
+pubDate: 2026-08-31
 tags: ["party", "group"]
 emoji: "🥂"
 ctaSub: "Don't carry the shortfall alone. Put every figure into Evere."
