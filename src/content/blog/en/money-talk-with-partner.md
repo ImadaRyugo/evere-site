@@ -1,7 +1,7 @@
 ---
 title: "How to Bring Up Money With Your Partner: A 15-Minute Script"
 description: "The money conversation is decided by its opening line. Where to have it, why to start with a report rather than a question, lines you can use as they are, and what to say when they go quiet."
-pubDate: 2026-09-02
+pubDate: 2026-09-01
 tags: ["couple", "communication"]
 emoji: "🗣️"
 ctaSub: "Give the numbers fifteen minutes, then let Evere hold them."

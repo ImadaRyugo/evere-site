@@ -1,7 +1,7 @@
 ---
 title: "怎麼跟另一半開口談錢：前 15 分鐘的對話腳本"
 description: "談錢這件事，成敗在第一句。在哪裡談、為什麼要從陳述而不是提問開始、可以直接拿去用的句子，以及對方沉默時該怎麼接。"
-pubDate: 2026-09-02
+pubDate: 2026-09-01
 tags: ["couple", "communication"]
 emoji: "🗣️"
 ctaSub: "數字的部分給 15 分鐘，剩下的放進 Evere 就好。"
