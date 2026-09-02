@@ -1,7 +1,7 @@
 ---
 title: "Splitting Pet Costs: Five Things to Agree Before You Adopt"
 description: "Pet costs come in three layers, and only the third one causes arguments. A year of running costs laid out, how to set a vet-bill ceiling, and settling ownership before you need to."
-pubDate: 2026-09-03
+pubDate: 2026-09-02
 tags: ["cohabitation", "couple"]
 emoji: "🐾"
 ctaSub: "Food, litter, vet bills. One line each in Evere and you're done."

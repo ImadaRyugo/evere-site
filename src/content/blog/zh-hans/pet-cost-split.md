@@ -1,7 +1,7 @@
 ---
 title: "两个人养宠物：领养前该定下来的五件事"
 description: "宠物开销分成三层，会吵起来的只有第三层。一整年的开销明细示例、医疗费上限怎么定，以及登记和分手后的归属该先写清楚。"
-pubDate: 2026-09-03
+pubDate: 2026-09-02
 tags: ["cohabitation", "couple"]
 emoji: "🐾"
 ctaSub: "猫粮钱医药费，在 Evere 里一笔一笔加进去就行。"

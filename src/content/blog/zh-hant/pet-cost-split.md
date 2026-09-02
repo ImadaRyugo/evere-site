@@ -1,7 +1,7 @@
 ---
 title: "兩個人養寵物：領養前該定下來的五件事"
 description: "寵物開銷分成三層，會吵起來的只有第三層。一整年的開銷明細範例、醫療費上限怎麼定，以及登記和分手後的歸屬該先寫清楚。"
-pubDate: 2026-09-03
+pubDate: 2026-09-02
 tags: ["cohabitation", "couple"]
 emoji: "🐾"
 ctaSub: "飼料錢醫藥費，在 Evere 裡一筆一筆加進去就行。"
