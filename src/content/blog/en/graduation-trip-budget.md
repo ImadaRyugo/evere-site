@@ -1,7 +1,7 @@
 ---
 title: "Graduation Trips: Splitting Costs Across Different Budgets"
 description: "Student trips stall because nobody will say what they can afford. Why the budget cap comes before the destination, separating fixed from discretionary costs, and splitting the organiser's job three ways."
-pubDate: 2026-09-04
+pubDate: 2026-09-03
 tags: ["travel", "group"]
 emoji: "🚌"
 ctaSub: "Everyone's budget is different. Evere just tells you the gap."
