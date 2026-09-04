@@ -1,7 +1,7 @@
 ---
 title: "Is It Unfair That the Organiser Keeps the Card Points?"
 description: "One person puts the whole bill on their card and collects the cashback alone. Run the numbers and it's about five dollars on a five-hundred-dollar dinner. Why the argument persists anyway, and how to settle it."
-pubDate: 2026-09-05
+pubDate: 2026-09-04
 tags: ["group", "party"]
 emoji: "⭐"
 ctaSub: "Before the points argument, get the amounts out of Evere."
