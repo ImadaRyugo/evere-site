@@ -1,7 +1,7 @@
 ---
 title: "Who Pays on Birthdays and Anniversaries?"
 description: "Birthdays and anniversaries call for different rules. Why to count the gift and the dinner as one budget, what a year of occasions looks like side by side, and how to say you want to spend less."
-pubDate: 2026-09-07
+pubDate: 2026-09-06
 tags: ["couple", "party"]
 emoji: "🎂"
 ctaSub: "No calculators on the day. Evere has the figures afterwards."
