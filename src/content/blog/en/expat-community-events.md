@@ -1,7 +1,7 @@
 ---
 title: "Expat Community Events: Accounting That Survives Turnover"
 description: "In a community where people arrive and leave every year, accounting tied to a person can't be handed on. Carrying a float, keeping everything in local currency, and closing someone out before they move away."
-pubDate: 2026-09-08
+pubDate: 2026-09-07
 tags: ["currency", "group"]
 emoji: "🌐"
 ctaSub: "Faces change, and the records in Evere still hand over cleanly."
