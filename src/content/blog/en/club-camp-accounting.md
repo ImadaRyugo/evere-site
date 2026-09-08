@@ -1,7 +1,7 @@
 ---
 title: "Club Trip Accounting: A Handbook for the Treasurer"
 description: "Running the money on a society weekend is less about collecting than about being able to explain it. Keeping money in and money out in one ledger, separating subs from trip fees, and deciding where leftovers go."
-pubDate: 2026-09-09
+pubDate: 2026-09-08
 tags: ["group", "how-to"]
 emoji: "📒"
 ctaSub: "The treasurer's notebook is a job Evere can do instead."
