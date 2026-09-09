@@ -1,7 +1,7 @@
 ---
 title: "Should You Save Together Before Marriage?"
 description: "Split living costs by income but save equally and the gap in what each of you keeps gets wider, not narrower. Real numbers, why goalless joint savings stall, and deciding the split if you separate."
-pubDate: 2026-09-10
+pubDate: 2026-09-09
 tags: ["cohabitation", "couple"]
 emoji: "🏦"
 ctaSub: "Keep saving and spending apart. Evere handles the spending half."
