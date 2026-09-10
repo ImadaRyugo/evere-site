@@ -1,7 +1,7 @@
 ---
 title: "How Money Rules Change as a Relationship Progresses"
 description: "What changes as things get serious isn't the amount, it's the unit you settle in. Four stages and what shifts at each, why a late transition costs you in frequency, and when to move back a stage."
-pubDate: 2026-09-11
+pubDate: 2026-09-10
 tags: ["couple", "how-to"]
 emoji: "🪜"
 ctaSub: "Each stage up, Evere just needs a different settling unit."
