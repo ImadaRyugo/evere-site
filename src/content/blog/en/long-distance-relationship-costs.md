@@ -1,7 +1,7 @@
 ---
 title: "Long-Distance Costs: When Only One of You Travels"
 description: "What distorts first in a long-distance relationship isn't the amount, it's the asymmetry. Four arrangements compared over a year, why not to price travel time, and counting the host's invisible costs."
-pubDate: 2026-09-12
+pubDate: 2026-09-11
 tags: ["couple", "travel"]
 emoji: "🚄"
 ctaSub: "Fares and the weekend itself. Evere adds up both directions."
