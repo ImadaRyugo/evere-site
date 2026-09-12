@@ -1,7 +1,7 @@
 ---
 title: "Stag and Hen Parties: Who Covers the Guest of Honour?"
 description: "How much comping the guest of honour actually adds per head, using real numbers for eight people and $2,000. Setting the budget cap, leaving people a way to decline, and why you need two organisers."
-pubDate: 2026-09-13
+pubDate: 2026-09-12
 tags: ["party", "group"]
 emoji: "🎊"
 ctaSub: "Write down who covers the bride or groom, and let Evere hold it."
