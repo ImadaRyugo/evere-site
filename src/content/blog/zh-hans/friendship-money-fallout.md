@@ -1,7 +1,7 @@
 ---
 title: "分摊把友情弄断的时候：断法和修复的顺序"
 description: "金额本身几乎不会毁掉友情，毁掉它的是没人开口的那段时间。常见的几种断裂方式，以及要修复时该先把什么找回来。"
-pubDate: 2026-09-14
+pubDate: 2026-09-13
 tags: ["communication", "group"]
 emoji: "🩹"
 ctaSub: "别再靠记忆去怀疑朋友，有 Evere 一个就够了。"

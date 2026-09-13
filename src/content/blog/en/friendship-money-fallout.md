@@ -1,7 +1,7 @@
 ---
 title: "When Splitting the Bill Ends a Friendship"
 description: "The amount almost never ends a friendship. What ends it is the time that passed without anybody explaining. The common patterns of the breakdown, and what to restore first if you want to repair it."
-pubDate: 2026-09-14
+pubDate: 2026-09-13
 tags: ["communication", "group"]
 emoji: "🩹"
 ctaSub: "Stop suspecting friends from memory. Evere alone fixes that."

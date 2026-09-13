@@ -1,7 +1,7 @@
 ---
 title: "分帳把友情弄斷的時候：斷法和修復的順序"
 description: "金額本身幾乎不會毀掉友情，毀掉它的是沒人開口的那段時間。常見的幾種斷裂方式，以及要修復時該先把什麼找回來。"
-pubDate: 2026-09-14
+pubDate: 2026-09-13
 tags: ["communication", "group"]
 emoji: "🩹"
 ctaSub: "別再靠記憶去懷疑朋友，有 Evere 一個就夠了。"
