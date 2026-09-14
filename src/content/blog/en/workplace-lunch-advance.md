@@ -1,7 +1,7 @@
 ---
 title: "Covering Lunch at Work: Settling Small Daily Amounts"
 description: "Lunch you cover for a colleague is small each time, but it compounds into an amount that feels awkward to ask for. Why taking turns breaks down, how to close the books weekly, and why one record-keeper is enough."
-pubDate: 2026-09-15
+pubDate: 2026-09-14
 tags: ["group", "how-to"]
 emoji: "🍱"
 ctaSub: "Is chasing seven dollars worth the message? Park it in Evere and settle on Friday."
