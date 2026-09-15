@@ -1,7 +1,7 @@
 ---
 title: "Office Collections for Weddings and Funerals: Running One"
 description: "When a team collects money for a wedding, a new baby or a bereavement, the friction comes from the process rather than the amount. Why to fix the process first, where flat and voluntary differ, and what to keep after the money is handed over."
-pubDate: 2026-09-16
+pubDate: 2026-09-15
 tags: ["group", "communication"]
 emoji: "💐"
 ctaSub: "Someone always asks whether they were counted. Evere has the answer ready."
