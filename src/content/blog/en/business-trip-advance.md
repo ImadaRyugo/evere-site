@@ -1,7 +1,7 @@
 ---
 title: "Business Trip Costs: Company Expenses vs Personal Splits"
 description: "On a work trip, what you claim back from the company and what you split with colleagues leave the same wallet. How to separate the two, what to do when receipts don't come back, splitting shared taxis and rooms, and why the two deadlines differ."
-pubDate: 2026-09-17
+pubDate: 2026-09-16
 tags: ["how-to", "group"]
 emoji: "💼"
 ctaSub: "What you can't claim from the company goes into Evere before the receipt does."
