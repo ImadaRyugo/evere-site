@@ -1,7 +1,7 @@
 ---
 title: "The Office Coffee and Snack Fund: Running a Shared Pot"
 description: "Shared coffee and snacks at work end up bought by the same person every time. When to switch from paying per round to a pot, how to set the contribution from real costs, why the balance has to be visible, and how to hand it over."
-pubDate: 2026-09-18
+pubDate: 2026-09-17
 tags: ["group", "how-to"]
 emoji: "🍪"
 ctaSub: "Could you say what's left in the pot right now? Turn the Evere screen around."
