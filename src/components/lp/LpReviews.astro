@@ -107,7 +107,7 @@ const laurelParts: { d: string; type: 'stem' | 'leaf'; transform?: string }[] = 
 		<div class="lp-reviews-grid" data-reviews-grid>
 			{t.items.map((item) => (
 				<figure class="lp-review-card" data-reveal>
-					<span class="stars" aria-label="5 / 5">
+					<span class="stars" role="img" aria-label={t.starsLabel}>
 						{[0, 1, 2, 3, 4].map(() => (
 							<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 								<path d="M12 2.6l2.9 5.9 6.5 1-4.7 4.6 1.1 6.5L12 17.5l-5.8 3.1 1.1-6.5L2.6 9.5l6.5-1L12 2.6z" />

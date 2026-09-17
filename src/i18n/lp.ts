@@ -81,6 +81,8 @@ export interface LpDict {
 		eyebrow: string;
 		title: string;
 		score: string;
+		/** レビューカードの★5アイコン群に付ける代替テキスト（role="img"用） */
+		starsLabel: string;
 		ratingNote: string;
 		translatedNote: string;
 		more: string;
@@ -246,6 +248,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			eyebrow: 'レビュー',
 			title: 'ユーザーの声',
 			score: '5.0',
+			starsLabel: '5段階評価で5',
 			ratingNote: 'App Storeでのユーザー評価',
 			translatedNote: '※ 原文が別言語のレビューは翻訳して掲載しています。',
 			more: '続きを読む',
@@ -499,6 +502,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			eyebrow: 'Reviews',
 			title: 'What our users say',
 			score: '5.0',
+			starsLabel: 'Rated 5 out of 5',
 			ratingNote: 'User rating on the App Store',
 			translatedNote: '* Reviews originally written in other languages are shown in translation.',
 			more: 'Read more reviews',
@@ -749,6 +753,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			eyebrow: 'รีวิว',
 			title: 'เสียงจากผู้ใช้',
 			score: '5.0',
+			starsLabel: 'ได้ 5 จาก 5 คะแนน',
 			ratingNote: 'คะแนนจากผู้ใช้บน App Store',
 			translatedNote: '* รีวิวที่เขียนเป็นภาษาอื่นแสดงเป็นฉบับแปล',
 			more: 'อ่านรีวิวเพิ่มเติม',
@@ -999,6 +1004,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			eyebrow: '리뷰',
 			title: '사용자들의 이야기',
 			score: '5.0',
+			starsLabel: '5점 만점에 5점',
 			ratingNote: 'App Store 사용자 평점',
 			translatedNote: '※ 다른 언어로 작성된 리뷰는 번역해 게재했습니다.',
 			more: '리뷰 더 보기',
@@ -1249,6 +1255,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			eyebrow: '评价',
 			title: '用户怎么说',
 			score: '5.0',
+			starsLabel: '5 分满分 5 分',
 			ratingNote: 'App Store 用户评分',
 			translatedNote: '* 以其他语言撰写的评价为翻译版本。',
 			more: '查看更多评价',
@@ -1499,6 +1506,7 @@ export const lp: Record<LpLocale, LpDict> = {
 			eyebrow: '評價',
 			title: '用戶怎麼說',
 			score: '5.0',
+			starsLabel: '5 分滿分 5 分',
 			ratingNote: 'App Store 用戶評分',
 			translatedNote: '* 以其他語言撰寫的評價為翻譯版本。',
 			more: '查看更多評價',
