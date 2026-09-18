@@ -1,7 +1,7 @@
 ---
 title: "Remote Team Socials: Collecting Money When Nobody Meets"
 description: "An online social has no bill to divide, which makes the contribution hard to justify. Why shipping breaks the flat amount, how location changes what the same figure costs, why collection has to happen upfront, and where the company's share stops."
-pubDate: 2026-09-19
+pubDate: 2026-09-18
 tags: ["group", "party"]
 emoji: "🖥️"
 ctaSub: "No more checking who has paid, one by one. Evere shows who is still outstanding."
