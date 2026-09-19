@@ -1,7 +1,7 @@
 ---
 title: "Freelancers Sharing Tool Subscriptions: Whose Name Is On It"
 description: "When freelancers share a subscription, the account name concentrates both the cost and the control. Why the annual discount breaks monthly splitting, the receipt that only the account holder gets, and the exit terms to agree before you sign up."
-pubDate: 2026-09-20
+pubDate: 2026-09-19
 tags: ["group", "how-to"]
 emoji: "🧑‍💻"
 ctaSub: "The account holder ends up lending to everyone. One Evere project settles that."
