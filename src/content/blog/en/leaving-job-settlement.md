@@ -1,7 +1,7 @@
 ---
 title: "Leaving a Job: Settling What's Still Owed Between Desks"
 description: "A resignation puts a deadline on workplace debts that were fine being vague. Why the send-off mood washes the money conversation away, why it's harder to raise from the side that stays, and what to have squared before the last day."
-pubDate: 2026-09-21
+pubDate: 2026-09-20
 tags: ["group", "settlement"]
 emoji: "🚪"
 ctaSub: "Leave the last day with no number left over. Evere tells you what is still open."
