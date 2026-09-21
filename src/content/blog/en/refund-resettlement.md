@@ -1,7 +1,7 @@
 ---
 title: "A Refund Lands After You Split It: How Far to Redo"
 description: "When a cancellation or refund arrives after the split is done, the question is how far back to unwind. Why a refund belongs as a new record, how the steps change once a settlement is marked done, and how to divide a cancellation fee."
-pubDate: 2026-09-22
+pubDate: 2026-09-21
 tags: ["settlement", "how-to"]
 emoji: "↩️"
 ctaSub: "Never delete what you paid or what came back. With Evere both lines stay."
