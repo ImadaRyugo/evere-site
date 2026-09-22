@@ -1,7 +1,7 @@
 ---
 title: "Someone Joins Halfway: Which Expenses Do They Go In?"
 description: "When a person joins a group partway through, the question is how far back their share reaches. Why to think in expenses rather than dates, how shared items still reach a late arrival, and which collections stay closed once they're done."
-pubDate: 2026-09-23
+pubDate: 2026-09-22
 tags: ["settlement", "group"]
 emoji: "➕"
 ctaSub: "You don't have to re-split everything. Evere picks participants per expense."
