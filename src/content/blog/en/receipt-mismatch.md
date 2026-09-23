@@ -1,7 +1,7 @@
 ---
 title: "The Receipt Doesn't Add Up to the Amount Charged"
 description: "Before splitting a bill you look at the receipt and the items don't total what you paid. How to identify the cause from the shape of the difference, what gets added after the item list, and what to do with a gap you can't explain."
-pubDate: 2026-09-24
+pubDate: 2026-09-23
 tags: ["settlement", "how-to"]
 emoji: "🔍"
 ctaSub: "Doing arithmetic at the till? Enter what you actually paid and Evere does the rest."
