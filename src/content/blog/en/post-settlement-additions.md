@@ -1,7 +1,7 @@
 ---
 title: "You Settled Up, Then Found a Missed Expense. Now What?"
 description: "An expense nobody logged surfaces after the settlement is closed. How to decide between redoing it and carrying it forward, why a late disclosure stops being about money, and how to record something you've deferred."
-pubDate: 2026-09-25
+pubDate: 2026-09-24
 tags: ["settlement", "communication"]
 emoji: "🔁"
 ctaSub: "Deferred always means forgotten. In Evere it simply stays unsettled."

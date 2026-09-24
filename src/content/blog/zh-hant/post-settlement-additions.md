@@ -1,7 +1,7 @@
 ---
 title: "結完帳才發現漏了一筆，是重算還是留到下次"
 description: "結算收尾之後，冒出一筆沒人記的支出。本文整理了在重算和留到下次之間怎麼選、說得越晚為什麼就越不是錢的問題，以及決定留到下次時該怎麼記。"
-pubDate: 2026-09-25
+pubDate: 2026-09-24
 tags: ["settlement", "communication"]
 emoji: "🔁"
 ctaSub: "說留到下次，就一定會忘。在 Evere 裡它一直是未結算。"
