@@ -1,7 +1,7 @@
 ---
 title: "A Discount Came Off the Bill. Whose Saving Is It?"
 description: "Splitting a bill with a discount on it raises the question of who the saving belongs to. Why the answer differs across a discount on the whole bill, one on a specific item, and a coupon somebody brought, plus which figure to record."
-pubDate: 2026-09-26
+pubDate: 2026-09-25
 tags: ["how-to", "settlement"]
 emoji: "🏷️"
 ctaSub: "Evere only wants the discounted total. Decide whose saving it is and stop there."
