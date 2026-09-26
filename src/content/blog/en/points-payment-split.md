@@ -1,7 +1,7 @@
 ---
 title: "Paying With Points: Does It Count as Cash in the Split?"
 description: "When part of a bill is paid with loyalty points, how that portion enters the split isn't obvious. What breaks if you treat points as free, why the payment method and the liability are separate questions, and the one case worth excepting."
-pubDate: 2026-09-27
+pubDate: 2026-09-26
 tags: ["settlement", "how-to"]
 emoji: "💴"
 ctaSub: "Nobody should quietly eat their own points. Evere counts them as money paid."
