@@ -139,13 +139,15 @@
 	padding-bottom: 0.06em;
 }
 
+/* SPは2行（.evr-br-sp で改行）、PCは1行。2行のときに間延びしないよう行間は詰める */
 .evr-lead {
 	margin-top: 10px;
 	font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.08rem);
-	line-height: 1.75;
+	line-height: 1.5;
 	color: var(--lp-text-2);
 	font-feature-settings: 'palt';
 }
+
 
 .evr-br-sp {
 	display: inline;
