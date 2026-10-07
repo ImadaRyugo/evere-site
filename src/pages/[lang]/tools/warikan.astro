@@ -1,0 +1,367 @@
+---
+// 割り勘計算ツール。ブラウザ内だけで計算し、入力値はどこにも送信・保存しない
+// （サイトに分析ツールは入れていない。入れる場合はプライバシーポリシーの更新が先）。
+// 共有リンクは入力内容を URL の # 以降に入れるだけで、サーバーには届かない。
+// 「割り勘」「割り勘 計算」で今すぐ計算したい人向けのページ。日本語のみ。
+//
+// デザイン: ページはLPと同じ言語（ドットグリッド・漂う通貨記号・グラデーション見出し）、
+// 計算機本体はLPのフォンモックと同じく「ページの反転色」のEvere端末として描く。
+import PageLayout from '../../../layouts/PageLayout.astro';
+import LpNav from '../../../components/lp/LpNav.astro';
+import LpFooter from '../../../components/lp/LpFooter.astro';
+import AppleBadge from '../../../components/lp/AppleBadge.astro';
+import CurrencyTicker from '../../../components/lp/CurrencyTicker.astro';
+import { lp, type LpLocale } from '../../../i18n/lp';
+import appIcon from '../../../assets/nav-app-icon.png';
+import ctaIcon from '../../../assets/cta-app-icon.png';
+import '../../../styles/warikan.css';
+
+export function getStaticPaths() {
+	return [{ params: { lang: 'ja' } }];
+}
+
+const lang = Astro.params.lang as LpLocale;
+const dict = lp[lang];
+const site = Astro.site ?? new URL('https://evereapp.com');
+const pageUrl = new URL(`/${lang}/tools/warikan/`, site).href;
+
+const title = '割り勘計算ツール｜人数割り・傾斜・立て替え精算を無料で';
+const description =
+	'合計金額と人数を入れるだけで1人あたりの金額を計算。100円単位などの端数処理、多めに払う人がいる傾斜割り、何人かで立て替えたときの「誰が誰にいくら」まで。登録不要・無料。';
+
+const appSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'WebApplication',
+	name: '割り勘計算ツール',
+	url: pageUrl,
+	description,
+	applicationCategory: 'FinanceApplication',
+	operatingSystem: 'All',
+	browserRequirements: 'Requires JavaScript',
+	inLanguage: 'ja',
+	isAccessibleForFree: true,
+	offers: { '@type': 'Offer', price: '0', priceCurrency: 'JPY' },
+	publisher: { '@type': 'Organization', name: 'Evere', url: site.href },
+};
+
+const units = [
+	{ value: 1, label: '1円' },
+	{ value: 10, label: '10円' },
+	{ value: 100, label: '100円' },
+	{ value: 1000, label: '1,000円' },
+];
+const quickAmounts = [1000, 5000, 10000];
+// 背景を漂う通貨記号（LPヒーローと同じモチーフ）。位置・大きさ・周期は固定値で、ビルドごとに揺れない
+const glyphs = [
+	{ c: '¥', x: 8, y: 14, s: 1.1, d: 0 },
+	{ c: '$', x: 86, y: 10, s: 0.8, d: -6 },
+	{ c: '€', x: 72, y: 34, s: 1, d: -12 },
+	{ c: '฿', x: 16, y: 52, s: 0.9, d: -3 },
+	{ c: '₩', x: 92, y: 58, s: 1.2, d: -9 },
+	{ c: '£', x: 44, y: 6, s: 0.7, d: -15 },
+	{ c: '¥', x: 58, y: 70, s: 0.75, d: -18 },
+];
+---
+
+<PageLayout
+	locale={lang}
+	title={title}
+	description={description}
+	path="tools/warikan"
+	alternateLocales={['ja']}
+	ogImage="/og-warikan.png"
+>
+	<script slot="head" type="application/ld+json" set:html={JSON.stringify(appSchema)} />
+	<LpNav locale={lang} dict={dict} />
+
+	<main class="evr">
+		<!-- ============ ヒーロー + 計算機 ============ -->
+		<section class="evr-hero">
+			<div class="evr-hero-bg" aria-hidden="true">
+				{glyphs.map((g) => (
+					<span class="evr-glyph" style={`--x:${g.x}%;--y:${g.y}%;--s:${g.s};--d:${g.d}s`}>{g.c}</span>
+				))}
+			</div>
+
+			<div class="evr-hero-inner">
+				<div class="evr-copy">
+					<h1 class="evr-title">割り勘計算</h1>
+					<p class="evr-lead">
+						金額と人数を入れるだけ。<br class="evr-br-sp" />端数も、立て替えの精算も。
+					</p>
+					<ul class="evr-facts">
+						<li>
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg>
+							登録不要・無料
+						</li>
+						<li>
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg>
+							入力は送信しない
+						</li>
+						<li>
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"></path></svg>
+							送金回数は最少
+						</li>
+					</ul>
+				</div>
+
+				<!-- 計算機本体（ページ反転色のEvere端末） -->
+				<div class="evr-device" data-device>
+					<noscript>
+						<p class="evr-noscript">この計算ツールはJavaScriptを使います。ブラウザの設定でJavaScriptを有効にしてください。</p>
+					</noscript>
+
+					<div class="evr-device-bar">
+						<span class="evr-device-brand">
+							<img src={appIcon.src} width="22" height="22" alt="" />
+							Evere
+						</span>
+						<button type="button" class="evr-icon-btn" data-reset aria-label="入力をリセット">
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"></path></svg>
+						</button>
+					</div>
+
+					<div class="evr-seg" role="tablist" aria-label="計算の種類" data-seg>
+						<span class="evr-seg-thumb" aria-hidden="true"></span>
+						<button type="button" role="tab" id="tab-split" aria-controls="panel-split" aria-selected="true" data-tab="split">人数で割る</button>
+						<button type="button" role="tab" id="tab-settle" aria-controls="panel-settle" aria-selected="false" tabindex="-1" data-tab="settle">立て替えを精算</button>
+					</div>
+
+					<!-- ---------- 人数で割る ---------- -->
+					<section class="evr-panel" id="panel-split" role="tabpanel" aria-labelledby="tab-split" data-panel="split">
+						<div class="evr-inputs">
+						<label class="evr-amount" for="split-total">
+							<span class="evr-label">合計金額</span>
+							<span class="evr-amount-row">
+								<span class="evr-amount-yen" aria-hidden="true">¥</span>
+								<input id="split-total" type="text" inputmode="numeric" autocomplete="off" placeholder="12,000" data-split-total />
+							</span>
+						</label>
+						<div class="evr-quick" role="group" aria-label="金額をすばやく足す">
+							{quickAmounts.map((a) => (
+								<button type="button" class="evr-chip" data-quick={a}>+{a.toLocaleString('ja-JP')}</button>
+							))}
+							<button type="button" class="evr-chip evr-chip--ghost" data-quick-clear>クリア</button>
+						</div>
+
+						<div class="evr-row">
+							<span class="evr-label" id="count-label">人数</span>
+							<div class="evr-people" data-people aria-hidden="true"></div>
+							<div class="evr-stepper" role="group" aria-labelledby="count-label">
+								<button type="button" class="evr-step" data-count-dec aria-label="人数を減らす">
+									<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"></path></svg>
+								</button>
+								<output class="evr-step-value" data-count aria-live="polite">3</output>
+								<button type="button" class="evr-step" data-count-inc aria-label="人数を増やす">
+									<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12"></path></svg>
+								</button>
+							</div>
+						</div>
+
+						<details class="evr-options" data-options>
+							<summary>
+								<span class="evr-options-text">
+									<span class="evr-options-title">端数と傾斜の設定</span>
+									<span class="evr-options-now" data-options-now></span>
+								</span>
+								<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"></path></svg>
+							</summary>
+							<div class="evr-options-body">
+							<div class="evr-option">
+								<span class="evr-label" id="unit-label">キリのいい金額にそろえる</span>
+								<div class="evr-pills" role="radiogroup" aria-labelledby="unit-label" data-unit>
+									{units.map((u) => (
+										<button type="button" role="radio" aria-checked={u.value === 1 ? 'true' : 'false'} data-value={u.value}>{u.label}</button>
+									))}
+								</div>
+							</div>
+							<div class="evr-option">
+								<span class="evr-label" id="mode-label">割り切れないときは？</span>
+								<div class="evr-pills" role="radiogroup" aria-labelledby="mode-label" data-mode>
+									<button type="button" role="radio" aria-checked="false" data-value="organizer-less">多めに集める</button>
+									<button type="button" role="radio" aria-checked="true" data-value="organizer-more">少なめに集める</button>
+								</div>
+								<p class="evr-option-hint">差額は1人目がまとめて調整します</p>
+							</div>
+							<label class="evr-switch">
+								<span class="evr-switch-text">
+									<span class="evr-switch-title">傾斜をつける</span>
+									<span class="evr-switch-sub">多めに払う人・少なめの人がいるとき</span>
+								</span>
+								<input type="checkbox" role="switch" data-weighted />
+								<span class="evr-switch-track" aria-hidden="true"><span></span></span>
+							</label>
+							</div>
+						</details>
+						</div>
+
+						<div class="evr-result" data-split-result>
+							<div class="evr-result-head">
+								<span class="evr-label" data-split-kicker>1人あたり</span>
+								<p class="evr-big">
+									<span class="evr-big-yen" aria-hidden="true">¥</span><span class="evr-odo" data-split-odo aria-hidden="true"></span>
+									<span class="evr-sr" data-split-sr></span>
+								</p>
+								<p class="evr-result-note" data-split-note>合計金額を入れると計算します</p>
+							</div>
+							<div class="evr-bar" data-split-bar aria-hidden="true"></div>
+							<ol class="evr-list" data-split-list></ol>
+							<!-- ちょうど割った額との差（丸めの設定で誰がいくら得・損をするか） -->
+							<div class="evr-diff" data-split-diff hidden>
+								<span class="evr-diff-label" data-split-diff-label></span>
+								<ul class="evr-diff-list" data-split-diff-list></ul>
+							</div>
+							<div class="evr-actions">
+								<button type="button" class="evr-btn evr-btn--primary" data-copy>
+									<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"></path></svg>
+									結果をコピー
+								</button>
+								<button type="button" class="evr-btn" data-share>
+									<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg>
+									リンクで共有
+								</button>
+							</div>
+						</div>
+					</section>
+
+					<!-- ---------- 立て替えを精算 ---------- -->
+					<section class="evr-panel" id="panel-settle" role="tabpanel" aria-labelledby="tab-settle" data-panel="settle" hidden>
+						<div class="evr-inputs">
+						<div class="evr-block">
+							<div class="evr-block-head">
+								<span class="evr-label">メンバー</span>
+								<span class="evr-hint">名前はタップして変更</span>
+							</div>
+							<ul class="evr-members" data-members></ul>
+						</div>
+
+						<div class="evr-block">
+							<div class="evr-block-head">
+								<span class="evr-label">立て替えた支払い</span>
+								<span class="evr-hint">「誰の分」で均等に割ります</span>
+							</div>
+							<ul class="evr-payments" data-payments></ul>
+							<button type="button" class="evr-add" data-add-payment>
+								<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12"></path></svg>
+								支払いを追加
+							</button>
+						</div>
+						</div>
+
+						<div class="evr-result" data-settle-result>
+							<div class="evr-result-head">
+								<span class="evr-label" data-settle-kicker>精算方法</span>
+								<p class="evr-big evr-big--count">
+									<span class="evr-odo" data-settle-odo aria-hidden="true"></span><span class="evr-big-unit" aria-hidden="true">回の送金</span>
+									<span class="evr-sr" data-settle-sr></span>
+								</p>
+								<p class="evr-result-note" data-settle-note>支払いの金額を入れると計算します</p>
+							</div>
+							<ol class="evr-transfers" data-transfers></ol>
+							<details class="evr-breakdown" data-breakdown hidden>
+								<summary>
+									<span>精算前の貸し借り</span>
+									<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"></path></svg>
+								</summary>
+								<ul class="evr-balances" data-balances></ul>
+							</details>
+							<div class="evr-actions">
+								<button type="button" class="evr-btn evr-btn--primary" data-copy>
+									<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"></path></svg>
+									結果をコピー
+								</button>
+								<button type="button" class="evr-btn" data-share>
+									<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg>
+									リンクで共有
+								</button>
+							</div>
+						</div>
+					</section>
+
+				</div>
+			</div>
+		</section>
+
+		<CurrencyTicker />
+
+		<!-- ============ Evereへの案内 ============ -->
+		<section class="evr-app">
+			<div class="evr-wrap evr-app-inner">
+				<img class="evr-app-icon" src={ctaIcon.src} width="120" height="120" alt="Evere のアプリアイコン" loading="lazy" decoding="async" />
+				<div class="evr-app-copy">
+					<p class="evr-kicker">続きは、アプリで</p>
+					<h2 class="evr-h2">毎回の計算を、<br />記録ごと任せる。</h2>
+					<p class="evr-app-lead">
+						旅行や同棲の生活費のように立て替えが続くなら、Evereに記録しておくのがいちばん楽です。払った人がその場で入れれば、誰が誰にいくら払うかはいつでも最新のまま。
+					</p>
+					<ul class="evr-app-points">
+						<li><strong>162通貨</strong><span>記録した時点のレートで自動換算</span></li>
+						<li><strong>精算済みの記録</strong><span>どこまで払ったかが残る</span></li>
+						<li><strong>登録不要</strong><span>ゲストモードですぐ始められる</span></li>
+					</ul>
+					<div class="evr-app-cta">
+						<AppleBadge label="App Store でダウンロード" locale={lang} />
+						<span>iPhone 対応・無料</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ 解説 ============ -->
+		<section class="evr-guide">
+			<div class="evr-wrap evr-guide-grid">
+				<div class="evr-guide-side">
+					<p class="evr-kicker">ガイド</p>
+					<h2 class="evr-h2">割り勘の計算、<br />ここだけ押さえる。</h2>
+				</div>
+				<div class="evr-guide-body">
+					<article>
+						<h3>割り勘とは</h3>
+						<p>
+							割り勘は、食事や旅行などにかかった費用を、参加した人で分けて払うことです。全員で同じ額を払う均等割りのほかに、飲んだ量や収入に合わせて差をつける方法もあります。どの割り方がよいかは<a href="/ja/blog/three-split-methods/">割り勘の3方式の使い分け</a>で詳しく書いています。
+						</p>
+					</article>
+					<article>
+						<h3>端数はどう決める？</h3>
+						<p>
+							100円単位など切りのいい金額で集めて、割り切れない差額を1人がまとめて引き受ける方法がよく使われます。多めに集めればその人の支払いが少し減り、少なめに集めれば少し増えます。どちらにするか先に決めておくと揉めません。計算結果のいちばん上が、差額を調整する人の金額です。飲み会の集金の流れは<a href="/ja/blog/drinking-party-organizer-guide/">飲み会幹事の精算完全ガイド</a>にまとめています。
+						</p>
+					</article>
+					<article>
+						<h3>立て替えの精算はどう計算している？</h3>
+						<p>
+							個々の貸し借りを返し合うのではなく、全員の払った額と負担額の差し引き（純額）を出してから送金を組み立てます。そのうえで、送金の回数がもっとも少なくなる組み合わせを探しています。送金は多くても「人数−1回」で済みますが、受け取る人が2人以上いれば、1人が2人に送ることもあります。仕組みは<a href="/ja/blog/minimize-settlements/">割り勘の精算回数を最小にする方法</a>で解説しています。
+						</p>
+					</article>
+					<article>
+						<h3>入力した金額は保存されますか？</h3>
+						<p>
+							保存も送信もされません。計算はこのページを開いているブラウザの中だけで行われます。「リンクで共有」を使ったときだけ、入力内容がリンクの末尾（# 以降）に入ります。この部分はブラウザからサーバーへ送られない仕組みなので、リンクを渡した相手の画面で同じ結果が開くだけです。
+						</p>
+					</article>
+					<article>
+						<h3>外貨の支払いも計算できますか？</h3>
+						<p>
+							このツールは円での計算だけに対応しています。外貨が混ざる場合の考え方は<a href="/ja/blog/split-bills-different-currencies/">通貨が違うときの精算方法</a>を参考にしてください。Evereのアプリなら、162通貨の支払いを記録した時点のレートで自動換算できます。
+						</p>
+					</article>
+				</div>
+			</div>
+		</section>
+		<!-- 画面に固定する部品。計算機本体の中に置くと、登場アニメーションの transform が
+		     固定位置の基準になってしまうため、本体の外に置く -->
+		<p class="evr-toast" data-toast role="status" aria-live="polite"></p>
+		<button type="button" class="evr-peek" data-peek hidden>
+			<span class="evr-peek-label" data-peek-label></span>
+			<strong data-peek-value></strong>
+			<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"></path></svg>
+		</button>
+	</main>
+
+	<LpFooter locale={lang} dict={dict} />
+</PageLayout>
+
+<script>
+	import { initWarikan } from '../../../scripts/warikan-ui';
+	initWarikan();
+</script>

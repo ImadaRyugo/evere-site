@@ -1,0 +1,2188 @@
+/* ============================================================
+   割り勘計算ツール（/ja/tools/warikan/）
+   - ページ: LPと同じトークン（lp.css）。ドットグリッド・漂う通貨記号・グラデーション見出し
+   - 計算機: LPのフォンモックと同じ「ページ反転色」のEvere端末（--d-*）
+   - 色: モノクロ。彩度のある色は「精算」の意味を持つグリーンだけ。
+     端末が暗いとき（ライトページ）は線に色を乗せない（発光して見えるため）
+   ============================================================ */
+
+/* ツール内の線画アイコン（AppleBadge など塗りのアイコンには効かせない） */
+:is(.evr-device, .evr-facts) svg {
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.evr-sr {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+.evr-wrap,
+.evr-hero-inner {
+	width: min(var(--lp-container), 100% - 32px);
+	margin-inline: auto;
+}
+
+/* ---------- 見出しの共通 ---------- */
+
+.evr-kicker {
+	font-size: 12.5px;
+	font-weight: 650;
+	letter-spacing: 0.14em;
+	color: var(--lp-text-3);
+}
+
+.evr-h2 {
+	margin-top: 14px;
+	font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.9rem);
+	font-weight: 680;
+	letter-spacing: -0.035em;
+	line-height: 1.22;
+	font-feature-settings: 'palt';
+	background: linear-gradient(180deg, var(--lp-title-top) 30%, var(--lp-title-bottom));
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+	padding-bottom: 0.06em;
+}
+
+/* ============================================================
+   ヒーロー
+   ============================================================ */
+
+.evr-hero {
+	position: relative;
+	padding-top: calc(64px + clamp(18px, 4vh, 48px));
+	padding-bottom: clamp(3.5rem, 9vh, 7rem);
+	overflow: clip;
+}
+
+/* LPヒーローと同じドットグリッド（上から下へ消える） */
+.evr-hero::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(var(--lp-dot) 1px, transparent 1px);
+	background-size: 30px 30px;
+	mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, black 25%, transparent 75%);
+	-webkit-mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, black 25%, transparent 75%);
+	pointer-events: none;
+}
+
+.evr-hero-bg {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+
+.evr-hero-bg {
+	--mx: 0;
+	--my: 0;
+}
+
+.evr-glyph {
+	position: absolute;
+	left: var(--x);
+	top: var(--y);
+	translate: calc(var(--mx) * var(--s) * -36px) calc(var(--my) * var(--s) * -28px);
+	transition: translate 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+	font-size: calc(var(--s) * clamp(18px, 2.4vw, 34px));
+	font-weight: 600;
+	color: var(--lp-text-3);
+	opacity: 0.32;
+	animation: evr-drift 22s ease-in-out var(--d) infinite;
+}
+
+@keyframes evr-drift {
+	0%,
+	100% {
+		transform: translate3d(0, 0, 0) rotate(0deg);
+	}
+	50% {
+		transform: translate3d(10px, -22px, 0) rotate(8deg);
+	}
+}
+
+.evr-hero-inner {
+	position: relative;
+	display: grid;
+	/* 入力欄などの固有幅で列が押し広げられないよう、列は必ず親幅に収める */
+	grid-template-columns: minmax(0, 1fr);
+	gap: clamp(22px, 4vw, 36px);
+}
+
+.evr-copy {
+	text-align: center;
+}
+
+/* 主役は計算機。見出しは名前が分かる大きさに留め、計算機を1画面目に入れる */
+.evr-title {
+	margin-top: 12px;
+	font-size: clamp(2.1rem, 1.6rem + 2.2vw, 3.4rem);
+	font-weight: 700;
+	letter-spacing: -0.045em;
+	line-height: 1.1;
+	font-feature-settings: 'palt';
+	background: linear-gradient(180deg, var(--lp-title-top) 35%, var(--lp-title-bottom));
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+	padding-bottom: 0.06em;
+}
+
+.evr-lead {
+	margin-top: 10px;
+	font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.08rem);
+	line-height: 1.75;
+	color: var(--lp-text-2);
+	font-feature-settings: 'palt';
+}
+
+.evr-br-sp {
+	display: inline;
+}
+
+.evr-facts {
+	margin-top: 14px;
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 8px 10px;
+	font-size: 12.5px;
+	color: var(--lp-text-2);
+}
+
+.evr-facts li {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.evr-facts svg {
+	width: 14px;
+	height: 14px;
+	stroke-width: 2.4;
+	color: var(--lp-text);
+}
+
+@media (min-width: 1024px) {
+	.evr-hero-inner {
+		gap: clamp(32px, 4vh, 48px);
+	}
+
+	.evr-facts {
+		margin-top: 18px;
+		gap: 10px 26px;
+		font-size: 14px;
+	}
+
+	.evr-br-sp {
+		display: none;
+	}
+}
+
+/* 入場（CSSだけで完結。JSが動かなくても最後は必ず表示される） */
+@media (prefers-reduced-motion: no-preference) {
+	.evr-copy > *,
+	.evr-device {
+		animation: evr-rise 1s var(--lp-ease) both;
+	}
+	.evr-copy > :nth-child(2) {
+		animation-delay: 0.06s;
+	}
+	.evr-copy > :nth-child(3) {
+		animation-delay: 0.14s;
+	}
+	.evr-copy > :nth-child(4) {
+		animation-delay: 0.2s;
+	}
+	.evr-device {
+		animation-duration: 1.2s;
+		animation-delay: 0.18s;
+	}
+}
+
+@keyframes evr-rise {
+	from {
+		opacity: 0;
+		transform: translateY(22px);
+	}
+}
+
+/* ============================================================
+   計算機（Evere端末）
+   既定はダークページ用の白い端末。ライトページでは実アプリと同じ黒い端末
+   ============================================================ */
+
+.evr-device {
+	--d-bg: #ffffff;
+	--d-surface: #f4f5f7;
+	--d-fill: rgba(23, 24, 29, 0.05);
+	--d-fill-strong: rgba(23, 24, 29, 0.1);
+	--d-line: rgba(23, 24, 29, 0.08);
+	--d-line-strong: rgba(23, 24, 29, 0.18);
+	--d-text: #16171c;
+	--d-muted: #6b7180;
+	--d-faint: rgba(23, 24, 29, 0.46);
+	--d-on-text: #ffffff;
+	--d-green: #1e9e50;
+	--d-green-bg: rgba(30, 158, 80, 0.12);
+	--d-av0-bg: #17181d;
+	--d-av0-fg: #ffffff;
+	--d-av1-bg: #5b5f6b;
+	--d-av1-fg: #ffffff;
+	--d-av2-bg: #c9cbd2;
+	--d-av2-fg: #17181d;
+	--d-av3-bg: #eceef2;
+	--d-av3-fg: #17181d;
+	--d-shadow: 0 50px 100px -40px rgba(0, 0, 0, 0.6);
+
+	position: relative;
+	width: 100%;
+	max-width: 520px;
+	margin-inline: auto;
+	padding: 16px;
+	border-radius: 32px;
+	background: var(--d-bg);
+	color: var(--d-text);
+	box-shadow: var(--d-shadow);
+	text-align: left;
+}
+
+html[data-theme='light'] .evr-device {
+	--d-bg: #101116;
+	--d-surface: #17181e;
+	--d-fill: rgba(255, 255, 255, 0.06);
+	--d-fill-strong: rgba(255, 255, 255, 0.12);
+	--d-line: rgba(255, 255, 255, 0.08);
+	--d-line-strong: rgba(255, 255, 255, 0.18);
+	--d-text: #f5f7fa;
+	--d-muted: #9ba3af;
+	--d-faint: rgba(245, 247, 250, 0.44);
+	--d-on-text: #101116;
+	--d-green: #34c759;
+	--d-green-bg: rgba(52, 199, 89, 0.14);
+	--d-av0-bg: #f4f4f5;
+	--d-av0-fg: #101116;
+	--d-av1-bg: #a1a5b0;
+	--d-av1-fg: #101116;
+	--d-av2-bg: #474a55;
+	--d-av2-fg: #f5f7fa;
+	--d-av3-bg: #2a2c34;
+	--d-av3-fg: #f5f7fa;
+	--d-shadow: 0 50px 100px -36px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+}
+
+@media (min-width: 761px) {
+	.evr-device {
+		padding: 22px;
+		border-radius: 38px;
+	}
+}
+
+.evr-inputs {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 20px;
+	align-content: start;
+}
+
+/* PC: 端末を横長にし、左に入力・右に結果（結果はスクロールに追従） */
+@media (min-width: 1024px) {
+	.evr-device {
+		max-width: 1000px;
+		display: grid;
+		grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+		column-gap: 28px;
+		padding: 26px;
+		border-radius: 44px;
+	}
+
+	.evr-device-bar {
+		grid-column: 1 / -1;
+	}
+
+	.evr-seg {
+		grid-column: 1;
+	}
+
+	.evr-device .evr-panel {
+		grid-column: 1 / -1;
+		grid-template-columns: subgrid;
+	}
+
+	.evr-device .evr-panel > .evr-result {
+		position: sticky;
+		top: 96px;
+		align-self: start;
+		/* タブの上端に結果カードの上端をそろえる（タブ52px + パネル上余白22px） */
+		margin-top: -74px;
+	}
+
+	.evr-noscript {
+		grid-column: 1 / -1;
+	}
+}
+
+.evr-noscript {
+	padding: 16px;
+	font-size: 14px;
+	line-height: 1.7;
+	color: var(--d-muted);
+}
+
+.evr-device-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 2px 2px 14px 4px;
+}
+
+.evr-device-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 15px;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+}
+
+.evr-device-brand img {
+	width: 24px;
+	height: 24px;
+	border-radius: 7px;
+}
+
+.evr-icon-btn {
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	border-radius: 999px;
+	border: 0;
+	background: var(--d-fill);
+	color: var(--d-muted);
+	cursor: pointer;
+	transition:
+		background 0.25s ease,
+		color 0.25s ease,
+		transform 0.5s var(--lp-ease);
+}
+
+.evr-icon-btn svg {
+	width: 19px;
+	height: 19px;
+}
+
+.evr-icon-btn:hover {
+	color: var(--d-text);
+	background: var(--d-fill-strong);
+}
+
+.evr-icon-btn:active {
+	transform: rotate(-160deg);
+}
+
+/* フォーカスリングは端末の文字色で（背景に関係なく見える） */
+.evr-device :is(button, input, select, summary, [role='radio']):focus-visible {
+	outline: 2px solid var(--d-text);
+	outline-offset: 2px;
+}
+
+/* 下線で入力中が分かる欄は、四角い枠を重ねない */
+.evr-device :is(.evr-amount input, .evr-pay-amount input, .evr-pay-memo, .evr-member input):focus-visible {
+	outline: none;
+}
+
+.evr-device .evr-member input:focus-visible {
+	box-shadow: 0 1.5px 0 var(--d-text);
+}
+
+/* ---------- セグメント（タブ） ---------- */
+
+.evr-seg {
+	--i: 0;
+	position: relative;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	padding: 4px;
+	border-radius: 999px;
+	background: var(--d-fill);
+}
+
+.evr-seg-thumb {
+	position: absolute;
+	top: 4px;
+	bottom: 4px;
+	left: 4px;
+	width: calc(50% - 4px);
+	border-radius: 999px;
+	background: var(--d-text);
+	transform: translateX(calc(var(--i) * 100%));
+	transition: transform 0.55s cubic-bezier(0.22, 1.2, 0.36, 1);
+}
+
+.evr-seg button {
+	position: relative;
+	z-index: 1;
+	height: 44px;
+	border: 0;
+	background: transparent;
+	color: var(--d-muted);
+	font: inherit;
+	font-size: 14.5px;
+	font-weight: 650;
+	border-radius: 999px;
+	cursor: pointer;
+	transition: color 0.35s ease;
+}
+
+.evr-seg button[aria-selected='true'] {
+	color: var(--d-on-text);
+}
+
+.evr-seg button:focus-visible {
+	outline-offset: -2px;
+}
+
+/* ---------- パネル共通 ---------- */
+
+.evr-panel {
+	margin-top: 22px;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 20px;
+}
+
+.evr-panel[hidden] {
+	display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.evr-panel:not([hidden]) {
+		animation: evr-panel-in 0.5s var(--lp-ease) both;
+	}
+}
+
+@keyframes evr-panel-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+}
+
+.evr-label {
+	font-size: 12.5px;
+	font-weight: 650;
+	letter-spacing: 0.03em;
+	color: var(--d-muted);
+}
+
+.evr-hint {
+	font-size: 12px;
+	color: var(--d-muted);
+}
+
+/* 例の値で計算しているときのラベル */
+.evr-ex {
+	display: inline-block;
+	margin-left: 6px;
+	padding: 1px 8px;
+	border-radius: 999px;
+	border: 1px solid var(--d-line-strong);
+	font-size: 11px;
+	font-weight: 650;
+	letter-spacing: 0.04em;
+	color: var(--d-muted);
+	vertical-align: 1px;
+}
+
+/* ---------- 合計金額 ---------- */
+
+.evr-amount {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 4px;
+	padding: 2px 4px 0;
+	cursor: text;
+}
+
+.evr-amount-row {
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--d-line-strong);
+	transition: border-color 0.3s ease;
+}
+
+.evr-amount-row:focus-within {
+	border-color: var(--d-text);
+}
+
+.evr-amount-yen {
+	font-size: clamp(26px, 7vw, 34px);
+	font-weight: 600;
+	color: var(--d-faint);
+}
+
+.evr-amount input {
+	flex: 1;
+	width: 100%;
+	min-width: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--d-text);
+	font: inherit;
+	font-size: clamp(44px, 13.5vw, 62px);
+	font-weight: 680;
+	letter-spacing: -0.04em;
+	line-height: 1.1;
+	font-variant-numeric: tabular-nums;
+	caret-color: var(--d-text);
+}
+
+.evr-amount input::placeholder {
+	color: var(--d-faint);
+}
+
+.evr-amount input:focus-visible {
+	outline: none;
+}
+
+.evr-quick {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: -6px;
+}
+
+.evr-chip {
+	height: 38px;
+	padding: 0 15px;
+	border-radius: 999px;
+	border: 0;
+	background: var(--d-fill);
+	color: var(--d-text);
+	font: inherit;
+	font-size: 13.5px;
+	font-weight: 650;
+	font-variant-numeric: tabular-nums;
+	cursor: pointer;
+	transition:
+		background 0.2s ease,
+		transform 0.35s var(--lp-ease);
+}
+
+.evr-chip:hover {
+	background: var(--d-fill-strong);
+}
+
+.evr-chip:active {
+	transform: scale(0.94);
+}
+
+.evr-chip--ghost {
+	background: transparent;
+	color: var(--d-muted);
+}
+
+/* ---------- 人数 ---------- */
+
+.evr-row {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 12px;
+	padding: 0 4px;
+}
+
+.evr-people {
+	display: flex;
+	justify-content: flex-end;
+	min-width: 0;
+	overflow: hidden;
+	padding-left: 8px;
+}
+
+.evr-people .evr-avatar {
+	margin-left: -9px;
+	box-shadow: 0 0 0 2.5px var(--d-bg);
+}
+
+.evr-people .evr-avatar:nth-child(1) { z-index: 8; }
+.evr-people .evr-avatar:nth-child(2) { z-index: 7; }
+.evr-people .evr-avatar:nth-child(3) { z-index: 6; }
+.evr-people .evr-avatar:nth-child(4) { z-index: 5; }
+.evr-people .evr-avatar:nth-child(5) { z-index: 4; }
+.evr-people .evr-avatar:nth-child(6) { z-index: 3; }
+.evr-people .evr-avatar:nth-child(7) { z-index: 2; }
+
+.evr-people .evr-avatar {
+	position: relative;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.evr-people .evr-avatar {
+		animation: evr-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+	}
+}
+
+@keyframes evr-pop {
+	from {
+		transform: scale(0.4);
+		opacity: 0;
+	}
+}
+
+.evr-stepper {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 3px;
+	border-radius: 999px;
+	background: var(--d-fill);
+}
+
+.evr-step {
+	display: grid;
+	place-items: center;
+	width: 40px;
+	height: 40px;
+	border: 0;
+	border-radius: 999px;
+	background: transparent;
+	color: var(--d-text);
+	cursor: pointer;
+	transition:
+		background 0.2s ease,
+		transform 0.35s var(--lp-ease);
+}
+
+.evr-step svg {
+	width: 18px;
+	height: 18px;
+}
+
+.evr-step:hover {
+	background: var(--d-fill-strong);
+}
+
+.evr-step:active {
+	transform: scale(0.88);
+}
+
+.evr-step:disabled {
+	opacity: 0.3;
+	pointer-events: none;
+}
+
+.evr-step-value {
+	min-width: 2ch;
+	text-align: center;
+	font-size: 19px;
+	font-weight: 680;
+	font-variant-numeric: tabular-nums;
+}
+
+/* ---------- アバター（モノクロの4階調で人を見分ける） ---------- */
+
+.evr-avatar {
+	flex: none;
+	display: inline-grid;
+	place-items: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 999px;
+	font-size: 12.5px;
+	font-weight: 700;
+	line-height: 1;
+	background: var(--d-av0-bg);
+	color: var(--d-av0-fg);
+}
+
+.evr-avatar--1 {
+	background: var(--d-av1-bg);
+	color: var(--d-av1-fg);
+}
+
+.evr-avatar--2 {
+	background: var(--d-av2-bg);
+	color: var(--d-av2-fg);
+}
+
+.evr-avatar--3 {
+	background: var(--d-av3-bg);
+	color: var(--d-av3-fg);
+	box-shadow: inset 0 0 0 1px var(--d-line-strong);
+}
+
+.evr-avatar--more {
+	background: var(--d-fill-strong);
+	color: var(--d-muted);
+	font-size: 11px;
+}
+
+.evr-avatar--sm {
+	width: 24px;
+	height: 24px;
+	font-size: 11px;
+}
+
+/* ---------- オプション ---------- */
+
+.evr-options {
+	border-radius: 20px;
+	background: var(--d-fill);
+}
+
+.evr-options summary {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-height: 54px;
+	padding: 0 14px 0 16px;
+	border-radius: 20px;
+	list-style: none;
+	cursor: pointer;
+}
+
+.evr-options summary::-webkit-details-marker {
+	display: none;
+}
+
+.evr-options-text {
+	flex: 1;
+	min-width: 0;
+	display: grid;
+	gap: 2px;
+	padding-block: 10px;
+}
+
+.evr-options-title {
+	font-size: 14.5px;
+	font-weight: 650;
+}
+
+.evr-options-now {
+	font-size: 12.5px;
+	font-weight: 600;
+	color: var(--d-muted);
+}
+
+.evr-options summary svg {
+	flex: none;
+	width: 18px;
+	height: 18px;
+	color: var(--d-muted);
+	transition: transform 0.35s var(--lp-ease);
+}
+
+.evr-options[open] summary svg {
+	transform: rotate(180deg);
+}
+
+.evr-options-body {
+	display: grid;
+	gap: 16px;
+	padding: 2px 16px 16px;
+}
+
+.evr-option-hint {
+	font-size: 12px;
+	color: var(--d-muted);
+}
+
+.evr-option {
+	display: grid;
+	gap: 8px;
+}
+
+.evr-pills {
+	display: flex;
+	gap: 4px;
+	padding: 3px;
+	border-radius: 999px;
+	background: var(--d-fill);
+}
+
+.evr-pills button {
+	flex: 1;
+	min-width: 0;
+	height: 38px;
+	padding: 0 6px;
+	border: 0;
+	border-radius: 999px;
+	background: transparent;
+	color: var(--d-muted);
+	font: inherit;
+	font-size: 13.5px;
+	font-weight: 650;
+	white-space: nowrap;
+	cursor: pointer;
+	transition:
+		background 0.3s var(--lp-ease),
+		color 0.3s ease;
+}
+
+.evr-pills button[aria-checked='true'] {
+	background: var(--d-bg);
+	color: var(--d-text);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.evr-switch {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	cursor: pointer;
+}
+
+.evr-switch-text {
+	display: grid;
+	gap: 2px;
+}
+
+.evr-switch-title {
+	font-size: 14.5px;
+	font-weight: 650;
+}
+
+.evr-switch-sub {
+	font-size: 12px;
+	color: var(--d-muted);
+}
+
+.evr-switch input {
+	position: absolute;
+	opacity: 0;
+	width: 1px;
+	height: 1px;
+}
+
+.evr-switch-track {
+	position: relative;
+	flex: none;
+	width: 51px;
+	height: 31px;
+	border-radius: 999px;
+	background: var(--d-fill-strong);
+	transition: background 0.3s ease;
+}
+
+.evr-switch-track span {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 27px;
+	height: 27px;
+	border-radius: 999px;
+	background: var(--d-bg);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+	transition: transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.evr-switch input:checked + .evr-switch-track {
+	background: var(--d-text);
+}
+
+.evr-switch input:checked + .evr-switch-track span {
+	transform: translateX(20px);
+}
+
+.evr-switch input:focus-visible + .evr-switch-track {
+	outline: 2px solid var(--d-text);
+	outline-offset: 2px;
+}
+
+/* ============================================================
+   結果
+   ============================================================ */
+
+.evr-result {
+	/* 固定ナビの下に隠れないように */
+	scroll-margin-top: 84px;
+	display: grid;
+	gap: 16px;
+	padding: 18px;
+	border-radius: 24px;
+	background: var(--d-surface);
+	border: 1px solid var(--d-line);
+}
+
+.evr-result-head {
+	display: grid;
+	gap: 6px;
+}
+
+/* 未入力のあいだは例の値で計算し、薄く見せる */
+.evr-result.is-example :is(.evr-big, .evr-bar, .evr-list, .evr-transfers) {
+	opacity: 0.55;
+	transition: opacity 0.4s ease;
+}
+
+.evr-big {
+	display: flex;
+	align-items: baseline;
+	font-size: clamp(52px, 16vw, 76px);
+	font-weight: 700;
+	letter-spacing: -0.045em;
+	line-height: 1;
+	white-space: nowrap;
+	transition: opacity 0.4s ease;
+}
+
+.evr-big-yen {
+	font-size: 0.44em;
+	font-weight: 600;
+	color: var(--d-muted);
+	margin-right: 0.1em;
+	letter-spacing: 0;
+}
+
+.evr-big-unit {
+	margin-left: 0.22em;
+	font-size: 0.3em;
+	font-weight: 650;
+	letter-spacing: 0;
+	color: var(--d-muted);
+}
+
+.evr-result-note {
+	font-size: 13.5px;
+	line-height: 1.6;
+	color: var(--d-muted);
+}
+
+.evr-result.is-error .evr-result-note {
+	color: #ff6b5e;
+}
+
+/* オドメーター */
+.evr-odo {
+	display: inline-flex;
+	font-variant-numeric: tabular-nums;
+}
+
+/* 桁は縦方向だけ切り抜く。親のマイナス字間を桁の中に持ち込むと、
+   字形が桁の枠より右にはみ出して切れるため、桁の中は字間0にし、
+   詰めは「左右に余白を足して、同じ分だけ負のマージンで重ねる」ことで行う */
+.evr-odo-col {
+	display: inline-block;
+	height: 1em;
+	overflow: hidden;
+	padding: 0 0.06em 0.02em;
+	margin: 0 -0.082em;
+	box-sizing: content-box;
+	letter-spacing: 0;
+}
+
+.evr-odo-strip {
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.9s cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+
+.evr-odo-strip span {
+	display: block;
+	height: 1em;
+	line-height: 1;
+	letter-spacing: 0;
+}
+
+.evr-odo-sep {
+	display: inline-block;
+	line-height: 1;
+	letter-spacing: 0;
+	margin: 0 -0.02em;
+}
+
+/* 先頭・末尾の桁は外側に詰めない（左右の文字や枠と重ならないように） */
+.evr-odo > :first-child {
+	margin-left: 0;
+}
+
+.evr-odo > :last-child {
+	margin-right: 0;
+}
+
+/* 比率バー */
+.evr-bar[hidden] {
+	display: none;
+}
+
+.evr-bar {
+	display: flex;
+	gap: 3px;
+	height: 10px;
+}
+
+.evr-bar span {
+	flex-basis: 0;
+	min-width: 4px;
+	border-radius: 999px;
+	background: var(--d-text);
+	transition: flex-grow 0.7s var(--lp-ease);
+}
+
+.evr-bar span:nth-child(even) {
+	background: var(--d-muted);
+}
+
+.evr-bar span.is-organizer {
+	background: repeating-linear-gradient(-45deg, var(--d-text) 0 3px, transparent 3px 6px);
+	box-shadow: inset 0 0 0 1px var(--d-text);
+}
+
+/* 内訳 */
+.evr-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.evr-li {
+	display: grid;
+	grid-template-columns: 30px minmax(0, 1fr) auto auto;
+	align-items: center;
+	gap: 10px;
+	min-height: 50px;
+	padding: 6px 0;
+	border-top: 1px solid var(--d-line);
+}
+
+.evr-li:first-child {
+	border-top: 0;
+}
+
+.evr-li-name {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px 8px;
+	font-size: 14.5px;
+	font-weight: 650;
+}
+
+.evr-li-name em {
+	font-style: normal;
+	font-size: 11px;
+	font-weight: 600;
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: var(--d-fill);
+	color: var(--d-muted);
+}
+
+.evr-li-amount {
+	grid-column: 4;
+	font-size: 17px;
+	font-weight: 680;
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -0.01em;
+}
+
+.evr-weight {
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+	padding: 2px;
+	border-radius: 999px;
+	background: var(--d-fill);
+}
+
+.evr-weight button {
+	display: grid;
+	place-items: center;
+	width: 32px;
+	height: 32px;
+	border: 0;
+	border-radius: 999px;
+	background: transparent;
+	color: var(--d-text);
+	cursor: pointer;
+}
+
+.evr-weight button:hover {
+	background: var(--d-fill-strong);
+}
+
+.evr-weight button svg {
+	width: 15px;
+	height: 15px;
+}
+
+.evr-weight span {
+	min-width: 3.4ch;
+	text-align: center;
+	font-size: 13px;
+	font-weight: 650;
+	font-variant-numeric: tabular-nums;
+}
+
+/* ちょうど割った額との差（丸めの設定で誰がいくら得・損をするか） */
+.evr-diff {
+	display: grid;
+	gap: 8px;
+	padding-top: 14px;
+	border-top: 1px dashed var(--d-line-strong);
+}
+
+.evr-diff[hidden] {
+	display: none;
+}
+
+.evr-diff-label {
+	font-size: 12.5px;
+	font-weight: 650;
+	color: var(--d-muted);
+}
+
+.evr-diff-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.evr-diff-list li {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 8px;
+	padding: 6px 12px;
+	border-radius: 999px;
+	background: var(--d-fill);
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--d-muted);
+}
+
+.evr-diff-list strong {
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--d-text);
+	font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   立て替えを精算
+   ============================================================ */
+
+.evr-block {
+	display: grid;
+	gap: 10px;
+}
+
+.evr-block-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 0 4px;
+}
+
+.evr-members {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.evr-member {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: 40px;
+	padding: 0 4px 0 5px;
+	border-radius: 999px;
+	background: var(--d-fill);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.evr-member,
+	.evr-pay {
+		animation: evr-pop 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+	}
+}
+
+.evr-member input {
+	width: auto;
+	min-width: 3ch;
+	padding: 4px 2px;
+	border: 0;
+	border-radius: 6px;
+	background: transparent;
+	color: var(--d-text);
+	font: inherit;
+	/* 16px未満だとiOS Safariが入力時にズームする */
+	font-size: 16px;
+	font-weight: 650;
+}
+
+.evr-member:not(:has(.evr-x)) {
+	padding-right: 12px;
+}
+
+.evr-x {
+	display: grid;
+	place-items: center;
+	width: 30px;
+	height: 30px;
+	border: 0;
+	border-radius: 999px;
+	background: transparent;
+	color: var(--d-faint);
+	cursor: pointer;
+}
+
+.evr-x svg {
+	width: 15px;
+	height: 15px;
+}
+
+.evr-x:hover {
+	color: var(--d-text);
+	background: var(--d-fill-strong);
+}
+
+.evr-member-add {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	height: 40px;
+	padding: 0 14px 0 10px;
+	border-radius: 999px;
+	border: 1px dashed var(--d-line-strong);
+	background: transparent;
+	color: var(--d-muted);
+	font: inherit;
+	font-size: 13.5px;
+	font-weight: 650;
+	cursor: pointer;
+}
+
+.evr-member-add svg {
+	width: 16px;
+	height: 16px;
+}
+
+.evr-member-add:hover {
+	color: var(--d-text);
+	border-color: var(--d-muted);
+}
+
+.evr-payments {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	gap: 10px;
+}
+
+/* 支払いカード（アプリの支出リストと同じ構成: 誰が・何に・いくら） */
+.evr-pay {
+	display: grid;
+	gap: 12px;
+	padding: 12px 12px 14px;
+	border-radius: 20px;
+	background: var(--d-surface);
+	border: 1px solid var(--d-line);
+}
+
+.evr-pay-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+}
+
+.evr-payer {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	min-height: 36px;
+	padding: 4px 10px 4px 5px;
+	border-radius: 999px;
+	background: var(--d-fill);
+	font-size: 14px;
+	font-weight: 650;
+	cursor: pointer;
+}
+
+.evr-payer-verb {
+	font-size: 12.5px;
+	font-weight: 600;
+	color: var(--d-muted);
+}
+
+.evr-payer > svg {
+	width: 15px;
+	height: 15px;
+	color: var(--d-muted);
+}
+
+/* ネイティブのピッカーを使うため、select を透明にして全面に重ねる */
+.evr-payer select {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.evr-payer:has(select:focus-visible) {
+	outline: 2px solid var(--d-text);
+	outline-offset: 2px;
+}
+
+.evr-pay-mid {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: end;
+	gap: 12px;
+	padding: 0 4px;
+}
+
+.evr-pay-memo {
+	min-width: 0;
+	padding: 6px 0;
+	border: 0;
+	border-bottom: 1px dashed var(--d-line-strong);
+	border-radius: 0;
+	background: transparent;
+	color: var(--d-text);
+	font: inherit;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.evr-pay-memo::placeholder {
+	color: var(--d-faint);
+}
+
+.evr-pay-memo:focus-visible {
+	outline: none;
+	border-bottom-style: solid;
+	border-bottom-color: var(--d-text);
+}
+
+.evr-pay-amount {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 3px;
+	border-bottom: 1px solid var(--d-line-strong);
+	cursor: text;
+}
+
+.evr-pay-amount:focus-within {
+	border-bottom-color: var(--d-text);
+}
+
+.evr-pay-amount span {
+	font-size: 17px;
+	font-weight: 600;
+	color: var(--d-faint);
+}
+
+.evr-pay-amount input {
+	width: 4em;
+	min-width: 1.5em;
+	padding: 2px 0 4px;
+	border: 0;
+	background: transparent;
+	color: var(--d-text);
+	font: inherit;
+	font-size: 26px;
+	font-weight: 700;
+	letter-spacing: -0.03em;
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+}
+
+.evr-pay-amount input::placeholder {
+	color: var(--d-faint);
+}
+
+.evr-pay-amount input:focus-visible {
+	outline: none;
+}
+
+.evr-pay-targets {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.evr-target {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: 34px;
+	padding: 0 11px 0 4px;
+	border-radius: 999px;
+	border: 1px solid var(--d-line-strong);
+	background: transparent;
+	color: var(--d-muted);
+	font: inherit;
+	font-size: 13px;
+	font-weight: 650;
+	cursor: pointer;
+	transition:
+		background 0.25s ease,
+		color 0.25s ease,
+		border-color 0.25s ease,
+		transform 0.35s var(--lp-ease);
+}
+
+.evr-target:active {
+	transform: scale(0.94);
+}
+
+.evr-target[aria-pressed='false'] {
+	border-style: dashed;
+	color: var(--d-faint);
+}
+
+.evr-target[aria-pressed='false'] .evr-avatar {
+	opacity: 0.3;
+}
+
+.evr-target[aria-pressed='true'] {
+	background: var(--d-fill-strong);
+	border-color: transparent;
+	color: var(--d-text);
+}
+
+.evr-add {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	height: 48px;
+	border-radius: 18px;
+	border: 1.5px dashed var(--d-line-strong);
+	background: transparent;
+	color: var(--d-muted);
+	font: inherit;
+	font-size: 14px;
+	font-weight: 650;
+	cursor: pointer;
+	transition:
+		color 0.2s ease,
+		border-color 0.2s ease;
+}
+
+.evr-add svg {
+	width: 17px;
+	height: 17px;
+}
+
+.evr-add:hover {
+	color: var(--d-text);
+	border-color: var(--d-muted);
+}
+
+/* 送金 */
+.evr-transfers {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	gap: 8px;
+}
+
+.evr-tr {
+	position: relative;
+	display: grid;
+	grid-template-columns: auto minmax(24px, 1fr) auto;
+	grid-template-areas:
+		'from flow to'
+		'amount amount done';
+	align-items: center;
+	gap: 12px 10px;
+	padding: 14px;
+	border-radius: 18px;
+	background: var(--d-bg);
+	border: 1px solid var(--d-line);
+	transition: opacity 0.35s ease;
+}
+
+.evr-tr-who {
+	grid-area: from;
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	min-width: 0;
+	font-size: 14px;
+	font-weight: 650;
+}
+
+.evr-tr-who > span:last-child {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 6.5em;
+}
+
+.evr-tr-to {
+	grid-area: to;
+}
+
+/* 送金の向き: 点線が左から右へ伸び、矢じりで止まる */
+.evr-tr-flow {
+	grid-area: flow;
+	position: relative;
+	height: 12px;
+}
+
+.evr-tr-flow i {
+	position: absolute;
+	left: 0;
+	right: 6px;
+	top: 50%;
+	height: 2px;
+	margin-top: -1px;
+	background: linear-gradient(90deg, var(--d-muted) 55%, transparent 55%) 0 0 / 7px 2px repeat-x;
+}
+
+.evr-tr-flow::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 8px;
+	height: 8px;
+	margin-top: -4px;
+	border-top: 2px solid var(--d-muted);
+	border-right: 2px solid var(--d-muted);
+	transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.evr-tr {
+		animation: evr-rise 0.7s var(--lp-ease) both;
+		animation-delay: calc(var(--n) * 90ms);
+	}
+
+	.evr-tr-flow i {
+		animation: evr-draw 0.9s var(--lp-ease) both;
+		animation-delay: calc(var(--n) * 90ms + 0.2s);
+	}
+
+	.evr-tr-flow::after {
+		animation: evr-fade 0.3s ease both;
+		animation-delay: calc(var(--n) * 90ms + 0.85s);
+	}
+}
+
+@keyframes evr-draw {
+	from {
+		clip-path: inset(0 100% 0 0);
+	}
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+@keyframes evr-fade {
+	from {
+		opacity: 0;
+	}
+}
+
+.evr-tr-amount {
+	grid-area: amount;
+	font-size: 26px;
+	font-weight: 700;
+	letter-spacing: -0.03em;
+	font-variant-numeric: tabular-nums;
+	transition: color 0.3s ease;
+}
+
+.evr-done {
+	grid-area: done;
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	height: 36px;
+	padding: 0 13px 0 10px;
+	border-radius: 999px;
+	border: 1px solid var(--d-line-strong);
+	background: transparent;
+	color: var(--d-muted);
+	font: inherit;
+	font-size: 13px;
+	font-weight: 650;
+	cursor: pointer;
+	transition:
+		background 0.3s ease,
+		color 0.3s ease,
+		border-color 0.3s ease,
+		transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.evr-done svg {
+	width: 16px;
+	height: 16px;
+	stroke-width: 2.4;
+}
+
+.evr-done:disabled {
+	opacity: 0.5;
+	cursor: default;
+}
+
+.evr-done-on {
+	display: none;
+}
+
+/* 「済」にした送金は、アプリと同じ精算済みバッジになる */
+.evr-tr.is-done .evr-done {
+	color: var(--d-muted);
+}
+
+.evr-tr.is-done .evr-done svg {
+	display: none;
+}
+
+/* 精算済みスタンプ（アプリの精算画面と同じ表現。色はサイトのブランド色＝精算グリーン） */
+.evr-stamp {
+	position: absolute;
+	left: 45%;
+	top: 50%;
+	padding: 6px 16px;
+	border: 3px solid var(--d-green);
+	border-radius: 9px;
+	background: var(--d-green-bg);
+	color: var(--d-green);
+	font-size: 19px;
+	font-weight: 900;
+	letter-spacing: 0.08em;
+	white-space: nowrap;
+	pointer-events: none;
+	opacity: 0;
+	transform: translate(-50%, -50%) rotate(-15deg) scale(1.6);
+	transition:
+		opacity 0.2s ease,
+		transform 0.2s ease;
+}
+
+.evr-tr.is-done .evr-stamp {
+	opacity: 1;
+	transform: translate(-50%, -50%) rotate(-15deg) scale(1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.evr-tr.is-done .evr-stamp {
+		animation: evr-stamp 0.42s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+	}
+}
+
+@keyframes evr-stamp {
+	0% {
+		opacity: 0;
+		transform: translate(-50%, -50%) rotate(-24deg) scale(2.2);
+	}
+	55% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+		transform: translate(-50%, -50%) rotate(-15deg) scale(1);
+	}
+}
+
+.evr-tr.is-done .evr-done-off {
+	display: none;
+}
+
+.evr-tr.is-done .evr-done-on {
+	display: inline;
+}
+
+.evr-tr.is-done :is(.evr-tr-who, .evr-tr-flow, .evr-tr-amount) {
+	opacity: 0.35;
+}
+
+.evr-tr.is-done .evr-tr-amount {
+	color: var(--d-muted);
+}
+
+.evr-result.is-all-done [data-settle-kicker] {
+	color: var(--d-green);
+}
+
+/* 精算前の貸し借り */
+.evr-breakdown {
+	border-top: 1px solid var(--d-line);
+	padding-top: 4px;
+}
+
+.evr-breakdown[hidden] {
+	display: none;
+}
+
+.evr-breakdown summary {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	min-height: 44px;
+	font-size: 13.5px;
+	font-weight: 650;
+	color: var(--d-muted);
+	cursor: pointer;
+	list-style: none;
+}
+
+.evr-breakdown summary::-webkit-details-marker {
+	display: none;
+}
+
+.evr-breakdown summary svg {
+	width: 18px;
+	height: 18px;
+	transition: transform 0.35s var(--lp-ease);
+}
+
+.evr-breakdown[open] summary svg {
+	transform: rotate(180deg);
+}
+
+.evr-balances {
+	list-style: none;
+	padding: 0;
+	margin: 4px 0 0;
+	display: grid;
+	gap: 12px;
+}
+
+.evr-balances li {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-areas:
+		'name net'
+		'bar bar'
+		'meta meta';
+	gap: 6px 10px;
+	align-items: center;
+}
+
+.evr-bal-name {
+	grid-area: name;
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	font-size: 14px;
+	font-weight: 650;
+}
+
+.evr-bal-net {
+	grid-area: net;
+	font-size: 15px;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+}
+
+.evr-bal-meta {
+	grid-area: meta;
+	font-size: 12px;
+	color: var(--d-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+/* 中央から左右に伸びる差額バー（プラス=受け取る / マイナス=払う） */
+.evr-bal-bar {
+	grid-area: bar;
+	position: relative;
+	height: 6px;
+	border-radius: 999px;
+	background: var(--d-fill);
+}
+
+.evr-bal-bar::before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: -3px;
+	bottom: -3px;
+	width: 1px;
+	background: var(--d-line-strong);
+}
+
+.evr-bal-bar i {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: var(--w);
+	border-radius: 999px;
+}
+
+.evr-bal-bar i.is-plus {
+	left: 50%;
+	background: var(--d-text);
+}
+
+.evr-bal-bar i.is-minus {
+	right: 50%;
+	background: var(--d-muted);
+}
+
+/* ---------- 操作ボタン ---------- */
+
+.evr-actions {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 8px;
+	margin-top: 2px;
+}
+
+.evr-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	height: 52px;
+	border-radius: 999px;
+	border: 0;
+	background: var(--d-fill);
+	color: var(--d-text);
+	font: inherit;
+	font-size: 14.5px;
+	font-weight: 650;
+	cursor: pointer;
+	transition:
+		background 0.25s ease,
+		transform 0.35s var(--lp-ease);
+}
+
+.evr-btn svg {
+	width: 18px;
+	height: 18px;
+}
+
+.evr-btn:hover {
+	background: var(--d-fill-strong);
+}
+
+.evr-btn:active {
+	transform: scale(0.96);
+}
+
+.evr-btn--primary {
+	background: var(--d-text);
+	color: var(--d-on-text);
+}
+
+.evr-btn--primary:hover {
+	background: var(--d-text);
+	opacity: 0.9;
+}
+
+/* 画面下に出す通知（ページ全体のトークン） */
+.evr-toast {
+	position: fixed;
+	left: 50%;
+	bottom: max(24px, env(safe-area-inset-bottom));
+	z-index: 120;
+	max-width: calc(100% - 32px);
+	padding: 12px 18px;
+	border-radius: 999px;
+	background: var(--lp-text);
+	color: var(--lp-btn-fg);
+	font-size: 14px;
+	font-weight: 600;
+	text-align: center;
+	box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.45);
+	opacity: 0;
+	transform: translate(-50%, 16px);
+	pointer-events: none;
+	transition:
+		opacity 0.35s ease,
+		transform 0.5s var(--lp-ease);
+}
+
+.evr-toast.is-on {
+	opacity: 1;
+	transform: translate(-50%, 0);
+}
+
+/* 結果が画面外にあるときの小さな表示（SPのキーボード表示中にも結果が分かるように） */
+.evr-peek {
+	position: fixed;
+	left: 50%;
+	bottom: calc(env(safe-area-inset-bottom) + 88px);
+	z-index: 110;
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	height: 48px;
+	padding: 0 16px 0 20px;
+	/* 計算機（ページ反転色）の上に重なるので、ページ側の面の色で浮かせる */
+	border: 1px solid var(--lp-border-strong);
+	border-radius: 999px;
+	background: var(--lp-surface);
+	color: var(--lp-text);
+	font: inherit;
+	font-size: 13px;
+	font-weight: 600;
+	box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.45);
+	transform: translateX(-50%);
+	cursor: pointer;
+}
+
+.evr-peek[hidden] {
+	display: none;
+}
+
+.evr-peek strong {
+	font-size: 17px;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -0.01em;
+}
+
+.evr-peek svg {
+	width: 18px;
+	height: 18px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.evr-peek:not([hidden]) {
+		animation: evr-peek-in 0.45s var(--lp-ease) both;
+	}
+}
+
+@keyframes evr-peek-in {
+	from {
+		opacity: 0;
+		transform: translate(-50%, 14px);
+	}
+}
+
+/* PCでは結果が常に横に見えているので出さない */
+@media (min-width: 1024px) {
+	.evr-peek {
+		display: none !important;
+	}
+}
+
+/* ============================================================
+   アプリへの案内
+   ============================================================ */
+
+.evr-app {
+	padding-block: clamp(4.5rem, 12vh, 9rem);
+}
+
+.evr-app-inner {
+	display: grid;
+	gap: 32px;
+	justify-items: center;
+	text-align: center;
+}
+
+.evr-app-icon {
+	width: clamp(112px, 26vw, 200px);
+	height: auto;
+	border-radius: 24%;
+	box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.45);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.evr-app-icon {
+		animation: evr-float 7s ease-in-out infinite;
+	}
+}
+
+@keyframes evr-float {
+	0%,
+	100% {
+		transform: translateY(0) rotate(-3deg);
+	}
+	50% {
+		transform: translateY(-12px) rotate(2deg);
+	}
+}
+
+.evr-app-lead {
+	margin: 18px auto 0;
+	max-width: 26em;
+	font-size: 15.5px;
+	line-height: 1.95;
+	color: var(--lp-text-2);
+}
+
+.evr-app-points {
+	margin-top: 28px;
+	list-style: none;
+	padding: 0;
+	display: grid;
+	gap: 0;
+	text-align: left;
+	border-top: 1px solid var(--lp-border);
+}
+
+.evr-app-points li {
+	display: grid;
+	gap: 2px;
+	padding: 14px 2px;
+	border-bottom: 1px solid var(--lp-border);
+	font-size: 14px;
+	color: var(--lp-text-2);
+}
+
+.evr-app-points strong {
+	color: var(--lp-text);
+	font-weight: 650;
+}
+
+.evr-app-cta {
+	margin-top: 30px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 12px 16px;
+}
+
+/* AppleBadge のロゴは塗りのアイコン。線画用の指定が及ばないよう明示する */
+.evr-app-cta .lp-btn svg {
+	fill: currentColor;
+	stroke: none;
+}
+
+.evr-app-cta > span {
+	font-size: 13px;
+	color: var(--lp-text-3);
+}
+
+@media (min-width: 900px) {
+	.evr-app-inner {
+		grid-template-columns: 300px minmax(0, 1fr);
+		gap: clamp(48px, 7vw, 112px);
+		justify-items: start;
+		align-items: center;
+		text-align: left;
+		max-width: 1000px;
+	}
+
+	.evr-app-icon {
+		justify-self: center;
+		width: 220px;
+	}
+
+	.evr-app-lead {
+		margin-left: 0;
+	}
+
+	.evr-app-cta {
+		justify-content: flex-start;
+	}
+
+	.evr-app-lead {
+		max-width: 34em;
+	}
+
+	.evr-app-points li {
+		grid-template-columns: 9.5em 1fr;
+		gap: 12px;
+	}
+}
+
+/* ============================================================
+   ガイド
+   ============================================================ */
+
+.evr-guide {
+	padding-bottom: clamp(5rem, 12vh, 9rem);
+}
+
+.evr-guide-grid {
+	display: grid;
+	gap: 28px;
+	padding-top: clamp(3rem, 8vh, 5rem);
+	border-top: 1px solid var(--lp-border);
+}
+
+.evr-guide-body {
+	display: grid;
+}
+
+.evr-guide-body article {
+	padding: 22px 0;
+	border-bottom: 1px solid var(--lp-border);
+}
+
+.evr-guide-body article:first-child {
+	padding-top: 0;
+}
+
+.evr-guide-body h3 {
+	font-size: 17px;
+	font-weight: 680;
+	letter-spacing: -0.01em;
+	color: var(--lp-text);
+}
+
+.evr-guide-body p {
+	margin-top: 10px;
+	font-size: 15px;
+	line-height: 1.95;
+	color: var(--lp-text-2);
+}
+
+.evr-guide-body a {
+	color: var(--lp-text);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	text-decoration-color: var(--lp-border-strong);
+	transition: text-decoration-color 0.2s ease;
+}
+
+.evr-guide-body a:hover {
+	text-decoration-color: var(--lp-text);
+}
+
+@media (min-width: 900px) {
+	.evr-guide-grid {
+		grid-template-columns: 420px minmax(0, 1fr);
+		gap: clamp(48px, 7vw, 112px);
+		max-width: 1000px;
+	}
+
+	.evr-guide-side {
+		position: sticky;
+		top: 120px;
+		align-self: start;
+	}
+
+	.evr-guide-side .evr-h2 {
+		font-size: clamp(2rem, 1.2rem + 1.6vw, 2.5rem);
+	}
+}

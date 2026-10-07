@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "og": "node scripts/gen-og.mjs",
+    "og:warikan": "node scripts/gen-og-warikan.mjs",
     "ig": "node scripts/gen-ig.mjs"
   },
   "dependencies": {
