@@ -143,6 +143,28 @@ const jsonLd = [
 					document.documentElement.classList.add('lp-launching');
 				}
 			})();
+			// 保険: 演出スクリプト（lp-animations）が読み込めない・途中で止まった場合、
+			// 全面オーバーレイと初期非表示が残ってページが読めなくなる。
+			// その場合はJS無効時と同じ静的表示に戻す。
+			// - DOMContentLoaded 時点で initLp が未実行 → モジュールの読み込み失敗
+			//   （モジュールスクリプトは DOMContentLoaded より前に実行される）
+			// - load の6秒後も演出中のまま → 実行途中で停止（正常時は load+約2.8秒で終わる）
+			(function () {
+				var html = document.documentElement;
+				var fallback = function () {
+					html.classList.remove('lp-launching', 'lp-js');
+					var overlay = document.querySelector('[data-launch]');
+					if (overlay) overlay.remove();
+				};
+				document.addEventListener('DOMContentLoaded', function () {
+					if (!html.hasAttribute('data-lp-init')) fallback();
+				});
+				window.addEventListener('load', function () {
+					setTimeout(function () {
+						if (html.classList.contains('lp-launching')) fallback();
+					}, 6000);
+				});
+			})();
 			// テーマ初期化（描画前）。優先順位: トグルで保存した設定 → ライト。
 			// 保存はトグル操作時のみ行う（初回訪問で勝手に固定しない）
 			(function () {

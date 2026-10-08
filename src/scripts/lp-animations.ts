@@ -15,6 +15,8 @@ let heroIntro: gsap.core.Timeline | null = null;
 export function initLp(): void {
 	if (initialized) return;
 	initialized = true;
+	// LandingLayout の保険スクリプトに、モジュールが実行されたことを伝える
+	document.documentElement.setAttribute('data-lp-init', '');
 
 	const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
