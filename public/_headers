@@ -1,0 +1,8 @@
+# Cloudflare Pages のヘッダー設定
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+# 本番は evereapp.com。Pages 既定の evere-site.pages.dev でも同じ内容が200で
+# 配信されるため、検索エンジンに登録させない（canonical は evereapp.com を指している）。
+# プレビューデプロイ（*.evere-site.pages.dev）には Cloudflare が自動で noindex を付ける
+https://evere-site.pages.dev/*
+  X-Robots-Tag: noindex
