@@ -1,0 +1,45 @@
+---
+// 主要ガイド（FEATURED_SLUGS）へのリンク一覧。ブログ一覧の上部で使う。
+// 見た目は記事ページの関連記事カード（.lp-blog-related-card）を流用する
+import { getCollection } from 'astro:content';
+import { FEATURED_SLUGS } from '../../i18n/blog';
+import type { LpLocale } from '../../i18n/lp';
+
+interface Props {
+	lang: LpLocale;
+}
+
+const { lang } = Astro.props;
+
+const entries = await getCollection('blog', (entry) => entry.id.startsWith(`${lang}/`));
+const bySlug = new Map(
+	entries.map((entry) => [entry.id.slice(lang.length + 1).replace(/\.md$/, ''), entry]),
+);
+const guides = FEATURED_SLUGS.flatMap((slug) => {
+	const entry = bySlug.get(slug);
+	return entry ? [{ slug, data: entry.data }] : [];
+});
+---
+
+{
+	guides.length > 0 && (
+		<ul class="lp-guide-list">
+			{guides.map((post) => (
+				<li>
+					<a
+						class="lp-blog-related-card"
+						href={`/${lang}/blog/${post.slug}/`}
+						data-hue={post.data.tags[0]}
+					>
+						<span class="lp-blog-related-emoji" aria-hidden="true">
+							{post.data.emoji ?? '📄'}
+						</span>
+						<span class="lp-blog-related-text">
+							<span class="lp-blog-related-title">{post.data.title}</span>
+						</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	)
+}

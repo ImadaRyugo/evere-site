@@ -31,7 +31,24 @@ export interface BlogDict {
 	related: string;
 	/** 読了時間（{n} が分数に置換される） */
 	readingTime: string;
+	/** 一覧ページ上部の主要ガイド枠の見出し */
+	featured: string;
 }
+
+/**
+ * ブログ一覧の上部で案内する主要ガイド（表示順）。
+ * 検索から来た人が最初に読むべき定番記事を固定で出すためのもの。
+ * 全言語に同じslugの記事が存在すること（無い言語では表示されない）。
+ * 日常の割り勘を主役に、旅行は一用途として後ろに置く
+ */
+export const FEATURED_SLUGS = [
+	'three-split-methods',
+	'cohabitation-expense-split',
+	'couple-warikan-rules',
+	'drinking-party-organizer-guide',
+	'group-trip-money-guide',
+	'split-bills-different-currencies',
+] as const;
 
 export const blogDict: Record<LpLocale, BlogDict> = {
 	en: {
@@ -48,6 +65,7 @@ export const blogDict: Record<LpLocale, BlogDict> = {
 		toc: 'Contents',
 		related: 'Related articles',
 		readingTime: '{n} min read',
+		featured: 'Start here',
 	},
 	ja: {
 		listTitle: 'ブログ',
@@ -63,6 +81,7 @@ export const blogDict: Record<LpLocale, BlogDict> = {
 		toc: '目次',
 		related: '関連記事',
 		readingTime: '約{n}分で読めます',
+		featured: 'まずはここから',
 	},
 	th: {
 		listTitle: 'บล็อก',
@@ -78,6 +97,7 @@ export const blogDict: Record<LpLocale, BlogDict> = {
 		toc: 'สารบัญ',
 		related: 'บทความที่เกี่ยวข้อง',
 		readingTime: 'อ่านประมาณ {n} นาที',
+		featured: 'เริ่มอ่านจากตรงนี้',
 	},
 	ko: {
 		listTitle: '블로그',
@@ -93,6 +113,7 @@ export const blogDict: Record<LpLocale, BlogDict> = {
 		toc: '목차',
 		related: '관련 글',
 		readingTime: '약 {n}분 소요',
+		featured: '여기서부터 읽어 보세요',
 	},
 	'zh-hans': {
 		listTitle: '博客',
@@ -107,6 +128,7 @@ export const blogDict: Record<LpLocale, BlogDict> = {
 		toc: '目录',
 		related: '相关文章',
 		readingTime: '阅读约 {n} 分钟',
+		featured: '从这里开始',
 	},
 	'zh-hant': {
 		listTitle: '部落格',
@@ -121,6 +143,7 @@ export const blogDict: Record<LpLocale, BlogDict> = {
 		toc: '目錄',
 		related: '相關文章',
 		readingTime: '閱讀約 {n} 分鐘',
+		featured: '從這裡開始',
 	},
 };
 

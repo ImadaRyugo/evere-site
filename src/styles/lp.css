@@ -4037,6 +4037,46 @@ html[data-theme='light'] .lp-blog-cta-icon {
 	color: var(--lp-text-3);
 }
 
+/* ---- 主要ガイド（ブログ一覧上部） ---- */
+
+.lp-guide-list {
+	list-style: none;
+	padding: 0;
+	display: grid;
+	gap: 10px;
+}
+
+@media (min-width: 761px) {
+	.lp-guide-list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.lp-blog-featured {
+	margin-top: clamp(2rem, 5vh, 3rem);
+}
+
+.lp-blog-tool-link {
+	margin-top: 12px;
+	font-size: 14px;
+	color: var(--lp-text-2);
+}
+
+.lp-blog-tool-link a {
+	color: var(--lp-text);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	text-decoration-color: var(--lp-border-strong);
+}
+
+.lp-blog-featured h2 {
+	margin-bottom: 14px;
+	font-size: 1.05rem;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+	color: var(--lp-text-2);
+}
+
 .lp-blog-back {
 	margin-top: clamp(2rem, 5vh, 3rem);
 	font-size: 14px;

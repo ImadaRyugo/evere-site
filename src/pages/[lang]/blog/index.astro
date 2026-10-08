@@ -2,6 +2,7 @@
 // ブログ一覧ページ。src/content/blog/{lang}/*.md を新しい順に表示する。
 import { getCollection } from 'astro:content';
 import PageLayout from '../../../layouts/PageLayout.astro';
+import GuideLinks from '../../../components/blog/GuideLinks.astro';
 import LpNav from '../../../components/lp/LpNav.astro';
 import LpFooter from '../../../components/lp/LpFooter.astro';
 import { LP_LOCALES, lp, type LpLocale } from '../../../i18n/lp';
@@ -40,6 +41,18 @@ const posts = (await getCollection('blog', (entry) => entry.id.startsWith(`${lan
 		<div class="lp-container">
 			<h1 class="lp-blog-title">{t.heading}</h1>
 			<p class="lp-blog-intro">{t.intro}</p>
+
+			{/* 主要ガイド: 新着順の一覧だけだと定番記事が埋もれるため、上部に固定で出す */}
+			<section class="lp-blog-featured" aria-labelledby="blog-featured-heading">
+				<h2 id="blog-featured-heading">{t.featured}</h2>
+				<GuideLinks lang={lang} />
+				{/* 計算ツールは日本語版のみ */}
+				{lang === 'ja' && (
+					<p class="lp-blog-tool-link">
+						金額だけすぐ知りたいときは <a href="/ja/tools/warikan/">割り勘計算ツール</a>
+					</p>
+				)}
+			</section>
 
 			{
 				posts.length === 0 ? (
