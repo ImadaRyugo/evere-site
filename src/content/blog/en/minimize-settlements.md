@@ -2,9 +2,10 @@
 title: "How to Settle Up in the Fewest Payments"
 description: "Paying back every individual IOU turns a group trip into a blizzard of transfers. Net out the debts instead and a group of n people settles in at most n−1 payments. Here's the method, worked through with 4 people."
 pubDate: 2026-07-24
+updatedDate: 2026-10-07
 tags: ["how-to", "settlement"]
 emoji: "🤝"
-ctaSub: "One payment per person is enough. Evere's smart settlement works out the rest."
+ctaSub: "However tangled the IOUs, Evere's smart settlement works out who pays whom."
 ---
 
 The reason settling up after a trip or a group dinner turns into chaos is that **people try to pay back each individual IOU on its own terms**. The fix is to add up everyone's debts and credits first and produce a net amount. Do that, and no matter how many expenses piled up, a group of n people settles in at most n−1 payments.

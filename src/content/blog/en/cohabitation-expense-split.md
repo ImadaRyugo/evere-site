@@ -2,6 +2,7 @@
 title: "How to Split Living Costs When You Move In Together"
 description: "Cohabiting couples split living costs one of three ways: straight 50/50, by income ratio, or by category. We compare the strengths and traps of each, plus the record-keeping and settlement-day rules that prevent fights."
 pubDate: 2026-07-22
+updatedDate: 2026-10-07
 tags: ["couple", "cohabitation"]
 emoji: "🏠"
 ctaSub: "No more \"didn't I pay for that?\" Two people, one ledger: Evere."
@@ -40,9 +41,9 @@ The problem is that category totals fluctuate every month.
 
 You start with "I take the $1,500 rent, you take about $600 of groceries and utilities" — then dining out creeps up and the grocery side hits $900 without anyone noticing, precisely because there's no settlement step to surface it. Countermeasure: even with fixed assignments, keep shared records of what's spent, and compare totals every six months.
 
-## 🔀 Hybrids are actually the most common
+## 🔀 You can also mix methods
 
-Real couples usually run a combination rather than one pure method:
+You don't have to pick a single pure method. Combining them by expense type also works:
 
 - **Fixed costs by ratio, variable costs 50/50**: rent and utilities at 60:40; dining out and leisure split evenly
 - **Joint account + assignments**: both deposit a set amount monthly into a joint account (or shared prepaid card) that pays shared expenses. Unequal deposits give you a de facto income ratio

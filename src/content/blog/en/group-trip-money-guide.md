@@ -2,6 +2,7 @@
 title: "The Complete Guide to Group Trip Money"
 description: "\"The organizer pays for everything\" is how group trip finances fall apart. Here's the timeline that prevents fights: what to agree on before you go, the recording habit during the trip, and settling within 24 hours of getting home."
 pubDate: 2026-07-25
+updatedDate: 2026-10-07
 tags: ["travel", "group"]
 emoji: "🧳"
 ctaSub: "Stop making the organizer front everything. Whoever pays adds one line to Evere."
@@ -41,7 +42,7 @@ There's no need to fret that "money paid by card is somehow worth something diff
 
 ## After you're home: settle within 24 hours
 
-### Consolidate into one payment per person
+### Consolidate transfers using net amounts
 
 Rather than paying back individual IOUs, take each person's paid-minus-owed difference (the net) and get the transfers down to at most the number of people minus one. If the records are all there, your app's [settlement](/en/docs/settlement/) feature does this automatically.
 
