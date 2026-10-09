@@ -1,7 +1,7 @@
 ---
 title: "割り勘アプリおすすめ5選を比較 — 登録・通貨・料金の違い"
 description: "Evere・Walica・レコペイ・Splitwise・tricountを、外貨の扱い、割り方、登録の要否、精算後も続けて使えるか、無料で使える範囲で比べました。運営元のEvereが向かないケースも書いています。"
-pubDate: 2026-10-08
+pubDate: 2026-10-09
 tags: ["how-to", "group"]
 emoji: "📱"
 ctaSub: "通貨が混ざっても、ずっと続く割り勘でも。精算までEvereにおまかせ。"
