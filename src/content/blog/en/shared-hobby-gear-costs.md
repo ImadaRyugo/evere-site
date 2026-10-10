@@ -1,7 +1,7 @@
 ---
 title: "Owning Hobby Gear Together: Settle This Before the Money"
 description: "Buying a tent, a camera or fishing kit with a friend halves the cost and separates ownership from use. Who pays when it breaks, why differing use can't be fixed with money, the invisible cost of storing it, and the buyout price you should agree on day one."
-pubDate: 2026-10-09
+pubDate: 2026-10-10
 tags: ["settlement", "group"]
 emoji: "🎣"
 ctaSub: "So the day it breaks isn't the day you argue. Evere holds what you agreed."
