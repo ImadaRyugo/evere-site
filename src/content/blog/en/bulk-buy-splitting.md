@@ -1,7 +1,7 @@
 ---
 title: "Splitting a Bulk Buy When Nobody Wants the Same Amount"
 description: "Buying by the case drops the unit price, and an equal split stops working the moment people take different quantities. A worked example that divides by units taken, what to do with things that won't divide, the hidden work of collecting and storing, and why to settle before handing anything over."
-pubDate: 2026-10-10
+pubDate: 2026-10-11
 tags: ["how-to", "group"]
 emoji: "🥫"
 ctaSub: "Different quantities, one split. Evere takes the exact amounts."
