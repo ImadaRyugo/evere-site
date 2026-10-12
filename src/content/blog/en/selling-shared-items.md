@@ -1,7 +1,7 @@
 ---
 title: "You Sold the Thing You Bought Together. Now What?"
 description: "Splitting a sale evenly quietly penalises whoever put in the most. Reuse the contribution ratio, take the seller's effort off the top first, and accept that nobody is to blame for depreciation — plus the rule you need for deciding whether to sell at all."
-pubDate: 2026-10-11
+pubDate: 2026-10-12
 tags: ["settlement", "group"]
 emoji: "💸"
 ctaSub: "Who put in what, three years ago. Evere still knows."
