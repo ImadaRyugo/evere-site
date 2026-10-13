@@ -1,7 +1,7 @@
 ---
 title: "Group Entries for Ballots and Lucky Bags: Splitting Luck"
 description: "Entering a ballot as a group to improve the odds leaves one question money can't answer: whose is the thing that won. Three ways to decide before the draw, a worked example that values a lucky bag's contents and moves only the difference, and where to draw the line on reselling."
-pubDate: 2026-10-12
+pubDate: 2026-10-13
 tags: ["group", "party"]
 emoji: "🍀"
 ctaSub: "Whoever got the good one pays more. Evere moves only the difference."
