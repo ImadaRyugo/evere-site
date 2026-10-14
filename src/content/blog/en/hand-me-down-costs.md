@@ -1,7 +1,7 @@
 ---
 title: "Passing Baby Gear Down — What Should You Charge For?"
 description: "Hand-me-downs feel free and aren't: postage, cleaning and eventual disposal all cost something. Where to draw the line on who pays, how lending differs from passing on for good, and the number of months at which buying beats renting."
-pubDate: 2026-10-13
+pubDate: 2026-10-14
 tags: ["how-to", "couple"]
 emoji: "♻️"
 ctaSub: "Free, until the postage and the cleaning. Evere says it so you don't have to."
