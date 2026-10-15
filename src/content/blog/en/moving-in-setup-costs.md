@@ -1,7 +1,7 @@
 ---
 title: "Moving In Together: Should the Deposit Be Split Evenly?"
 description: "Setup costs mix money that comes back, money that vanishes, and things that remain as assets. Split all of it down the middle and the deposit and the furniture end up following the name on the contract. A worked example sorting the costs four ways, and what to settle before moving day."
-pubDate: 2026-10-14
+pubDate: 2026-10-15
 tags: ["cohabitation", "couple"]
 emoji: "🛋️"
 ctaSub: "Money that returns isn't money that's gone. One Evere project tells them apart."
