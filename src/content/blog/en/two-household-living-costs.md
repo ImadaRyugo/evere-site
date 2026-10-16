@@ -1,7 +1,7 @@
 ---
 title: "Two Homes, One Household: Splitting the Costs"
 description: "A weekday posting or a weekend marriage doubles the fixed costs and adds travel just to see each other. A worked example of what actually doubles, why travel belongs to the household rather than the traveller, what naming a main home settles, and where an employer's contribution stops."
-pubDate: 2026-10-15
+pubDate: 2026-10-16
 tags: ["cohabitation", "couple"]
 emoji: "🏙️"
 ctaSub: "Two homes, one budget. Evere adds up both sides of it."
