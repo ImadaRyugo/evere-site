@@ -119,6 +119,12 @@ function pageHtml({ lang, size, lines }) {
 			'Hiragino Sans', 'Yu Gothic UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
 			'PingFang SC', 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans Thai', sans-serif;
 	}
+	/* サイトの html[lang='zh-TW'] と同じ（繁体字フォントを日本語フォントより先にして台湾式の約物にする） */
+	html[lang='zh-TW'] body {
+		font-family:
+			'Instrument Sans Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+			'PingFang TC', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
+	}
 	.sym {
 		position: absolute;
 		font-weight: 600;
