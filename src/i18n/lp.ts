@@ -914,7 +914,7 @@ export const lp: Record<LpLocale, LpDict> = {
 		},
 		nav: { features: '기능', pricing: '플랜', faq: 'FAQ', support: '지원', download: '다운로드' },
 		hero: {
-			title: ['둘의 지출도,', '다 함께 더치페이도.'],
+			title: ['우리 둘의 지출도,', '다 함께 더치페이도.'],
 			sub: '여행에서도, 일상에서도. 지출만 기록하면 나머지는 Evere가 자동으로 정산해요.',
 			cta: 'App Store에서 다운로드',
 			ctaNote: '무료 · 가입 없이 시작',

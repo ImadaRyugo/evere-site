@@ -31,7 +31,7 @@ const LOCALES = {
 	en: { lang: 'en', size: 60, lines: ['Spending for two,', 'splitting for everyone.'] },
 	ja: { lang: 'ja', size: 58, lines: ['ふたりの支出も、', 'みんなでの割り勘も。'] },
 	th: { lang: 'th', size: 56, lines: ['ทั้งรายจ่ายของสองคน', 'และหารบิลกันทุกคน'] },
-	ko: { lang: 'ko', size: 58, lines: ['둘의 지출도,', '다 함께 더치페이도.'] },
+	ko: { lang: 'ko', size: 58, lines: ['우리 둘의 지출도,', '다 함께 더치페이도.'] },
 	'zh-hans': { lang: 'zh-CN', size: 56, lines: ['两个人的支出也好，', '大家一起分摊也好。'] },
 	'zh-hant': { lang: 'zh-TW', size: 56, lines: ['兩個人的支出也好，', '大家一起分攤也好。'] },
 };
