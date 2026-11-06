@@ -3,7 +3,7 @@ title: Privacy Policy
 description: Privacy Policy for Evere App
 ---
 
-**Last Updated**: February 3, 2025
+**Last Updated**: November 6, 2026
 
 ## 1. Introduction
 
@@ -49,6 +49,8 @@ When using push notifications, we collect:
 - Platform (iOS/Android/Web)
 - Notification enabled flag
 
+We also record when you last used the app and your device's time zone, so that reminder notifications are sent at a suitable time of day.
+
 ### 2.4 Local Cache
 
 For offline functionality, the following information is stored locally on your device:
@@ -56,6 +58,17 @@ For offline functionality, the following information is stored locally on your d
 - Exchange rate cache (TTL: 70 minutes)
 - Payment data (for offline sync)
 - Authentication session
+
+### 2.5 Receipt Scanning
+
+When you use receipt scanning, we send the following information to Google's AI (Gemini API). The first time you use it, the app explains where the data is sent and what is sent, and asks for your consent.
+
+- The receipt photo you take or choose (reduced in size for reading). This includes anything shown in the photo, such as the store name, items, amounts and part of a card number
+- Category names, used to categorize the scanned expense
+
+We do not store the photos you send or what was read on our servers, except expenses you save and photos you attach to them. Photos temporarily saved on your device are deleted when scanning is finished.
+
+To manage the number of scans on the free plan, we record when each scan was made and its result (whether it could be read).
 
 ## 3. How We Use Information
 
@@ -89,10 +102,14 @@ We use collected information for the following purposes:
 - In-app purchases (Pro features)
 - Subscription status synchronization
 
-### 3.6 Advertising
+### 3.6 Receipt Scanning
 
-- Ad delivery via Google AdMob (free version only)
-- Content is suitable for all ages
+- Reading the store name, date, amount and other details from receipt photos to help you enter expenses
+- Managing the number of scans on the free plan
+
+### 3.7 Usage Analytics
+
+- Understanding how features are used to improve the service (using PostHog)
 
 ## 4. Information Sharing and Third-Party Services
 
@@ -122,23 +139,42 @@ We use the following third-party services:
 **Data Shared**: User ID, purchase information, subscription status
 **Purpose**: Pro feature provision
 
-### 4.5 Google AdMob (United States)
+### 4.5 Google (Gemini API)
 
-**Role**: Ad delivery
-**Data Shared**: Advertising identifier, ad display/click information
-**Purpose**: Free version monetization
+**Role**: Receipt scanning (AI)
+**Data Shared**: Receipt photos, category names
+**Purpose**: Providing receipt scanning
+**How Data Is Handled**: We use the paid Gemini API. Under Google's terms, the photos and results are not used to improve Google's products or to train its AI. Google may log them for a limited period to detect abuse and for legal or regulatory purposes, and they may be processed in countries where Google has facilities.
 
 ### 4.6 ExchangeRate-API
 
 **Role**: Exchange rate retrieval
 **Data Shared**: Currency pair information
 **Purpose**: Multi-currency conversion
-**Access Method**: Via Supabase Edge Function (once per hour)
+**Access Method**: Via Supabase Edge Function (when the stored rate is out of date)
 
 ### 4.7 OAuth Authentication Providers
 
 - **Apple**: Apple Sign In
 - **Google**: Google Sign-In
+
+### 4.8 PostHog (United States)
+
+**Role**: Usage analytics
+**Data Shared**: User ID, in-app activity (screens and features used), device type, OS and app version
+**Purpose**: Service improvement
+
+### 4.9 Chatwoot
+
+**Role**: In-app support chat
+**Data Shared**: User ID, display name, email address, message content
+**Purpose**: Responding to inquiries
+
+### 4.10 Resend (United States)
+
+**Role**: Email delivery
+**Data Shared**: Email address, email content (such as confirmation links or codes)
+**Purpose**: Sending account confirmation and password reset emails
 
 ## 5. Data Storage and Deletion
 
@@ -152,6 +188,7 @@ We use the following third-party services:
 
 - Active users: Indefinitely while using the service
 - Offline cache: Exchange rates 70 minutes, payment data deleted after sync
+- Receipt scan records (time and result): Until you delete your account
 
 ### 5.3 Data Deletion
 
@@ -203,7 +240,7 @@ Our official website currently does not use Cookies or Analytics tools.
 
 ### 9.2 Mobile App
 
-Google AdMob may use advertising identifiers for ad delivery. On iOS, the availability of advertising identifiers depends on the user's "Allow Apps to Request to Track" permission setting.
+The app does not show ads and does not use the advertising identifier (IDFA). We do not track you across other companies' apps or websites.
 
 ## 10. Changes to Privacy Policy
 
