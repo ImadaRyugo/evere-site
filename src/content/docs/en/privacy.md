@@ -3,7 +3,7 @@ title: Privacy Policy
 description: Privacy Policy for Evere App
 ---
 
-**Last Updated**: November 6, 2026
+**Last Updated**: November 7, 2026
 
 ## 1. Introduction
 
@@ -63,7 +63,7 @@ For offline functionality, the following information is stored locally on your d
 
 When you use receipt scanning, we send the following information to Google's AI (Gemini API). The first time you use it, the app explains where the data is sent and what is sent, and asks for your consent.
 
-- The receipt photo you take or choose (reduced in size for reading). This includes anything shown in the photo, such as the store name, items, amounts and part of a card number
+- The receipt photo you take or choose (reduced in size for reading). This includes anything shown in the photo, such as the store name, items and amounts
 - Category names, used to categorize the scanned expense
 
 We do not store the photos you send or what was read on our servers, except expenses you save and photos you attach to them. Photos temporarily saved on your device are deleted when scanning is finished.
