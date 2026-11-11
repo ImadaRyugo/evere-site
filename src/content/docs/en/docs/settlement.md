@@ -14,7 +14,7 @@ The Settlement tab shows the following.
 
 - **Summary** — total number of expenses and total amount
 - **Settlement status** — the amount and ratio of settled vs. unsettled
-- **Payment comparison** — a chart comparing each participant's "amount paid" vs. "amount owed"
+- **Payment comparison** — a chart comparing each member's "amount paid" vs. "amount owed"
 - **By currency / By category** — breakdowns by currency or category
 - **Settlement** — the list of who should pay whom, and how much
 - **Budget** — usage status, if a budget is set ([budgets are a Pro feature](/en/docs/features/#budgets-pro))
@@ -51,5 +51,5 @@ Choosing "Share settlement report" on the settlement screen shares the result as
 When sharing, you can choose:
 
 - **What to share** — result only, or with the expense history
-- Whether to include participant info and receipt images
+- Whether to include member info and receipt images
 - Whether to add a converted amount in a sub-currency

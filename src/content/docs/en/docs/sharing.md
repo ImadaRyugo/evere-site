@@ -1,19 +1,19 @@
 ---
 title: 👥 Members & invites
-description: Adding name-only participants, and creating, sharing, and joining via invite links.
+description: Adding name-only members, and creating, sharing, and joining via invite links.
 sidebar:
   label: 👥 Members & invites
   order: 8
 ---
 
-Evere works with people who have the app and people who don't. There are two ways to add participants.
+Evere works with people who have the app and people who don't. There are two ways to add members.
 
-## Adding a participant by name
+## Adding a member by name
 
-The simplest way is to **add a participant by name**. Enter a name when creating the project, or from "Manage participants" in project settings.
+The simplest way is to **add a member by name**. Enter a name when creating the project, or from "Manage Members" in project settings.
 
 - You can add someone even if they don't have the app.
-- Added participants can be selected when splitting an expense.
+- Added members can be selected when splitting an expense.
 - Share the result with them via a [settlement report](/en/docs/settlement/#sharing-a-settlement-report).
 
 Not everyone needs to install the app. Whether it's a couple or a friend who doesn't use the app, this approach gets the job done.

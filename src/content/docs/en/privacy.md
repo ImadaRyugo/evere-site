@@ -35,7 +35,7 @@ The following information is stored through these methods:
 
 As core features, we store the following data:
 
-- **Project Information**: Project name, base currency, participant names, settlement status
+- **Project Information**: Project name, base currency, member names, settlement status
 - **Payment Information**: Title, amount, currency, category, payment date, memo, split mode, split amounts/ratios, settlement status
 - **Receipt Images** (optional): You can attach images as payment proof
   - Images may be optimized for storage efficiency

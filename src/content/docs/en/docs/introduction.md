@@ -16,7 +16,7 @@ Keep these four ideas in mind and everything else falls into place.
 
 - **Project** — the "unit" of splitting. You create one per scene: a trip, dating, shared living, and so on. All expenses live inside a project.
 - **Base currency** — the currency your settlement is calculated in. You choose it when you create the project.
-- **Participants** — the members who share a project. People with the app can join via an invite link; people without it can be added by name.
+- **Members** — the people who share a project. People with the app can join via an invite link; people without it can be added by name.
 - **Settlement** — Evere automatically works out "who pays whom, and how much." Just keep logging expenses and you can check the settlement status anytime.
 
 ## Screen layout (5 tabs)

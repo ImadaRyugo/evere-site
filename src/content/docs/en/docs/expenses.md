@@ -11,8 +11,8 @@ Log expenses from the "Add" tab. On a trip or in everyday life, just jot down wh
 ## Expense fields
 
 - **Amount** and **currency** — the currency can be chosen from the project's available currencies.
-- **Payer** — who fronted the money (yourself or a participant).
-- **Participants** — who shares this expense.
+- **Payer** — who fronted the money (yourself or a member).
+- **Members** — who shares this expense.
 - **Split mode** — equal, ratio, or manual (see below).
 - **Category** — classify by food, transport, etc. (you can add your own [categories](/en/docs/features/#categories)).
 - **Title**, **date**, and **memo** — all optional.
@@ -34,19 +34,19 @@ The memo is a free-text field. Beyond a quick note, you can also **save a link t
 
 ## Split modes
 
-Choose how an expense is split among participants, from three modes.
+Choose how an expense is split among members, from three modes.
 
 ### Equal
 
-Split **evenly** among participants.
+Split **evenly** among members.
 
 :::note
-Remainders are rounded per participant, and each person absorbs the small difference.
+Remainders are rounded per member, and each person absorbs the small difference.
 :::
 
 ### Ratio
 
-Specify a **percentage** per participant. Like a couple splitting "60/40," you can allocate based on income or circumstances. The total must add up to **100%**.
+Specify a **percentage** per member. Like a couple splitting "60/40," you can allocate based on income or circumstances. The total must add up to **100%**.
 
 ### Manual
 
@@ -66,4 +66,4 @@ On the "Expenses" tab, you can filter by:
 
 ## Sharing a single expense
 
-From an expense's detail screen, you can share that one item. When sharing, you can choose whether to include participant info and the receipt image, and whether to add a converted amount in a sub-currency.
+From an expense's detail screen, you can share that one item. When sharing, you can choose whether to include member info and the receipt image, and whether to add a converted amount in a sub-currency.

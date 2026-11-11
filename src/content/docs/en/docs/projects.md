@@ -15,7 +15,7 @@ Create one from "Create a new project" in the "Projects" tab.
 - **Project name** (up to 20 characters)
 - **Currencies to use** — you can pick several. For a trip, it's handy to include both the local currency and your own.
 - **Base currency** — one of the currencies you picked. Settlement is calculated in it. A suggestion is offered automatically based on your device's language and region.
-- **Participants** (optional) — add them by name. You can also add them later.
+- **Members** (optional) — add them by name. You can also add them later.
 
 :::note
 Creating a project requires an internet connection.
@@ -46,12 +46,12 @@ Change it anytime (up to 20 characters).
 **Once you log the first expense, the base currency can no longer be changed.** This keeps settlement consistent. After that, you can only add or remove available currencies. To use a different base currency, create a new project.
 :::
 
-### Managing participants
+### Managing members
 
-Add participants, rename them, or remove them. Participants can be selected when logging an expense.
+Add members, rename them, or remove them. Members can be selected when logging an expense.
 
 :::note
-A participant who is already included in an expense can't be removed. First remove them from that expense, or edit/delete the expense.
+A member who is already included in an expense can't be removed. First remove them from that expense, or edit/delete the expense.
 :::
 
 ## Marking a project as settled

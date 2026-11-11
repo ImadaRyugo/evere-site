@@ -24,7 +24,7 @@ Create a new project from the "Projects" tab.
 1. Enter a **project name** (e.g., "Thailand Trip").
 2. Choose the **currencies** you'll use. For an overseas trip, it's handy to include both the local currency (e.g., THB) and your own (e.g., USD).
 3. One of the currencies you pick becomes the **base currency**. Settlement is calculated in this currency.
-4. If you like, add **participants** by name (you can also add them later).
+4. If you like, add **members** by name (you can also add them later).
 
 :::note
 The base currency can no longer be changed once you log the first expense. Because it's used for all settlement calculations, double-check it when you create the project.
@@ -36,7 +36,7 @@ Log expenses from the "Add" tab.
 
 1. Enter the **amount** and **currency**.
 2. Choose the **payer** (who paid).
-3. Choose the **participants** (who shares this expense) and the **split mode** (equal, ratio, or manual).
+3. Choose the **members** (who shares this expense) and the **split mode** (equal, ratio, or manual).
 4. Optionally add a category, title, date, memo, and receipt image.
 
 Use "Add another" to record several expenses in a row.
@@ -47,7 +47,7 @@ Open the "Settlement" tab to see the result Evere calculated automatically.
 
 - **Summary**: total number of expenses and total amount
 - **Settlement status**: the ratio of settled vs. unsettled
-- **Payment comparison**: for each participant, how much they paid vs. how much they owe
+- **Payment comparison**: for each member, how much they paid vs. how much they owe
 - **Settlement**: who should pay whom, and how much
 
 ## Step 5: Settle up and record it
