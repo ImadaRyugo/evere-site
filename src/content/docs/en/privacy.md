@@ -3,7 +3,7 @@ title: Privacy Policy
 description: Privacy Policy for Evere App
 ---
 
-**Last Updated**: November 7, 2026
+**Last Updated**: November 11, 2026
 
 ## 1. Introduction
 
@@ -66,7 +66,7 @@ When you use receipt scanning, we send the following information to Google's AI 
 - The receipt photo you take or choose (reduced in size for reading). This includes anything shown in the photo, such as the store name, items and amounts
 - Category names, used to categorize the scanned expense
 
-We do not store the photos you send or what was read on our servers, except expenses you save and photos you attach to them. Photos temporarily saved on your device are deleted when scanning is finished.
+We do not store the photos you send or what was read on our servers. However, we do store the expenses you save (the store name, date, amount and other details, as well as the receipt items and who each item is assigned to) and photos you attach to them. Photos temporarily saved on your device are deleted when scanning is finished.
 
 To manage the number of scans on the free plan, we record when each scan was made and its result (whether it could be read).
 
@@ -105,6 +105,7 @@ We use collected information for the following purposes:
 ### 3.6 Receipt Scanning
 
 - Reading the store name, date, amount and other details from receipt photos to help you enter expenses
+- Splitting an expense by item, and letting you change who each item is assigned to after saving
 - Managing the number of scans on the free plan
 
 ### 3.7 Usage Analytics
